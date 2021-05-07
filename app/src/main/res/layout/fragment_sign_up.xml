@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scv_sign_up"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fillViewport="true"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="26dp">
+
+        <include
+            android:id="@+id/lyt_image_photo"
+            layout="@layout/layout_image_photo"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/txt_label_name"
+            style="@style/TextLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_edit_text_size"
+            android:text="@string/full_name" />
+
+        <EditText
+            android:id="@+id/edt_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_label"
+            android:hint="@string/hint_name"
+            android:importantForAutofill="no"
+            android:inputType="textEmailAddress" />
+
+        <TextView
+            android:id="@+id/txt_label_email"
+            style="@style/TextLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_edit_text_size"
+            android:text="@string/email_address" />
+
+        <EditText
+            android:id="@+id/edt_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_label"
+            android:hint="@string/hint_email"
+            android:importantForAutofill="no"
+            android:inputType="textEmailAddress" />
+
+        <TextView
+            android:id="@+id/txt_label_password"
+            style="@style/TextLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_edit_text_size"
+            android:text="@string/password" />
+
+        <EditText
+            android:id="@+id/edt_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_label"
+            android:hint="@string/hint_password"
+            android:importantForAutofill="no"
+            android:inputType="textPassword" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_continue"
+            style="@style/ButtonPrimaryStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/text_continue" />
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_home"
+    app:startDestination="@id/menu_dashboard">
+
+    <fragment
+        android:id="@id/menu_dashboard"
+        android:name="com.codetron.foodmarketmvp.ui.home.dashboard.DashboardFragment"
+        tools:layout="@layout/fragment_dashboard" />
+
+    <fragment
+        android:id="@id/menu_order"
+        android:name="com.codetron.foodmarketmvp.ui.home.order.OrderFragment"
+        tools:layout="@layout/fragment_order" />
+
+    <fragment
+        android:id="@id/menu_profile"
+        android:name="com.codetron.foodmarketmvp.ui.home.profile.ProfileFragment"
+        tools:layout="@layout/fragment_profile" />
+
+</navigation>

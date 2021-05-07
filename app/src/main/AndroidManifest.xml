@@ -11,7 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodMarketMVP">
-        <activity android:name=".ui.auth.AuthActivity" />
+        <activity android:name=".ui.home.HomeActivity" />
+        <activity android:name=".ui.auth.signup.SignUpSuccessActivity" />
+        <activity
+            android:name=".ui.auth.AuthActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.splash.SplashActivity"
             android:theme="@style/SplashScreenStyle">

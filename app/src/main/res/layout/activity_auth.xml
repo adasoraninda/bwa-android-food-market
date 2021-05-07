@@ -1,11 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.auth.AuthActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
 
+        <variable
+            name="toolbarData"
+            type="com.codetron.foodmarketmvp.data.model.ToolbarData" />
+    </data>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.auth.AuthActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/apb_auth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/tlb_auth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                app:showBackButton="@{toolbarData.showBackButton}"
+                app:subtitle="@{toolbarData.subtitle}"
+                app:title="@{toolbarData.title}"
+                tools:subtitle="@string/app_name"
+                tools:title="@string/app_name" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <Space
+            android:id="@+id/spc_auth"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            app:layout_constraintTop_toBottomOf="@id/apb_auth" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/nhf_auth"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:defaultNavHost="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/spc_auth"
+            app:navGraph="@navigation/nav_auth" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scv_sign_up_success"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbars="none">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_success_sign_up"
+            android:layout_width="200dp"
+            android:layout_height="290dp"
+            android:src="@drawable/il_sign_up_success"
+            app:layout_constraintBottom_toTopOf="@id/txt_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/txt_title"
+            style="@style/TitleStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/sign_up_success_title"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@id/txt_sub_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/img_success_sign_up" />
+
+        <TextView
+            android:id="@+id/txt_sub_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/poppins_light"
+            android:text="@string/sign_up_success_subtitle"
+            android:textAlignment="center"
+            android:textColor="@color/grey_primary"
+            app:layout_constraintBottom_toTopOf="@id/btn_find_foods"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_title" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_find_foods"
+            style="@style/ButtonPrimaryStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="64dp"
+            android:text="@string/find_foods"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/gdl_end"
+            app:layout_constraintStart_toStartOf="@id/gdl_begin"
+            app:layout_constraintTop_toBottomOf="@id/txt_sub_title" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gdl_begin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.25" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gdl_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.75" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

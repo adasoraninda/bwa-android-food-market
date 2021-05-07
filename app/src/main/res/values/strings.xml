@@ -1,3 +1,30 @@
 <resources>
     <string name="app_name">FoodMarket</string>
+    <string name="email_address">Email Address</string>
+    <string name="password">Password</string>
+    <string name="hint_email">Type your email address</string>
+    <string name="hint_password">Type your password</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="create_new_account">Create New Account</string>
+    <string name="hint_name">Type your full name</string>
+    <string name="full_name">Full Name</string>
+    <string name="text_continue">Continue</string>
+    <string name="sign_up_now">Sign Up Now</string>
+    <string name="hint_phone">Type your phone number</string>
+    <string name="phone_no">Phone No.</string>
+    <string name="address">Address</string>
+    <string name="hint_address">Type your address</string>
+    <string name="house_no">House No.</string>
+    <string name="hint_house">Type your house number</string>
+    <string name="sign_in_subtitle">Find your best ever meal</string>
+    <string name="sign_up_subtitle">Register and eat</string>
+    <string name="sign_up_address_subtitle">Make sure it’s valid</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="order">Order</string>
+    <string name="profile">Profile</string>
+    <string name="sign_up_success_subtitle">Now you are able to order\nsome foods as a self-reward</string>
+    <string name="sign_up_success_title">Yeay! Completed</string>
+    <string name="find_foods">Find Foods</string>
+    <string name="city">City</string>
 </resources>

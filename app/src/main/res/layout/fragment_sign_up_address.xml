@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scv_sign_up_address"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fillViewport="true"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="26dp">
+
+        <TextView
+            android:id="@+id/txt_label_phone"
+            style="@style/TextLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/phone_no" />
+
+        <EditText
+            android:id="@+id/edt_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_label"
+            android:hint="@string/hint_phone"
+            android:importantForAutofill="no"
+            android:inputType="phone" />
+
+        <TextView
+            android:id="@+id/txt_label_address"
+            style="@style/TextLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_edit_text_size"
+            android:text="@string/address" />
+
+        <EditText
+            android:id="@+id/edt_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_label"
+            android:hint="@string/hint_address"
+            android:importantForAutofill="no"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/txt_label_house"
+            style="@style/TextLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_edit_text_size"
+            android:text="@string/house_no" />
+
+        <EditText
+            android:id="@+id/edt_house"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_label"
+            android:hint="@string/hint_house"
+            android:importantForAutofill="no"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/txt_label_city"
+            style="@style/TextLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_edit_text_size"
+            android:text="@string/city" />
+
+        <FrameLayout
+            android:id="@+id/fml_spinner_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_label"
+            android:background="@drawable/bg_edit_text_primary"
+            android:minHeight="48dp">
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/spn_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+        </FrameLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_sign_up"
+            style="@style/ButtonPrimaryStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/sign_up" />
+    </LinearLayout>
+
+</ScrollView>

@@ -17,6 +17,7 @@ class SplashActivity : AppCompatActivity() {
         lifecycleScope.launchWhenCreated {
             delay(Constant.SPLASH_DELAY)
             AuthActivity.navigate(this@SplashActivity)
+            finish()
         }
 
     }
