@@ -1,0 +1,30 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.FoodMarketMVP" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/yellow_primary</item>
+        <item name="colorPrimaryVariant">@color/yellow_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/green_primary</item>
+        <item name="colorSecondaryVariant">@color/green_dark</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+        <item name="fontFamily">@font/poppins</item>
+    </style>
+
+    <style name="SplashScreenStyle" parent="Theme.FoodMarketMVP">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:navigationBarColor">@color/black</item>
+        <item name="android:windowBackground">@drawable/bg_splash</item>
+    </style>
+
+    <style name="TitleStyle" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="fontFamily">@font/poppins</item>
+    </style>
+
+</resources>
