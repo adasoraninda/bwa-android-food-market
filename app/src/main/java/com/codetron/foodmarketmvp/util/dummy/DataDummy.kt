@@ -2,7 +2,7 @@ package com.codetron.foodmarketmvp.util.dummy
 
 import com.codetron.foodmarketmvp.data.model.Food
 
-object FoodDataDummy {
+object DataDummy {
 
     fun getFoods(): List<Food> {
         val foods = arrayListOf<Food>()
@@ -21,5 +21,4 @@ object FoodDataDummy {
 
         return foods
     }
-
 }

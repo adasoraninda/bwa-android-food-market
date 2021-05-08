@@ -57,13 +57,19 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <Space
+            android:id="@+id/spc_dashboard_top"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_toolbar_with_content_small"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <include
             android:id="@+id/lyt_content_dashboard_body"
-            layout="@layout/content_dashboard_body"
+            layout="@layout/content_tab_body"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/spc_dashboard_top" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

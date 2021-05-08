@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.codetron.foodmarketmvp.databinding.FragmentDashboardBinding
-import com.codetron.foodmarketmvp.ui.home.dashboard.categories.FoodCategoriesViewPager
+import com.codetron.foodmarketmvp.ui.home.adapter.SectionViewPager
 import com.codetron.foodmarketmvp.ui.home.dashboard.categories.FoodCategory
 import com.codetron.foodmarketmvp.ui.home.dashboard.categories.FoodCategoryType
-import com.codetron.foodmarketmvp.util.dummy.FoodDataDummy
+import com.codetron.foodmarketmvp.util.dummy.DataDummy
 import com.google.android.material.tabs.TabLayoutMediator
 
 class DashboardFragment : Fragment() {
@@ -24,8 +24,8 @@ class DashboardFragment : Fragment() {
         FoodListAdapter(ListType.HORIZONTAL)
     }
 
-    private val foodCategoriesViewPager: FoodCategoriesViewPager by lazy {
-        FoodCategoriesViewPager(this, FoodCategory.getFragments())
+    private val foodCategoriesViewPager: SectionViewPager by lazy {
+        SectionViewPager(this, FoodCategory.getFragments())
     }
 
     override fun onCreateView(
@@ -45,23 +45,15 @@ class DashboardFragment : Fragment() {
 
     private fun initListFoods() {
         bindingHeader?.lytContentListFoods?.lstFoods?.adapter = foodsAdapter.apply {
-            setItemFoods(FoodDataDummy.getFoods())
+            setItemFoods(DataDummy.getFoods())
         }
     }
 
     private fun initTabLayout() {
-        bindingBody
-            ?.lytContentDashboardCategories
-            ?.vpgFoodCategories
-            ?.adapter = foodCategoriesViewPager
+        bindingBody?.vpgSection?.adapter = foodCategoriesViewPager
 
-        val viewPager = bindingBody
-            ?.lytContentDashboardCategories
-            ?.vpgFoodCategories
-
-        val tabLayout = bindingBody
-            ?.lytContentDashboardCategories
-            ?.tblFoodCategories
+        val viewPager = bindingBody?.vpgSection
+        val tabLayout = bindingBody?.tblSection
 
         if (tabLayout != null && viewPager != null) {
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->

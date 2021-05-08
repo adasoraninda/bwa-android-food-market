@@ -1,6 +1,7 @@
 package com.codetron.foodmarketmvp.util
 
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
@@ -31,6 +32,12 @@ object BindingAdapter {
             )
             .load(res)
             .into(this)
+    }
+
+    @JvmStatic
+    @BindingAdapter("app:textRes")
+    fun TextView.setTextResources(res: Int?) {
+        text = res?.let { context.getString(it) }
     }
 
 }

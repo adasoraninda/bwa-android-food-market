@@ -1,9 +1,9 @@
-package com.codetron.foodmarketmvp.ui.home.dashboard.categories
+package com.codetron.foodmarketmvp.ui.home.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class FoodCategoriesViewPager(fragment: Fragment, private val contents: List<Fragment>) :
+class SectionViewPager(fragment: Fragment, private val contents: List<Fragment>) :
     FragmentStateAdapter(fragment) {
 
     override fun getItemCount(): Int {

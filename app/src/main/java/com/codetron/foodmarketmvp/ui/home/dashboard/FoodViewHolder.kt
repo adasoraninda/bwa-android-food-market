@@ -13,9 +13,11 @@ abstract class FoodViewHolder(binding: ViewBinding) :
         when (holder) {
             is FoodVerticalViewHolder -> {
                 holder.binding.food = data
+                holder.binding.executePendingBindings()
             }
             is FoodHorizontalViewHolder -> {
                 holder.binding.food = data
+                holder.binding.executePendingBindings()
             }
         }
     }

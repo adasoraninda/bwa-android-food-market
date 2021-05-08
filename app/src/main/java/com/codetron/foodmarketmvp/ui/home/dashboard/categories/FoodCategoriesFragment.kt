@@ -5,13 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.codetron.foodmarketmvp.R
 import com.codetron.foodmarketmvp.databinding.FragmentFoodCategoriesBinding
 import com.codetron.foodmarketmvp.ui.home.dashboard.FoodListAdapter
 import com.codetron.foodmarketmvp.ui.home.dashboard.ListType
-import com.codetron.foodmarketmvp.util.dummy.FoodDataDummy
+import com.codetron.foodmarketmvp.util.dummy.DataDummy
 
 class FoodCategoriesFragment : Fragment() {
 
@@ -38,7 +37,7 @@ class FoodCategoriesFragment : Fragment() {
 
     private fun initListFoods() {
         binding?.lstFoodsCategories?.adapter = foodsAdapter.apply {
-            setItemFoods(FoodDataDummy.getFoods().shuffled())
+            setItemFoods(DataDummy.getFoods().shuffled())
         }
     }
 
@@ -47,7 +46,9 @@ class FoodCategoriesFragment : Fragment() {
 
         fun getInstance(foodCategory: FoodCategoryType): FoodCategoriesFragment {
             return FoodCategoriesFragment().apply {
-                bundleOf(Pair(CATEGORY_KEY, foodCategory))
+                arguments = Bundle().apply {
+                    putSerializable(CATEGORY_KEY, foodCategory)
+                }
             }
         }
     }
