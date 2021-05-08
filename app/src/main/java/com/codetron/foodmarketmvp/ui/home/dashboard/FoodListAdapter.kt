@@ -8,11 +8,13 @@ import com.codetron.foodmarketmvp.data.model.Food
 class FoodListAdapter(private val type: ListType) :
     RecyclerView.Adapter<FoodViewHolder>() {
 
-    var foods = emptyList<Food>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+    private val foods = arrayListOf<Food>()
+
+    fun setItemFoods(foods: List<Food>) {
+        this.foods.addAll(emptyList())
+        this.foods.addAll(foods)
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder {
         return ListFoodViewHolderFactory(LayoutInflater.from(parent.context), parent)

@@ -39,13 +39,14 @@ class DashboardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        foodsAdapter.foods = FoodDataDummy.getFoods()
-
-        bindingHeader?.lytContentListFoods?.lstFoods?.adapter = foodsAdapter
-
+        initListFoods()
         initTabLayout()
+    }
 
+    private fun initListFoods() {
+        bindingHeader?.lytContentListFoods?.lstFoods?.adapter = foodsAdapter.apply {
+            setItemFoods(FoodDataDummy.getFoods())
+        }
     }
 
     private fun initTabLayout() {

@@ -9,11 +9,18 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.codetron.foodmarketmvp.R
 import com.codetron.foodmarketmvp.databinding.FragmentFoodCategoriesBinding
+import com.codetron.foodmarketmvp.ui.home.dashboard.FoodListAdapter
+import com.codetron.foodmarketmvp.ui.home.dashboard.ListType
+import com.codetron.foodmarketmvp.util.dummy.FoodDataDummy
 
 class FoodCategoriesFragment : Fragment() {
 
     private var _binding: FragmentFoodCategoriesBinding? = null
     private val binding get() = _binding
+
+    private val foodsAdapter: FoodListAdapter by lazy {
+        FoodListAdapter(ListType.VERTICAL)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,7 +33,13 @@ class FoodCategoriesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initListFoods()
+    }
 
+    private fun initListFoods() {
+        binding?.lstFoodsCategories?.adapter = foodsAdapter.apply {
+            setItemFoods(FoodDataDummy.getFoods().shuffled())
+        }
     }
 
     companion object {
