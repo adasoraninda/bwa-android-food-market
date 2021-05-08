@@ -6,6 +6,7 @@ object FoodDataDummy {
 
     fun getFoods(): List<Food> {
         val foods = arrayListOf<Food>()
+
         repeat(10) {
             foods.add(
                 Food(
@@ -17,6 +18,7 @@ object FoodDataDummy {
                 )
             )
         }
+
         return foods
     }
 

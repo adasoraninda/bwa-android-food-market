@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <Space
+        android:id="@+id/spc_dashboard_top"
+        android:layout_width="match_parent"
+        android:layout_height="120dp" />
+
+    <include
+        android:id="@+id/lyt_content_list_foods"
+        layout="@layout/content_dashboard_list_food"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

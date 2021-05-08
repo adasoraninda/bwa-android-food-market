@@ -28,4 +28,7 @@
     <string name="sign_up_success_title">Yeay! Completed</string>
     <string name="find_foods">Find Foods</string>
     <string name="city">City</string>
+    <string name="recommended">Recommended</string>
+    <string name="new_taste">New Taste</string>
+    <string name="popular">Popular</string>
 </resources>
