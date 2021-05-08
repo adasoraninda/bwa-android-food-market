@@ -25,7 +25,6 @@
                 android:id="@+id/tlb_auth"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clipToPadding="false"
                 app:showBackButton="@{toolbarData.showBackButton}"
                 app:subtitle="@{toolbarData.subtitle}"
                 app:title="@{toolbarData.title}"
@@ -37,7 +36,7 @@
         <Space
             android:id="@+id/spc_auth"
             android:layout_width="match_parent"
-            android:layout_height="24dp"
+            android:layout_height="@dimen/space_toolbar_with_content"
             app:layout_constraintTop_toBottomOf="@id/apb_auth" />
 
         <androidx.fragment.app.FragmentContainerView

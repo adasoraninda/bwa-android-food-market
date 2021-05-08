@@ -1,11 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:text="@string/dashboard"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/apb_dashboard"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tlb_dashboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:subtitle="@string/app_name_subtitle"
+            app:title="@string/app_name"
+            tools:title="@string/app_name">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/img_profile_home"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="end"
+                android:background="?colorPrimary"
+                app:shapeAppearanceOverlay="@style/ImageCornerStyle" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <Space
+        android:id="@+id/spc_dashboard_top"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_toolbar_with_content_small"
+        app:layout_constraintTop_toBottomOf="@id/apb_dashboard" />
+
+    <include
+        android:id="@+id/lyt_content_list_foods"
+        layout="@layout/content_dashboard_list_food"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/spc_dashboard_top" />
+
+    <Space
+        android:id="@+id/spc_dashboard_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_toolbar_with_content_small"
+        app:layout_constraintTop_toBottomOf="@id/lyt_content_list_foods" />
+
+    <include
+        layout="@layout/content_dashboard_categories"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spc_dashboard_bottom" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

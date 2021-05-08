@@ -4,4 +4,10 @@
     <dimen name="normal_padding">24dp</dimen>
     <dimen name="space_edit_text_size">16dp</dimen>
     <dimen name="space_label">6dp</dimen>
+    <dimen name="padding_card_content">12dp</dimen>
+    <dimen name="image_horizontal_width">200dp</dimen>
+    <dimen name="image_horizontal_height">140dp</dimen>
+    <dimen name="margin_item_card_horizontal">8dp</dimen>
+    <dimen name="space_toolbar_with_content">24dp</dimen>
+    <dimen name="space_toolbar_with_content_small">16dp</dimen>
 </resources>
