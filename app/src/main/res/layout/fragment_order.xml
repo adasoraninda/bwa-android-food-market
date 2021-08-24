@@ -1,11 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:text="@string/order"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/apb_orders"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tlb_dashboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:subtitle="@string/orders_subtitle"
+            app:title="@string/orders_title" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <Space
+        android:id="@+id/spc_orders"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_toolbar_with_content_small"
+        app:layout_constraintTop_toBottomOf="@id/apb_orders" />
+
+    <include
+        android:id="@+id/lyt_content_orders_body"
+        layout="@layout/content_tab_body"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spc_orders" />
+
+    <include
+        android:id="@+id/lyt_order_empty"
+        layout="@layout/layout_order_empty"
+        tools:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

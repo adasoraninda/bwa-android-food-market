@@ -30,7 +30,8 @@ class HomeActivity : AppCompatActivity() {
 
     companion object {
         fun navigate(context: Context) {
-            context.startActivity(Intent(context, HomeActivity::class.java))
+            val intent = Intent(context, HomeActivity::class.java)
+            context.startActivity(intent)
         }
     }
 

@@ -4,10 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import com.codetron.foodmarketmvp.R
-import com.codetron.foodmarketmvp.data.model.profile.ProfileMenuResources
+import com.codetron.foodmarketmvp.data.model.view.profile.ProfileMenuResources
 import com.codetron.foodmarketmvp.databinding.FragmentProfileMenuBinding
 
 class ProfileMenuFragment : Fragment(), ProfileMenuClickListener {
@@ -55,7 +56,7 @@ class ProfileMenuFragment : Fragment(), ProfileMenuClickListener {
     }
 
     override fun setOnClickListener(id: Long) {
-
+        Toast.makeText(requireContext(), "$id", Toast.LENGTH_SHORT).show()
     }
 
 }

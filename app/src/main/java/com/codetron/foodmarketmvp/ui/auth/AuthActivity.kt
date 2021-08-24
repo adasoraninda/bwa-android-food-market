@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.codetron.foodmarketmvp.R
-import com.codetron.foodmarketmvp.data.model.ToolbarData
+import com.codetron.foodmarketmvp.data.model.view.ToolbarData
 import com.codetron.foodmarketmvp.databinding.ActivityAuthBinding
 
 class AuthActivity : AppCompatActivity() {

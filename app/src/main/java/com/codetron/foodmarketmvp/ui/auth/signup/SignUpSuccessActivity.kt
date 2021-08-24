@@ -5,10 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.codetron.foodmarketmvp.databinding.ActivitySignUpSuccessBinding
 import com.codetron.foodmarketmvp.ui.home.HomeActivity
 
-class SignUpSuccessActivity: AppCompatActivity() {
+class SignUpSuccessActivity : AppCompatActivity() {
 
-    private var _binding:ActivitySignUpSuccessBinding? = null
-    private val binding get()=_binding
+    private var _binding: ActivitySignUpSuccessBinding? = null
+    private val binding get() = _binding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,6 +17,7 @@ class SignUpSuccessActivity: AppCompatActivity() {
 
         binding?.btnFindFoods?.setOnClickListener {
             HomeActivity.navigate(this)
+            finishAffinity()
         }
 
     }

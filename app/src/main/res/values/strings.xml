@@ -42,4 +42,11 @@
     <string name="help_center">Help Center</string>
     <string name="privacy_policy">Privacy &amp; Policy</string>
     <string name="terms_conditions">Terms &amp; Conditions</string>
+    <string name="order_empty_title">Ouch! Hungry</string>
+    <string name="order_empty_subtitle">Seems like you have not\nordered any food yet</string>
+    <string name="orders_subtitle">Wait for the best meal</string>
+    <string name="orders_title">Your Orders</string>
+    <string name="total_price">Total Price:</string>
+    <string name="order_now">Order Now</string>
+    <string name="ingredients">Ingredients: </string>
 </resources>

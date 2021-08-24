@@ -23,7 +23,7 @@ class FoodListAdapter(private val type: ListType) :
     }
 
     override fun onBindViewHolder(holder: FoodViewHolder, position: Int) {
-        holder.bind(foods[position], holder)
+        holder.bind(foods[position])
     }
 
     override fun getItemCount(): Int {

@@ -5,6 +5,7 @@
     android:id="@+id/scv_sign_up_success"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/window_background"
     android:fillViewport="true"
     android:scrollbars="none">
 
@@ -13,10 +14,10 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/img_success_sign_up"
+            android:id="@+id/img_empty_order"
             android:layout_width="200dp"
             android:layout_height="290dp"
-            android:src="@drawable/il_sign_up_success"
+            android:src="@drawable/il_empty_order"
             app:layout_constraintBottom_toTopOf="@id/txt_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,12 +32,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="@string/sign_up_success_title"
+            android:text="@string/order_empty_title"
             android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@id/txt_sub_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/img_success_sign_up" />
+            app:layout_constraintTop_toBottomOf="@id/img_empty_order" />
 
         <TextView
             android:id="@+id/txt_sub_title"
@@ -44,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/poppins_light"
-            android:text="@string/sign_up_success_subtitle"
+            android:text="@string/order_empty_subtitle"
             android:textAlignment="center"
             android:textColor="@color/grey_primary"
             app:layout_constraintBottom_toTopOf="@id/btn_find_foods"

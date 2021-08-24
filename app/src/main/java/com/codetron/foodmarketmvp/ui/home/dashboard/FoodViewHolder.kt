@@ -8,23 +8,21 @@ import com.codetron.foodmarketmvp.databinding.ItemDashobardFoodHorizontalBinding
 
 abstract class FoodViewHolder(binding: ViewBinding) :
     RecyclerView.ViewHolder(binding.root) {
-
-    fun bind(data: Food, holder: RecyclerView.ViewHolder) {
-        when (holder) {
-            is FoodVerticalViewHolder -> {
-                holder.binding.food = data
-                holder.binding.executePendingBindings()
-            }
-            is FoodHorizontalViewHolder -> {
-                holder.binding.food = data
-                holder.binding.executePendingBindings()
-            }
-        }
-    }
+    abstract fun bind(data: Food)
 }
 
 class FoodVerticalViewHolder(val binding: ItemDashboardFoodVerticalBinding) :
-    FoodViewHolder(binding)
+    FoodViewHolder(binding) {
+    override fun bind(data: Food) {
+        binding.food = data
+        binding.executePendingBindings()
+    }
+}
 
 class FoodHorizontalViewHolder(val binding: ItemDashobardFoodHorizontalBinding) :
-    FoodViewHolder(binding)
+    FoodViewHolder(binding) {
+    override fun bind(data: Food) {
+        binding.food = data
+        binding.executePendingBindings()
+    }
+}

@@ -15,7 +15,7 @@ object BindingAdapter {
     @BindingAdapter("app:showBackButton")
     fun Toolbar.showBackButton(isShow: Boolean? = false) {
         navigationIcon = if (isShow == true) {
-            ContextCompat.getDrawable(this.context, R.drawable.ic_arrow_back)
+            ContextCompat.getDrawable(this.context, R.drawable.ic_arrow_back_black)
         } else {
             null
         }

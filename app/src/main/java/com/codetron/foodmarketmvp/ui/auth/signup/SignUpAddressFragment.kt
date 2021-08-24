@@ -31,7 +31,6 @@ class SignUpAddressFragment : Fragment() {
             findNavController().navigate(
                 R.id.sign_up_address_to_sign_up_success
             )
-            requireActivity().finishAffinity()
         }
     }
 
