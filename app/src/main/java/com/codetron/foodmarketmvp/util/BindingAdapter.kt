@@ -8,6 +8,8 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.codetron.foodmarketmvp.R
+import java.text.NumberFormat
+import java.util.*
 
 object BindingAdapter {
 
@@ -38,6 +40,15 @@ object BindingAdapter {
     @BindingAdapter("app:textRes")
     fun TextView.setTextResources(res: Int?) {
         text = res?.let { context.getString(it) }
+    }
+
+    @JvmStatic
+    @BindingAdapter("app:textPrice")
+    fun TextView.setTextPrice(price: Long?) {
+        val localeID = Locale("in", "ID")
+        val formatRupiah = NumberFormat.getCurrencyInstance(localeID)
+        text = formatRupiah.format(price?.toDouble())
+            .replace("Rp", "IDR ", ignoreCase = true)
     }
 
 }

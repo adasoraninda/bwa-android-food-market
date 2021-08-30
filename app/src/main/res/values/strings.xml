@@ -18,6 +18,7 @@
     <string name="hint_address">Type your address</string>
     <string name="house_no">House No.</string>
     <string name="hint_house">Type your house number</string>
+    <string name="hint_city">Type your city</string>
     <string name="sign_in_subtitle">Find your best ever meal</string>
     <string name="sign_up_subtitle">Register and eat</string>
     <string name="sign_up_address_subtitle">Make sure it’s valid</string>
@@ -49,4 +50,13 @@
     <string name="total_price">Total Price:</string>
     <string name="order_now">Order Now</string>
     <string name="ingredients">Ingredients: </string>
+    <string name="order_success_sub_title">Just stay at home while we are\npreparing your best foods</string>
+    <string name="success_order_title">You’ve Made Order</string>
+    <string name="order_other_foods">Order Other Foods</string>
+    <string name="view_my_order">View My Order</string>
+    <string name="default_total">1</string>
+    <string name="action_ok">OK</string>
+
+    <string name="alert_title_exit">Exit</string>
+    <string name="alert_desc_exit">Are you sure</string>
 </resources>

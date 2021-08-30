@@ -4,16 +4,25 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.codetron.foodmarketmvp.R
-import com.codetron.foodmarketmvp.data.model.view.ToolbarData
 import com.codetron.foodmarketmvp.databinding.ActivityAuthBinding
+import com.codetron.foodmarketmvp.model.view.ToolbarData
+import com.codetron.foodmarketmvp.ui.customview.CustomAlertDialog
+import dagger.hilt.android.AndroidEntryPoint
 
+private const val ALERT_AUTH_TAG = "ALERT_AUTH_TAG"
+
+@AndroidEntryPoint
 class AuthActivity : AppCompatActivity() {
 
     private var _binding: ActivityAuthBinding? = null
     private val binding get() = _binding
+
+    private lateinit var customAlertDialog: CustomAlertDialog
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,10 +32,14 @@ class AuthActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nhf_auth) as NavHostFragment
 
-        val navController = navHostFragment.findNavController()
+        navController = navHostFragment.findNavController()
+
+        customAlertDialog = CustomAlertDialog(R.string.alert_title_exit, R.string.alert_desc_exit) {
+            navController.popBackStack()
+        }
 
         binding?.tlbAuth?.setNavigationOnClickListener {
-            navController.popBackStack()
+            onBackPressed()
         }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -63,5 +76,13 @@ class AuthActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        if (navController.currentDestination?.id == R.id.sign_in_fragment) {
+            finish()
+            return
+        }
+
+        customAlertDialog.show(supportFragmentManager, ALERT_AUTH_TAG)
+    }
 
 }

@@ -10,4 +10,6 @@
     <dimen name="margin_item_card_horizontal">8dp</dimen>
     <dimen name="space_toolbar_with_content">24dp</dimen>
     <dimen name="space_toolbar_with_content_small">16dp</dimen>
+    <dimen name="dashboard_photo_size">50dp</dimen>
+    <dimen name="margin_half_list">56dp</dimen>
 </resources>

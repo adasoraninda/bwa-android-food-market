@@ -7,7 +7,7 @@
 
         <variable
             name="food"
-            type="com.codetron.foodmarketmvp.data.model.Food" />
+            type="com.codetron.foodmarketmvp.model.domain.food.Food" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,10 +20,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_card_content"
             android:ellipsize="end"
-            android:maxLines="1"
+            android:maxLines="2"
             android:text="@{food.name}"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

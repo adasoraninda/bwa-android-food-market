@@ -6,19 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.codetron.foodmarketmvp.R
 import com.codetron.foodmarketmvp.databinding.FragmentFoodCategoriesBinding
+import com.codetron.foodmarketmvp.ui.home.dashboard.DashboardFragmentDirections
 import com.codetron.foodmarketmvp.ui.home.dashboard.FoodListAdapter
 import com.codetron.foodmarketmvp.ui.home.dashboard.ListType
 import com.codetron.foodmarketmvp.util.dummy.DataDummy
 
-class FoodCategoriesFragment : Fragment() {
+class FoodCategoriesFragment : Fragment(), (Long?) -> Unit {
 
     private var _binding: FragmentFoodCategoriesBinding? = null
     private val binding get() = _binding
 
     private val foodsAdapter: FoodListAdapter by lazy {
-        FoodListAdapter(ListType.VERTICAL)
+        FoodListAdapter(ListType.VERTICAL, this)
     }
 
     override fun onCreateView(
@@ -51,6 +53,14 @@ class FoodCategoriesFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun invoke(id: Long?) {
+        if (id != null) {
+            val dashboardDirections = DashboardFragmentDirections.dashboardToDetailFood(id)
+            findNavController().navigate(dashboardDirections)
+        }
+
     }
 
 }

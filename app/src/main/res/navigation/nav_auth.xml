@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/sign_up_fragment"
-        android:name="com.codetron.foodmarketmvp.ui.auth.signup.SignUpFragment"
+        android:name="com.codetron.foodmarketmvp.ui.auth.signup.account.SignUpFragment"
         tools:layout="@layout/fragment_sign_up">
         <action
             android:id="@+id/sign_up_to_sign_up_address"
@@ -29,12 +29,17 @@
 
     <fragment
         android:id="@+id/sign_up_address_fragment"
-        android:name="com.codetron.foodmarketmvp.ui.auth.signup.SignUpAddressFragment"
+        android:name="com.codetron.foodmarketmvp.ui.auth.signup.address.SignUpAddressFragment"
         tools:layout="@layout/fragment_sign_up_address">
 
         <action
             android:id="@+id/sign_up_address_to_sign_up_success"
             app:destination="@id/sign_up_success_activity" />
+
+        <argument
+            android:name="userRegister"
+            app:argType="com.codetron.foodmarketmvp.model.domain.user.UserRegister"
+            app:nullable="true" />
 
     </fragment>
 

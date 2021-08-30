@@ -43,11 +43,6 @@
         <item name="cornerSize">8%</item>
     </style>
 
-    <style name="CircleImageStyle">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">50%</item>
-    </style>
-
     <!-- EditText -->
     <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
         <item name="android:minHeight">48dp</item>

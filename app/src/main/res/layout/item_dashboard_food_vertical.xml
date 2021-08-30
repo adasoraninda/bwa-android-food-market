@@ -7,7 +7,7 @@
 
         <variable
             name="food"
-            type="com.codetron.foodmarketmvp.data.model.Food" />
+            type="com.codetron.foodmarketmvp.model.domain.food.Food" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -64,7 +64,7 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/poppins_light"
                 android:maxLines="1"
-                android:text="@{String.valueOf(food.price)}"
+                app:textPrice="@{food.price}"
                 app:layout_constraintBottom_toBottomOf="@id/img_food"
                 app:layout_constraintEnd_toEndOf="@id/txt_food_name"
                 app:layout_constraintStart_toStartOf="@id/txt_food_name"

@@ -8,7 +8,13 @@
     <fragment
         android:id="@id/menu_dashboard"
         android:name="com.codetron.foodmarketmvp.ui.home.dashboard.DashboardFragment"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard">
+
+        <action
+            android:id="@+id/dashboard_to_detail_food"
+            app:destination="@id/detail_food_activity" />
+
+    </fragment>
 
     <fragment
         android:id="@id/menu_order"
@@ -19,5 +25,16 @@
         android:id="@id/menu_profile"
         android:name="com.codetron.foodmarketmvp.ui.home.profile.ProfileFragment"
         tools:layout="@layout/fragment_profile" />
+
+    <activity
+        android:id="@+id/detail_food_activity"
+        android:name="com.codetron.foodmarketmvp.ui.detail.DetailFoodActivity"
+        tools:layout="@layout/activity_detail_food">
+
+        <argument
+            android:name="fooId"
+            app:argType="long" />
+
+    </activity>
 
 </navigation>

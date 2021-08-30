@@ -7,13 +7,10 @@ import com.codetron.foodmarketmvp.databinding.ItemDashobardFoodHorizontalBinding
 
 class ListFoodViewHolderFactory(
     private val inflater: LayoutInflater,
-    private val parent: ViewGroup
+    private val parent: ViewGroup,
+    private var type: ListType = ListType.VERTICAL,
+    private val onItemClick: (id: Long?) -> Unit
 ) {
-    private var type: ListType = ListType.VERTICAL
-
-    fun setType(type: ListType) = apply {
-        this.type = type
-    }
 
     fun create(): FoodViewHolder {
         return when (type) {
@@ -22,14 +19,16 @@ class ListFoodViewHolderFactory(
                     inflater,
                     parent,
                     false
-                )
+                ),
+                onItemClick
             )
             ListType.HORIZONTAL -> FoodHorizontalViewHolder(
                 ItemDashobardFoodHorizontalBinding.inflate(
                     inflater,
                     parent,
                     false
-                )
+                ),
+                onItemClick
             )
         }
     }

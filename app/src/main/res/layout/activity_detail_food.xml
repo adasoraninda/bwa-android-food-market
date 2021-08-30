@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="food"
-            type="com.codetron.foodmarketmvp.data.model.Food" />
+            type="com.codetron.foodmarketmvp.model.domain.food.Food" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,6 +19,7 @@
             android:id="@+id/img_detail_food"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:scaleType="centerCrop"
             app:imageRes="@{food.image}"
             app:layout_constraintBottom_toBottomOf="@id/gdl_mid_2"
             app:layout_constraintDimensionRatio="0dp"
@@ -29,6 +31,7 @@
             android:id="@+id/apb_detail_food"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:elevation="0dp"
             android:background="@android:color/transparent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -41,11 +44,11 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <include
-            app:food="@{food}"
             android:id="@+id/lyt_bottom_sheet"
             layout="@layout/layout_bottom_sheet_detail_food"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            app:food="@{food}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/gdl_mid_1" />
 
@@ -62,6 +65,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.45" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

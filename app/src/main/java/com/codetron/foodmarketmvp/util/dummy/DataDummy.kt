@@ -1,6 +1,6 @@
 package com.codetron.foodmarketmvp.util.dummy
 
-import com.codetron.foodmarketmvp.data.model.Food
+import com.codetron.foodmarketmvp.model.domain.food.Food
 
 object DataDummy {
 

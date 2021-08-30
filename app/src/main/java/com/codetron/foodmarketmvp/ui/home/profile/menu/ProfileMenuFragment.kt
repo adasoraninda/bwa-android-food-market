@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import com.codetron.foodmarketmvp.R
-import com.codetron.foodmarketmvp.data.model.view.profile.ProfileMenuResources
+import com.codetron.foodmarketmvp.model.view.profile.ProfileMenuResources
 import com.codetron.foodmarketmvp.databinding.FragmentProfileMenuBinding
 
 class ProfileMenuFragment : Fragment(), ProfileMenuClickListener {
@@ -56,7 +56,21 @@ class ProfileMenuFragment : Fragment(), ProfileMenuClickListener {
     }
 
     override fun setOnClickListener(id: Long) {
-        Toast.makeText(requireContext(), "$id", Toast.LENGTH_SHORT).show()
+        val resources =
+            if ((arguments?.getSerializable(MENU_KEY) as ProfileMenuType) == ProfileMenuType.ACCOUNT) {
+                ProfileMenuResources.getAccountResources()
+            } else {
+                ProfileMenuResources.getFoodMarketResources()
+            }
+
+        val resTitle = resources
+            .filter { profileMenu -> profileMenu.id == id }
+            .map { profileMenu -> profileMenu.title }
+            .firstOrNull()
+
+        if (resTitle != null) {
+            Toast.makeText(requireContext(), getString(resTitle), Toast.LENGTH_SHORT).show()
+        }
     }
 
 }

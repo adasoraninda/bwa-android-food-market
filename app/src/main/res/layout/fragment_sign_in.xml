@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/scv_sign_in"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,63 +8,71 @@
     android:fillViewport="true"
     android:scrollbars="none">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusableInTouchMode="true"
-        android:orientation="vertical"
-        android:paddingHorizontal="24dp"
-        android:paddingVertical="26dp">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/txt_label_email"
-            style="@style/TextLabel"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/email_address" />
+            android:layout_height="match_parent"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="26dp"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/edt_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_label"
-            android:hint="@string/hint_email"
-            android:importantForAutofill="no"
-            android:inputType="textEmailAddress" />
+            <TextView
+                android:id="@+id/txt_label_email"
+                style="@style/TextLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/email_address" />
 
-        <TextView
-            android:id="@+id/txt_label_password"
-            style="@style/TextLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_edit_text_size"
-            android:text="@string/password" />
+            <EditText
+                android:id="@+id/edt_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_label"
+                android:hint="@string/hint_email"
+                android:importantForAutofill="no"
+                android:inputType="textEmailAddress" />
 
-        <EditText
-            android:id="@+id/edt_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_label"
-            android:hint="@string/hint_password"
-            android:importantForAutofill="no"
-            android:inputType="textPassword" />
+            <TextView
+                android:id="@+id/txt_label_password"
+                style="@style/TextLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_edit_text_size"
+                android:text="@string/password" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_sign_in"
-            style="@style/ButtonPrimaryStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/sign_in" />
+            <EditText
+                android:id="@+id/edt_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_label"
+                android:hint="@string/hint_password"
+                android:importantForAutofill="no"
+                android:inputType="textPassword" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_sign_up"
-            style="@style/ButtonSecondaryStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="@string/create_new_account" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_sign_in"
+                style="@style/ButtonPrimaryStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/sign_in" />
 
-    </LinearLayout>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_sign_up"
+                style="@style/ButtonSecondaryStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/create_new_account" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </ScrollView>

@@ -3,7 +3,51 @@
   <component name="CodeInsightWorkspaceSettings">
     <option name="optimizeImportsOnTheFly" value="true" />
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/drawable/bg_bottom_sheet.xml" value="0.2203125" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/drawable/bg_outline_primary.xml" value="0.2203125" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/drawable/bg_outline_primary_error.xml" value="0.1527777777777778" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/drawable/bg_total_food.xml" value="0.2169230769230769" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/drawable/ic_add.xml" value="0.2203125" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/drawable/ic_error.xml" value="0.2203125" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/drawable/ic_error_image.xml" value="0.2203125" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/activity_auth.xml" value="0.20416666666666666" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/activity_detail_food.xml" value="0.33" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/activity_home.xml" value="0.20416666666666666" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/activity_payment.xml" value="0.20416666666666666" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/activity_sign_up_success.xml" value="0.20416666666666666" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/activity_splash.xml" value="0.20416666666666666" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/activity_success_order.xml" value="0.2" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/content_dashboard_header.xml" value="0.20416666666666666" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/content_dashboard_list_food.xml" value="0.20416666666666666" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/content_tab_body.xml" value="0.20416666666666666" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/fragment_dashboard.xml" value="0.22" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/fragment_food_categories.xml" value="0.20416666666666666" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/fragment_order.xml" value="0.1" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/fragment_profile.xml" value="0.20416666666666666" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/fragment_profile_menu.xml" value="0.20416666666666666" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/fragment_sign_in.xml" value="0.20416666666666666" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/fragment_sign_up.xml" value="0.20416666666666666" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/fragment_sign_up_address.xml" value="0.25" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/item_dashboard_food_vertical.xml" value="0.20416666666666666" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/item_dashobard_food_horizontal.xml" value="0.20416666666666666" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/item_profile_menu.xml" value="0.20416666666666666" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/layout_alert_dialog.xml" value="0.20416666666666666" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/layout_bottom_sheet_detail_food.xml" value="0.20416666666666666" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/layout_detail_food_name.xml" value="0.20416666666666666" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/layout_detail_total_food.xml" value="0.20416666666666666" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/layout_image_photo.xml" value="0.20416666666666666" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/layout_loading.xml" value="0.20102564102564102" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/layout_order_empty.xml" value="0.20416666666666666" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/layout_profile_header.xml" value="0.20416666666666666" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/layout_snack_bar_error.xml" value="0.33" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/menu/menu_home.xml" value="0.10462962962962963" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

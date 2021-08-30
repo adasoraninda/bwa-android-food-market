@@ -1,4 +1,4 @@
-package com.codetron.foodmarketmvp.data.model
+package com.codetron.foodmarketmvp.model.domain.food
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

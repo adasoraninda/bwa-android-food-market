@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.codetron.foodmarketmvp.databinding.FragmentDashboardBinding
 import com.codetron.foodmarketmvp.ui.home.adapter.SectionViewPager
 import com.codetron.foodmarketmvp.ui.home.dashboard.categories.FoodCategory
@@ -12,7 +13,7 @@ import com.codetron.foodmarketmvp.ui.home.dashboard.categories.FoodCategoryType
 import com.codetron.foodmarketmvp.util.dummy.DataDummy
 import com.google.android.material.tabs.TabLayoutMediator
 
-class DashboardFragment : Fragment() {
+class DashboardFragment : Fragment(), (Long?) -> Unit {
 
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding
@@ -21,7 +22,7 @@ class DashboardFragment : Fragment() {
     private val bindingBody by lazy { binding?.lytContentDashboardBody }
 
     private val foodsAdapter: FoodListAdapter by lazy {
-        FoodListAdapter(ListType.HORIZONTAL)
+        FoodListAdapter(ListType.HORIZONTAL, this)
     }
 
     private val foodCategoriesViewPager: SectionViewPager by lazy {
@@ -59,6 +60,13 @@ class DashboardFragment : Fragment() {
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
                 tab.text = getString(FoodCategoryType.values()[position].title)
             }.attach()
+        }
+    }
+
+    override fun invoke(id: Long?) {
+        if (id != null) {
+            val dashboardDirections = DashboardFragmentDirections.dashboardToDetailFood(id)
+            findNavController().navigate(dashboardDirections)
         }
     }
 

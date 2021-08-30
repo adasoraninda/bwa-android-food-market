@@ -1,10 +1,11 @@
 package com.codetron.foodmarketmvp.ui.home.profile.menu
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.codetron.foodmarketmvp.data.model.view.profile.ProfileMenu
+import com.codetron.foodmarketmvp.model.view.profile.ProfileMenu
 import com.codetron.foodmarketmvp.databinding.ItemProfileMenuBinding
 
 class ProfileMenuListAdapter(private val clickListener: ProfileMenuClickListener) :
@@ -12,6 +13,7 @@ class ProfileMenuListAdapter(private val clickListener: ProfileMenuClickListener
 
     private val menus = arrayListOf<ProfileMenu>()
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setMenuItems(menus: List<ProfileMenu>) {
         this.menus.addAll(emptyList())
         this.menus.addAll(menus)

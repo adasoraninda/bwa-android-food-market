@@ -39,6 +39,16 @@
     <include
         android:id="@+id/lyt_order_empty"
         layout="@layout/layout_order_empty"
-        tools:visibility="gone" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:visibility="visible" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/grp_visible_view"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="lyt_content_orders_body, spc_orders, apb_orders" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.codetron.foodmarketmvp.data.model.view
+package com.codetron.foodmarketmvp.model.view
 
 data class ToolbarData(
     val title: String? = null,
