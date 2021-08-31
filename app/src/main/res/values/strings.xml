@@ -58,5 +58,5 @@
     <string name="action_ok">OK</string>
 
     <string name="alert_title_exit">Exit</string>
-    <string name="alert_desc_exit">Are you sure</string>
+    <string name="alert_desc_exit">Are you sure you want to\nleave this page?</string>
 </resources>

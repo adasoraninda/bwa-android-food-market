@@ -1,10 +1,16 @@
-package com.codetron.foodmarketmvp.network
+package com.codetron.foodmarketmvp.di.module
 
-import com.codetron.foodmarketmvp.BuildConfig.BASE_URL
+import com.codetron.foodmarketmvp.BuildConfig
+import com.codetron.foodmarketmvp.network.FoodMarketApi
 import com.google.gson.Gson
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonPrimitive
 import com.google.gson.JsonSerializer
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -14,15 +20,19 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-class RetrofitInstance {
+@Module
+@ExperimentalCoroutinesApi
+@InstallIn(SingletonComponent::class)
+class NetworkModule {
 
     private val apiEndPoint = "api/"
     private val datePatternJson = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
     private val datePattern = "dd-MM-yyyy"
     private val timeZoneId = "UTC"
 
-    private val gson by lazy {
-        Gson().newBuilder()
+    @Provides
+    fun provideGson(): Gson {
+        return Gson().newBuilder()
             .excludeFieldsWithoutExposeAnnotation()
             .setDateFormat(datePatternJson)
             .registerTypeAdapter(Date::class.java, JsonDeserializer { json, _, _ ->
@@ -38,27 +48,31 @@ class RetrofitInstance {
             .create()
     }
 
-    private val client: OkHttpClient.Builder by lazy {
-        OkHttpClient.Builder()
+    @Provides
+    fun provideClient(): OkHttpClient {
+        return OkHttpClient.Builder()
             .connectTimeout(2, TimeUnit.MINUTES)
             .readTimeout(2, TimeUnit.MINUTES)
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .build()
     }
 
-    private val retrofit: Retrofit.Builder by lazy {
-        Retrofit.Builder()
-            .baseUrl(BASE_URL + apiEndPoint)
+    @Provides
+    fun provideRetrofit(
+        gson: Gson,
+        client: OkHttpClient
+    ): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(BuildConfig.BASE_URL + apiEndPoint)
+            .client(client)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
     }
 
-    fun getApi(token: String? = null): FoodMarketApi {
-        val okHttpClient = client.addInterceptor(HeaderInterceptor(token)).build()
-
-        return retrofit
-            .client(okHttpClient)
-            .build()
-            .create(FoodMarketApi::class.java)
+    @Provides
+    fun provideApi(retrofit: Retrofit): FoodMarketApi {
+        return retrofit.create(FoodMarketApi::class.java)
     }
 
 }

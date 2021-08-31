@@ -46,4 +46,8 @@ class SnackBarError(val viewGroup: ViewGroup) {
         snackBar.show()
     }
 
+    fun dismiss() {
+        snackBar.dismiss()
+    }
+
 }

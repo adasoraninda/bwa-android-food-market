@@ -2,6 +2,7 @@ package com.codetron.foodmarketmvp.di.module
 
 import com.codetron.foodmarketmvp.base.FormValidation
 import com.codetron.foodmarketmvp.model.validation.SignInFormValidation
+import com.codetron.foodmarketmvp.model.validation.SignUpAddressFormValidation
 import com.codetron.foodmarketmvp.model.validation.SignUpFormValidation
 import dagger.Binds
 import dagger.Module
@@ -15,11 +16,15 @@ interface FormValidationModule {
 
     @Binds
     @SignInValidation
-    fun provideSignInValidation(signInValidation: SignInFormValidation): FormValidation
+    fun bindSignInValidation(validation: SignInFormValidation): FormValidation
 
     @Binds
     @SignUpValidation
-    fun provideSignUpValidation(signUpValidation: SignUpFormValidation):FormValidation
+    fun bindSignUpValidation(validation: SignUpFormValidation): FormValidation
+
+    @Binds
+    @SignUpAddressValidation
+    fun bindSignUpAddressValidation(validation: SignUpAddressFormValidation): FormValidation
 }
 
 @Qualifier
@@ -29,3 +34,7 @@ annotation class SignInValidation
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class SignUpValidation
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class SignUpAddressValidation

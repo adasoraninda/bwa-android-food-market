@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.rxjava2.RxPreferenceDataStoreBuilder
 import androidx.datastore.rxjava2.RxDataStore
-import com.codetron.foodmarketmvp.model.datastore.UserDataStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

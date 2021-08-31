@@ -1,12 +1,10 @@
-package com.codetron.foodmarketmvp.model.response.login
+package com.codetron.foodmarketmvp.model.response.register
 
-
-import com.codetron.foodmarketmvp.model.response.register.RegisterResponse
 import com.codetron.foodmarketmvp.model.response.user.UserResponse
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class LoginResponse(
+data class RegisterResponse(
     @Expose
     @SerializedName("access_token")
     val accessToken: String,
@@ -18,6 +16,6 @@ data class LoginResponse(
     val user: UserResponse?
 )
 
-fun LoginResponse.getToken(): String {
+fun RegisterResponse.getToken(): String {
     return "$tokenType $accessToken"
 }

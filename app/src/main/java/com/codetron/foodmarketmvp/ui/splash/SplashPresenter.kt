@@ -5,9 +5,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
-class SplashPresenter(
+class SplashPresenter @Inject constructor(
     private val view: SplashContract.View,
     private val dataStore: UserDataStore,
 ) : SplashContract.Presenter {

@@ -77,7 +77,8 @@ class AuthActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (navController.currentDestination?.id == R.id.sign_in_fragment) {
+        val id = navController.currentDestination?.id
+        if (id == R.id.sign_in_fragment || id == R.id.sign_up_success_activity) {
             finish()
             return
         }

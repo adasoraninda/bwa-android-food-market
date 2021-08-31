@@ -1,26 +1,29 @@
 package com.codetron.foodmarketmvp.ui.auth.signin
 
 import com.codetron.foodmarketmvp.base.FormValidation
+import com.codetron.foodmarketmvp.di.module.SignInValidation
 import com.codetron.foodmarketmvp.model.datastore.UserDataStore
+import com.codetron.foodmarketmvp.model.response.base.Wrapper
 import com.codetron.foodmarketmvp.model.response.user.toDomain
 import com.codetron.foodmarketmvp.model.validation.SignInFormValidation
-import com.codetron.foodmarketmvp.network.RetrofitInstance
-import com.codetron.foodmarketmvp.util.ErrorResponseUtil
+import com.codetron.foodmarketmvp.network.FoodMarketApi
+import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import retrofit2.HttpException
+import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
-class SignInPresenter(
+class SignInPresenter @Inject constructor(
     private val view: SignInContract.View,
     private val dataStore: UserDataStore,
-    private val formValidation: FormValidation
+    private val serviceApi: FoodMarketApi,
+    @SignInValidation private val formValidation: FormValidation
 ) : SignInContract.Presenter {
 
     private val compositeDisposable by lazy { CompositeDisposable() }
-    private val retrofit by lazy { RetrofitInstance() }
 
     override fun subscribe() {
         view.dismissLoading()
@@ -36,7 +39,7 @@ class SignInPresenter(
 
         view.showLoading()
 
-        val disposable = retrofit.getApi().userLogin(email!!, password!!)
+        val disposable = serviceApi.userLogin(email!!, password!!)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->
@@ -47,7 +50,7 @@ class SignInPresenter(
                     compositeDisposable.add(
                         dataStore.saveToken(body.accessToken)
                             .subscribe({ prefs ->
-                                if (prefs[UserDataStore.PREFERENCES_TOKEN].toBoolean()) {
+                                if (!prefs[UserDataStore.PREFERENCES_TOKEN].isNullOrEmpty()) {
                                     view.onLoginSuccess(body.user.toDomain())
                                 }
                             }, { error ->
@@ -65,7 +68,7 @@ class SignInPresenter(
                 if (error is HttpException) {
                     val errorResponse = error.response()?.errorBody()?.string()
                     if (errorResponse != null) {
-                        message = ErrorResponseUtil(errorResponse).getMeta().message
+                        message = Gson().fromJson(errorResponse, Wrapper::class.java).meta.message
                     }
                 }
 

@@ -2,12 +2,14 @@ package com.codetron.foodmarketmvp.ui.auth.signup.account
 
 import android.net.Uri
 import com.codetron.foodmarketmvp.base.FormValidation
+import com.codetron.foodmarketmvp.di.module.SignUpValidation
 import com.codetron.foodmarketmvp.model.domain.user.UserRegister
 import com.codetron.foodmarketmvp.model.validation.SignUpFormValidation
+import javax.inject.Inject
 
-class SignUpPresenter(
+class SignUpPresenter @Inject constructor(
     private val view: SignUpContract.View,
-    private val formValidation: FormValidation
+    @SignUpValidation private val formValidation: FormValidation
 ) : SignUpContract.Presenter {
 
     override fun submitUser(fullName: String?, email: String?, password: String?, imageUri: Uri?) {
