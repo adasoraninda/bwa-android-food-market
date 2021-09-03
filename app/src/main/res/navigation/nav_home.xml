@@ -32,8 +32,8 @@
         tools:layout="@layout/activity_detail_food">
 
         <argument
-            android:name="fooId"
-            app:argType="long" />
+            android:name="foodId"
+            app:argType="integer" />
 
     </activity>
 

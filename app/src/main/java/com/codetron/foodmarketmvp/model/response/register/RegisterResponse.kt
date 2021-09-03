@@ -7,10 +7,10 @@ import com.google.gson.annotations.SerializedName
 data class RegisterResponse(
     @Expose
     @SerializedName("access_token")
-    val accessToken: String,
+    val accessToken: String?,
     @Expose
     @SerializedName("token_type")
-    val tokenType: String,
+    val tokenType: String?,
     @Expose
     @SerializedName("user")
     val user: UserResponse?

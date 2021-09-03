@@ -4,12 +4,10 @@ import com.codetron.foodmarketmvp.base.FormValidation
 import com.codetron.foodmarketmvp.di.module.SignUpAddressValidation
 import com.codetron.foodmarketmvp.model.datastore.UserDataStore
 import com.codetron.foodmarketmvp.model.domain.user.UserRegister
-import com.codetron.foodmarketmvp.model.response.base.Wrapper
 import com.codetron.foodmarketmvp.model.response.register.getToken
 import com.codetron.foodmarketmvp.model.response.user.toDomain
 import com.codetron.foodmarketmvp.model.validation.SignUpAddressFormValidation
 import com.codetron.foodmarketmvp.network.FoodMarketApi
-import com.google.gson.Gson
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -20,7 +18,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
-import retrofit2.HttpException
 import java.io.File
 
 @ExperimentalCoroutinesApi
@@ -84,11 +81,11 @@ class SignUpAddressPresenter @AssistedInject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->
-                val code = response.meta.code
+                val code = response.meta?.code
                 val body = response.data
 
-                if (code == 200 && body.user != null) {
-                    submitToken(body.accessToken) { isSuccess ->
+                if (code == 200 && body?.user != null) {
+                    submitToken(body.getToken()) { isSuccess ->
                         if (isSuccess) {
                             submitRegisterPhoto(body.getToken()) { path, error ->
                                 if (path == null) {
@@ -101,11 +98,16 @@ class SignUpAddressPresenter @AssistedInject constructor(
                         }
                     }
                 } else {
-                    view.onRegisterFailed(response.meta.message)
+                    view.onRegisterFailed(response.meta?.message.toString())
                 }
 
                 view.dismissLoading()
-            }, this::handleThrowable)
+            }, { error ->
+                val message = handleException(error)
+
+                view.onRegisterFailed(message)
+                view.dismissLoading()
+            })
 
         compositeDisposable.add(disposable)
     }
@@ -135,19 +137,23 @@ class SignUpAddressPresenter @AssistedInject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->
-                val code = response.meta.code
+                val code = response.meta?.code
                 val body = response.data
 
-                if (code == 200 && body.isNotEmpty()) {
+                if (code == 200 && body?.isNullOrEmpty()?.not() as Boolean) {
                     callback.invoke(body[0], null)
                 } else {
-                    view.onRegisterFailed(response.meta.message)
+                    view.onRegisterFailed(response.meta?.message.toString())
                 }
 
                 view.dismissLoading()
             }, { error ->
                 callback.invoke(null, error.message.toString())
-                handleThrowable(error)
+
+                val message = handleException(error)
+
+                view.onRegisterFailed(message)
+                view.dismissLoading()
             })
 
         compositeDisposable.add(disposable)
@@ -161,24 +167,14 @@ class SignUpAddressPresenter @AssistedInject constructor(
                 callback.invoke(!prefs[UserDataStore.PREFERENCES_TOKEN].isNullOrEmpty())
             }, { error ->
                 callback.invoke(false)
-                handleThrowable(error)
+
+                val message = handleException(error)
+
+                view.onRegisterFailed(message)
+                view.dismissLoading()
             })
 
         compositeDisposable.add(disposable)
-    }
-
-    private fun handleThrowable(error: Throwable) {
-        var message: String = error.message.toString()
-
-        if (error is HttpException) {
-            val errorResponse = error.response()?.errorBody()?.string()
-            if (errorResponse != null) {
-                message = Gson().fromJson(errorResponse, Wrapper::class.java).meta.message
-            }
-        }
-
-        view.onRegisterFailed(message)
-        view.dismissLoading()
     }
 
     private fun checkInput(

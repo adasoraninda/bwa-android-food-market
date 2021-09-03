@@ -1,20 +1,20 @@
-package com.codetron.foodmarketmvp.ui.home.dashboard
+package com.codetron.foodmarketmvp.ui.home.dashboard.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.codetron.foodmarketmvp.model.domain.food.Food
+import com.codetron.foodmarketmvp.model.domain.food.FoodItem
 
 class FoodListAdapter(
     private val type: ListType,
-    private val onItemClick: (id: Long?) -> Unit
+    private val onItemClick: (id: Int?) -> Unit
 ) : RecyclerView.Adapter<FoodViewHolder>() {
 
-    private val foods = arrayListOf<Food>()
+    private val foods = arrayListOf<FoodItem>()
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setItemFoods(foods: List<Food>) {
+    fun setItemFoods(foods: List<FoodItem>) {
         this.foods.addAll(emptyList())
         this.foods.addAll(foods)
         notifyDataSetChanged()

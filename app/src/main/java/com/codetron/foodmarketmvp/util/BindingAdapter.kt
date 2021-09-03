@@ -44,11 +44,17 @@ object BindingAdapter {
 
     @JvmStatic
     @BindingAdapter("app:textPrice")
-    fun TextView.setTextPrice(price: Long?) {
+    fun TextView.setTextPrice(price: Int?) {
         val localeID = Locale("in", "ID")
         val formatRupiah = NumberFormat.getCurrencyInstance(localeID)
         text = formatRupiah.format(price?.toDouble())
             .replace("Rp", "IDR ", ignoreCase = true)
+    }
+
+    @JvmStatic
+    @BindingAdapter("app:textTotalItems")
+    fun TextView.setTextTotalItems(total: Int?) {
+        text = String.format(context.getString(R.string.format_total_item), total)
     }
 
 }

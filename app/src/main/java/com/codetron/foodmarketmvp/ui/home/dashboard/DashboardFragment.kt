@@ -6,20 +6,36 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.codetron.foodmarketmvp.R
 import com.codetron.foodmarketmvp.databinding.FragmentDashboardBinding
+import com.codetron.foodmarketmvp.model.domain.food.FoodItem
+import com.codetron.foodmarketmvp.model.domain.user.User
+import com.codetron.foodmarketmvp.ui.customview.SnackBarError
 import com.codetron.foodmarketmvp.ui.home.adapter.SectionViewPager
+import com.codetron.foodmarketmvp.ui.home.dashboard.adapter.FoodListAdapter
+import com.codetron.foodmarketmvp.ui.home.dashboard.adapter.ListType
 import com.codetron.foodmarketmvp.ui.home.dashboard.categories.FoodCategory
 import com.codetron.foodmarketmvp.ui.home.dashboard.categories.FoodCategoryType
-import com.codetron.foodmarketmvp.util.dummy.DataDummy
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import javax.inject.Inject
 
-class DashboardFragment : Fragment(), (Long?) -> Unit {
+@AndroidEntryPoint
+@ExperimentalCoroutinesApi
+class DashboardFragment : Fragment(), (Int?) -> Unit, DashboardContract.View {
 
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding
 
+    @Inject
+    lateinit var presenter: DashboardContract.Presenter
+
     private val bindingHeader by lazy { binding?.lytContentDashboardHeader }
     private val bindingBody by lazy { binding?.lytContentDashboardBody }
+    private var snackBarError: SnackBarError? = null
 
     private val foodsAdapter: FoodListAdapter by lazy {
         FoodListAdapter(ListType.HORIZONTAL, this)
@@ -34,7 +50,13 @@ class DashboardFragment : Fragment(), (Long?) -> Unit {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        snackBarError = container?.let { SnackBarError(it) }
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
+
+        if (savedInstanceState == null) {
+            presenter.subscribe()
+        }
+
         return binding?.root
     }
 
@@ -45,9 +67,7 @@ class DashboardFragment : Fragment(), (Long?) -> Unit {
     }
 
     private fun initListFoods() {
-        bindingHeader?.lytContentListFoods?.lstFoods?.adapter = foodsAdapter.apply {
-            setItemFoods(DataDummy.getFoods())
-        }
+        bindingHeader?.lytContentListFoods?.lstFoods?.adapter = foodsAdapter
     }
 
     private fun initTabLayout() {
@@ -63,11 +83,48 @@ class DashboardFragment : Fragment(), (Long?) -> Unit {
         }
     }
 
-    override fun invoke(id: Long?) {
+    override fun invoke(id: Int?) {
         if (id != null) {
             val dashboardDirections = DashboardFragmentDirections.dashboardToDetailFood(id)
             findNavController().navigate(dashboardDirections)
         }
     }
 
+    override fun showLoading() {
+        bindingHeader?.lytContentListFoods?.pbrHorizontalListFood?.visibility = View.VISIBLE
+    }
+
+    override fun dismissLoading() {
+        bindingHeader?.lytContentListFoods?.pbrHorizontalListFood?.visibility = View.GONE
+    }
+
+    override fun onGetFoodSuccess(foods: List<FoodItem>) {
+        foodsAdapter.setItemFoods(foods)
+    }
+
+    override fun onGetUserSuccess(user: User) {
+        binding?.lytImagePhoto?.root?.visibility = View.GONE
+        binding?.imgProfileHome?.let {
+            Glide.with(this)
+                .applyDefaultRequestOptions(
+                    RequestOptions()
+                        .placeholder(R.color.yellow_light)
+                        .error(R.drawable.ic_error_image)
+                )
+                .load(user.profilePhotoUrl)
+                .into(it)
+        }
+    }
+
+    override fun onGetDataFailed(message: String) {
+        snackBarError?.setMessage(message)
+        snackBarError?.show()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+        presenter.unSubscribe()
+        snackBarError?.dismiss()
+    }
 }

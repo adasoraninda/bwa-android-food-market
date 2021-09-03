@@ -8,63 +8,58 @@ import com.google.gson.annotations.SerializedName
 data class UserResponse(
     @Expose
     @SerializedName("address")
-    val address: String,
+    val address: String?,
     @Expose
     @SerializedName("city")
-    val city: String,
+    val city: String?,
     @Expose
     @SerializedName("created_at")
-    val createdAt: Long,
+    val createdAt: Long?,
     @Expose
     @SerializedName("current_team_id")
     val currentTeamId: Long?,
     @Expose
     @SerializedName("email")
-    val email: String,
+    val email: String?,
     @Expose
     @SerializedName("email_verified_at")
     val emailVerifiedAt: Long?,
     @Expose
     @SerializedName("houseNumber")
-    val houseNumber: String,
+    val houseNumber: String?,
     @Expose
     @SerializedName("id")
-    val id: Int,
+    val id: Int?,
     @Expose
     @SerializedName("name")
-    val name: String,
+    val name: String?,
     @Expose
     @SerializedName("phoneNumber")
-    val phoneNumber: String,
+    val phoneNumber: String?,
     @Expose
     @SerializedName("profile_photo_path")
     val profilePhotoPath: String?,
     @Expose
     @SerializedName("profile_photo_url")
-    val profilePhotoUrl: String,
+    val profilePhotoUrl: String?,
     @Expose
     @SerializedName("roles")
-    val roles: String,
+    val roles: String?,
     @Expose
     @SerializedName("updated_at")
-    val updatedAt: Long
+    val updatedAt: Long?
 )
 
-fun UserResponse.toDomain():User {
+fun UserResponse.toDomain(): User {
     return User(
-        address= this.address,
-        city = this.city,
-        createdAt = this.createdAt,
-        currentTeamId = this.currentTeamId?:-1,
-        email = this.email,
-        emailVerifiedAt = this.emailVerifiedAt?:-1,
-        houseNumber = this.houseNumber,
-        id = this.id,
-        name = this.name,
-        phoneNumber = this.phoneNumber,
-        profilePhotoPath = this.profilePhotoPath?:"",
-        profilePhotoUrl = this.profilePhotoUrl,
-        roles = this.roles,
-        updatedAt = this.updatedAt
+        address = this.address.orEmpty(),
+        city = this.city.orEmpty(),
+        email = this.email.orEmpty(),
+        houseNumber = this.houseNumber.orEmpty(),
+        id = this.id ?: -1,
+        name = this.name.orEmpty(),
+        phoneNumber = this.phoneNumber.orEmpty(),
+        profilePhotoPath = this.profilePhotoPath.orEmpty(),
+        profilePhotoUrl = this.profilePhotoUrl.orEmpty(),
     )
 }

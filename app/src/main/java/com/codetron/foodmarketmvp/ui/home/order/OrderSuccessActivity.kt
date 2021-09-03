@@ -1,4 +1,4 @@
-package com.codetron.foodmarketmvp.ui.order
+package com.codetron.foodmarketmvp.ui.home.order
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

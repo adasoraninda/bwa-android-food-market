@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/txt_title_detail_transaction"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/details_transaction"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_item_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            app:layout_constraintEnd_toStartOf="@id/spc_center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_title_detail_transaction"
+            tools:text="@tools:sample/lorem/random" />
+
+        <TextView
+            android:id="@+id/txt_driver"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/driver"
+            app:layout_constraintEnd_toEndOf="@id/txt_item_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_item_name" />
+
+        <TextView
+            android:id="@+id/txt_tax"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/tax"
+            app:layout_constraintEnd_toEndOf="@id/txt_item_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_driver" />
+
+        <TextView
+            android:id="@+id/txt_total_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/total_price_label"
+            app:layout_constraintEnd_toEndOf="@id/txt_item_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_tax" />
+
+        <TextView
+            android:id="@+id/txt_price_item"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="end"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            app:layout_constraintBaseline_toBaselineOf="@id/txt_item_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/spc_center"
+            app:layout_constraintTop_toTopOf="@id/txt_item_name"
+            tools:text="Rp.15000" />
+
+        <TextView
+            android:id="@+id/txt_price_driver"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="end"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            app:layout_constraintBaseline_toBaselineOf="@id/txt_driver"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/spc_center"
+            app:layout_constraintTop_toBottomOf="@id/txt_price_item"
+            tools:text="Rp.15000" />
+
+        <TextView
+            android:id="@+id/txt_price_tax"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="end"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            app:layout_constraintBaseline_toBaselineOf="@id/txt_tax"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/spc_center"
+            app:layout_constraintTop_toBottomOf="@id/txt_driver"
+            tools:text="Rp.15000" />
+
+        <TextView
+            android:id="@+id/txt_price_total"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="end"
+            android:maxLines="1"
+            android:textColor="?colorSecondary"
+            app:layout_constraintBaseline_toBaselineOf="@id/txt_total_price"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/spc_center"
+            app:layout_constraintTop_toBottomOf="@id/txt_price_tax"
+            tools:text="Rp.15000" />
+
+        <Space
+            android:id="@+id/spc_center"
+            android:layout_width="24dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/gdl_center"
+            app:layout_constraintStart_toStartOf="@id/gdl_center"
+            app:layout_constraintTop_toTopOf="@id/txt_item_name" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gdl_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

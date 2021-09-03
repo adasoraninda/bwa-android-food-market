@@ -47,6 +47,7 @@
                         android:layout_width="@dimen/dashboard_photo_size"
                         android:layout_height="@dimen/dashboard_photo_size"
                         android:background="?colorPrimary"
+                        android:scaleType="centerCrop"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:shapeAppearanceOverlay="@style/ImageCornerStyle" />

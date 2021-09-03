@@ -7,7 +7,7 @@
 
         <variable
             name="food"
-            type="com.codetron.foodmarketmvp.model.domain.food.Food" />
+            type="com.codetron.foodmarketmvp.model.domain.food.FoodItem" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -15,8 +15,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_item_card_horizontal"
         android:clickable="true"
-        android:focusable="true"
         android:clipChildren="true"
+        android:focusable="true"
         android:foreground="?selectableItemBackground"
         app:cardCornerRadius="@dimen/radius_size">
 
@@ -29,7 +29,7 @@
                 android:layout_width="@dimen/image_horizontal_width"
                 android:layout_height="@dimen/image_horizontal_height"
                 android:scaleType="centerCrop"
-                app:imageRes="@{food.image}"
+                app:imageRes="@{food.picturePath}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

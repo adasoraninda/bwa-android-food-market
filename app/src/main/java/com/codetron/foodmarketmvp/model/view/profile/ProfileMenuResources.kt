@@ -22,6 +22,10 @@ object ProfileMenuResources {
                 id = 14L,
                 title = R.string.payments,
             ),
+            ProfileMenu(
+                id = 15L,
+                title = R.string.logout,
+            ),
         )
     }
 

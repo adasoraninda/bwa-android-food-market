@@ -7,7 +7,7 @@
 
         <variable
             name="food"
-            type="com.codetron.foodmarketmvp.model.domain.food.Food" />
+            type="com.codetron.foodmarketmvp.model.domain.food.FoodItem" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -32,7 +32,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:background="?colorPrimary"
-                app:imageRes="@{food.image}"
+                app:imageRes="@{food.picturePath}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -64,11 +64,11 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/poppins_light"
                 android:maxLines="1"
-                app:textPrice="@{food.price}"
                 app:layout_constraintBottom_toBottomOf="@id/img_food"
                 app:layout_constraintEnd_toEndOf="@id/txt_food_name"
                 app:layout_constraintStart_toStartOf="@id/txt_food_name"
                 app:layout_constraintTop_toBottomOf="@id/txt_food_name"
+                app:textPrice="@{food.price}"
                 tools:text="@tools:sample/lorem/random" />
 
             <RatingBar

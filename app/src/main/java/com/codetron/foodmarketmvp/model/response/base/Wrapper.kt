@@ -7,8 +7,8 @@ import com.google.gson.annotations.SerializedName
 data class Wrapper<T>(
     @Expose
     @SerializedName("meta")
-    val meta: Meta,
+    val meta: Meta?,
     @Expose
     @SerializedName("data")
-    val `data`: T,
+    val `data`: T?,
 )

@@ -1,4 +1,4 @@
-package com.codetron.foodmarketmvp.ui.home.dashboard
+package com.codetron.foodmarketmvp.ui.home.dashboard.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +9,7 @@ class ListFoodViewHolderFactory(
     private val inflater: LayoutInflater,
     private val parent: ViewGroup,
     private var type: ListType = ListType.VERTICAL,
-    private val onItemClick: (id: Long?) -> Unit
+    private val onItemClick: (id: Int?) -> Unit
 ) {
 
     fun create(): FoodViewHolder {

@@ -12,9 +12,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.FoodMarketMVP">
+        android:theme="@style/Theme.FoodMarketMVP"
+        android:usesCleartextTraffic="true">
         <activity
-            android:name=".ui.order.OrderSuccessActivity"
+            android:name=".ui.home.order.OrderSuccessActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity

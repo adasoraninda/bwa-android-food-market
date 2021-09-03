@@ -3,16 +3,14 @@ package com.codetron.foodmarketmvp.ui.auth.signin
 import com.codetron.foodmarketmvp.base.FormValidation
 import com.codetron.foodmarketmvp.di.module.SignInValidation
 import com.codetron.foodmarketmvp.model.datastore.UserDataStore
-import com.codetron.foodmarketmvp.model.response.base.Wrapper
+import com.codetron.foodmarketmvp.model.response.login.getToken
 import com.codetron.foodmarketmvp.model.response.user.toDomain
 import com.codetron.foodmarketmvp.model.validation.SignInFormValidation
 import com.codetron.foodmarketmvp.network.FoodMarketApi
-import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import retrofit2.HttpException
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
@@ -43,12 +41,12 @@ class SignInPresenter @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->
-                val code = response.meta.code
+                val code = response.meta?.code
                 val body = response.data
 
-                if (code == 200 && body.user != null) {
+                if (code == 200 && body?.user != null) {
                     compositeDisposable.add(
-                        dataStore.saveToken(body.accessToken)
+                        dataStore.saveToken(body.getToken())
                             .subscribe({ prefs ->
                                 if (!prefs[UserDataStore.PREFERENCES_TOKEN].isNullOrEmpty()) {
                                     view.onLoginSuccess(body.user.toDomain())
@@ -58,19 +56,12 @@ class SignInPresenter @Inject constructor(
                             })
                     )
                 } else {
-                    view.onLoginFailed(response.meta.message)
+                    view.onLoginFailed(response.meta?.message.toString())
                 }
 
                 view.dismissLoading()
             }, { error ->
-                var message: String = error.message.toString()
-
-                if (error is HttpException) {
-                    val errorResponse = error.response()?.errorBody()?.string()
-                    if (errorResponse != null) {
-                        message = Gson().fromJson(errorResponse, Wrapper::class.java).meta.message
-                    }
-                }
+                val message = handleException(error)
 
                 view.onLoginFailed(message)
                 view.dismissLoading()

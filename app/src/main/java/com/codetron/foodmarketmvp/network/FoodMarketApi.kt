@@ -1,8 +1,11 @@
 package com.codetron.foodmarketmvp.network
 
 import com.codetron.foodmarketmvp.model.response.base.Wrapper
+import com.codetron.foodmarketmvp.model.response.food.FoodBaseResponse
+import com.codetron.foodmarketmvp.model.response.food.FoodResponse
 import com.codetron.foodmarketmvp.model.response.login.LoginResponse
 import com.codetron.foodmarketmvp.model.response.register.RegisterResponse
+import com.codetron.foodmarketmvp.model.response.user.UserResponse
 import io.reactivex.Observable
 import okhttp3.MultipartBody
 import retrofit2.http.*
@@ -35,5 +38,21 @@ interface FoodMarketApi {
         @Header("Authorization") token: String,
         @Part profileImage: MultipartBody.Part
     ): Observable<Wrapper<List<String>>>
+
+    @GET(PATH_FOOD)
+    fun getAllFood(
+        @Query("limit") limit: Int = 10,
+        @Query("types") types: String? = null
+    ): Observable<Wrapper<FoodBaseResponse>>
+
+    @GET(PATH_FOOD)
+    fun getFoodById(
+        @Query("id") id: Int
+    ): Observable<Wrapper<FoodResponse>>
+
+    @GET(PATH_USER)
+    fun getUser(
+        @Header("Authorization") token: String,
+    ): Observable<Wrapper<UserResponse>>
 
 }

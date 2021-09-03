@@ -33,12 +33,12 @@
     <string name="new_taste">New Taste</string>
     <string name="popular">Popular</string>
     <string name="account">Account</string>
-
     <string name="edit_profile">Edit Profile</string>
     <string name="home_address">Home Address</string>
     <string name="security">Security</string>
     <string name="payments">Payments</string>
-
+    <string name="payment_title">Payment</string>
+    <string name="payment_subtitle">You deserved better meal</string>
     <string name="rate_app">Rate App</string>
     <string name="help_center">Help Center</string>
     <string name="privacy_policy">Privacy &amp; Policy</string>
@@ -48,6 +48,7 @@
     <string name="orders_subtitle">Wait for the best meal</string>
     <string name="orders_title">Your Orders</string>
     <string name="total_price">Total Price:</string>
+    <string name="total_price_label">Total Price</string>
     <string name="order_now">Order Now</string>
     <string name="ingredients">Ingredients: </string>
     <string name="order_success_sub_title">Just stay at home while we are\npreparing your best foods</string>
@@ -56,7 +57,15 @@
     <string name="view_my_order">View My Order</string>
     <string name="default_total">1</string>
     <string name="action_ok">OK</string>
-
     <string name="alert_title_exit">Exit</string>
     <string name="alert_desc_exit">Are you sure you want to\nleave this page?</string>
+    <string name="logout">Logout</string>
+    <string name="item_ordered">Item Ordered</string>
+    <string name="format_total_item">%d items</string>
+    <string name="details_transaction">Details Transaction</string>
+    <string name="driver">Driver</string>
+    <string name="tax">Tax</string>
+    <string name="deliver_to_label">Deliver to:</string>
+    <string name="name">Name</string>
+    <string name="checkout_now">Checkout Now</string>
 </resources>

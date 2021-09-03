@@ -11,6 +11,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -33,6 +34,7 @@ class NetworkModule {
     @Provides
     fun provideGson(): Gson {
         return Gson().newBuilder()
+            .setLenient()
             .excludeFieldsWithoutExposeAnnotation()
             .setDateFormat(datePatternJson)
             .registerTypeAdapter(Date::class.java, JsonDeserializer { json, _, _ ->
@@ -54,6 +56,13 @@ class NetworkModule {
             .connectTimeout(2, TimeUnit.MINUTES)
             .readTimeout(2, TimeUnit.MINUTES)
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .addInterceptor(Interceptor { chain ->
+                val request = chain.request()
+                    .newBuilder()
+                    .addHeader("accept", "application/json")
+                    .build()
+                chain.proceed(request)
+            })
             .build()
     }
 
