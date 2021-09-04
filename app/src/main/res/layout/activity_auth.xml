@@ -7,7 +7,7 @@
 
         <variable
             name="toolbarData"
-            type="com.codetron.foodmarketmvp.model.view.ToolbarData" />
+            type="com.codetron.foodmarketmvp.model.domain.view.ToolbarData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

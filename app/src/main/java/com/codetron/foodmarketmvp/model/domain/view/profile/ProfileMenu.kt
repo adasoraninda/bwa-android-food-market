@@ -1,4 +1,4 @@
-package com.codetron.foodmarketmvp.model.view.profile
+package com.codetron.foodmarketmvp.model.domain.view.profile
 
 import androidx.annotation.StringRes
 

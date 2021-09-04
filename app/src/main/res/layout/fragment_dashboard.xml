@@ -1,93 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/apb_dashboard"
+    <data>
+
+        <variable
+            name="user"
+            type="com.codetron.foodmarketmvp.model.domain.user.User" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/window_background"
-        app:elevation="0dp"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/ctb_dashboard"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/apb_dashboard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:contentScrim="@color/yellow_light"
-            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
-            app:titleEnabled="false">
+            android:background="@color/window_background"
+            app:elevation="0dp"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <include
-                android:id="@+id/lyt_content_dashboard_header"
-                layout="@layout/content_dashboard_header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/tlb_dashboard"
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/ctb_dashboard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_collapseMode="pin"
-                app:layout_constraintTop_toTopOf="parent"
-                app:subtitle="@string/app_name_subtitle"
-                app:title="@string/app_name"
-                tools:title="@string/app_name">
+                app:contentScrim="@color/yellow_light"
+                app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+                app:titleEnabled="false">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="wrap_content"
+                <include
+                    android:id="@+id/lyt_content_dashboard_header"
+                    layout="@layout/content_dashboard_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/tlb_dashboard"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end">
+                    app:layout_collapseMode="pin"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:subtitle="@string/app_name_subtitle"
+                    app:title="@string/app_name"
+                    tools:title="@string/app_name">
 
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/img_profile_home"
-                        android:layout_width="@dimen/dashboard_photo_size"
-                        android:layout_height="@dimen/dashboard_photo_size"
-                        android:background="?colorPrimary"
-                        android:scaleType="centerCrop"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:shapeAppearanceOverlay="@style/ImageCornerStyle" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end">
 
-                    <include
-                        android:id="@+id/lyt_image_photo"
-                        layout="@layout/layout_image_photo"
-                        android:layout_width="@dimen/dashboard_photo_size"
-                        android:layout_height="@dimen/dashboard_photo_size"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/img_profile_home"
+                            android:layout_width="@dimen/dashboard_photo_size"
+                            android:layout_height="@dimen/dashboard_photo_size"
+                            android:background="?colorPrimary"
+                            android:scaleType="centerCrop"
+                            app:imageRes="@{user.profilePhotoUrl}"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:shapeAppearanceOverlay="@style/ImageCornerStyle" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        <include
+                            android:id="@+id/lyt_image_photo"
+                            layout="@layout/layout_image_photo"
+                            android:layout_width="@dimen/dashboard_photo_size"
+                            android:layout_height="@dimen/dashboard_photo_size"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-            </androidx.appcompat.widget.Toolbar>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+                </androidx.appcompat.widget.Toolbar>
 
-    </com.google.android.material.appbar.AppBarLayout>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/nsv_dashboard"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        </com.google.android.material.appbar.AppBarLayout>
 
-        <Space
-            android:id="@+id/spc_dashboard_top"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/nsv_dashboard"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/space_toolbar_with_content_small"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <include
-            android:id="@+id/lyt_content_dashboard_body"
-            layout="@layout/content_tab_body"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/spc_dashboard_top" />
+            <Space
+                android:id="@+id/spc_dashboard_top"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_toolbar_with_content_small"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <include
+                android:id="@+id/lyt_content_dashboard_body"
+                layout="@layout/content_tab_body"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/spc_dashboard_top" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

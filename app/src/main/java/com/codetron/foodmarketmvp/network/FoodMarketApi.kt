@@ -1,6 +1,7 @@
 package com.codetron.foodmarketmvp.network
 
 import com.codetron.foodmarketmvp.model.response.base.Wrapper
+import com.codetron.foodmarketmvp.model.response.checkout.CheckoutResponse
 import com.codetron.foodmarketmvp.model.response.food.FoodBaseResponse
 import com.codetron.foodmarketmvp.model.response.food.FoodResponse
 import com.codetron.foodmarketmvp.model.response.login.LoginResponse
@@ -54,5 +55,21 @@ interface FoodMarketApi {
     fun getUser(
         @Header("Authorization") token: String,
     ): Observable<Wrapper<UserResponse>>
+
+    @FormUrlEncoded
+    @POST(PATH_CHECKOUT)
+    fun foodCheckout(
+        @Field("food_id") foodId: Int,
+        @Field("user_id") userId: Int,
+        @Field("quantity") quantity: Int,
+        @Field("total") total: Int,
+        @Field("status") status: String
+    ): Observable<Wrapper<CheckoutResponse>>
+
+
+    @POST(PATH_LOGOUT)
+    fun userLogout(
+        @Header("Authorization") token: String,
+    ): Observable<Wrapper<Boolean>>
 
 }

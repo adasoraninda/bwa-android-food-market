@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="food"
+            type="com.codetron.foodmarketmvp.model.domain.food.FoodCheckout" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,6 +35,7 @@
             android:layout_marginTop="8dp"
             android:ellipsize="end"
             android:maxLines="2"
+            android:text="@{food.food.name}"
             app:layout_constraintEnd_toStartOf="@id/spc_center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txt_title_detail_transaction"
@@ -85,6 +89,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/spc_center"
             app:layout_constraintTop_toTopOf="@id/txt_item_name"
+            app:textPrice="@{food.food.price}"
             tools:text="Rp.15000" />
 
         <TextView
@@ -99,6 +104,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/spc_center"
             app:layout_constraintTop_toBottomOf="@id/txt_price_item"
+            app:textPrice="@{food.pricesCalculator.driverPrice}"
             tools:text="Rp.15000" />
 
         <TextView
@@ -113,6 +119,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/spc_center"
             app:layout_constraintTop_toBottomOf="@id/txt_driver"
+            app:textPrice="@{food.calculateTax()}"
             tools:text="Rp.15000" />
 
         <TextView
@@ -127,6 +134,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/spc_center"
             app:layout_constraintTop_toBottomOf="@id/txt_price_tax"
+            app:textPrice="@{food.calculateTotal}"
             tools:text="Rp.15000" />
 
         <Space

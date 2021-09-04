@@ -1,4 +1,4 @@
-package com.codetron.foodmarketmvp.model.datastore
+package com.codetron.foodmarketmvp.model.domain.datastore
 
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.stringPreferencesKey
@@ -15,7 +15,6 @@ class UserDataStore @Inject constructor(private val dataStore: RxDataStore<Prefe
 
     companion object {
         val PREFERENCES_TOKEN = stringPreferencesKey("PREFERENCES_TOKEN")
-        val PREFERENCES_USER = stringPreferencesKey("PREFERENCES_USER")
     }
 
     fun saveToken(token: String): Single<Preferences> {
@@ -30,16 +29,12 @@ class UserDataStore @Inject constructor(private val dataStore: RxDataStore<Prefe
         return dataStore.data().map { prefs -> prefs[PREFERENCES_TOKEN] }
     }
 
-    fun saveUser(username: String): Single<Preferences> {
+    fun removeToken(): Single<Preferences> {
         return dataStore.updateDataAsync { prefsIn ->
             val mutablePreferences = prefsIn.toMutablePreferences()
-            mutablePreferences[PREFERENCES_USER] = username
+            mutablePreferences[PREFERENCES_TOKEN] = ""
             Single.just(mutablePreferences)
         }
-    }
-
-    fun getUser(): Flowable<String> {
-        return dataStore.data().map { prefs -> prefs[PREFERENCES_USER] }
     }
 
 }

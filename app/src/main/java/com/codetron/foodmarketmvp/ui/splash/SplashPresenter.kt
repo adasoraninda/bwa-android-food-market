@@ -1,6 +1,6 @@
 package com.codetron.foodmarketmvp.ui.splash
 
-import com.codetron.foodmarketmvp.model.datastore.UserDataStore
+import com.codetron.foodmarketmvp.model.domain.datastore.UserDataStore
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -20,7 +20,7 @@ class SplashPresenter @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ token ->
-                if (token != null) {
+                if (!token.isNullOrEmpty()) {
                     view.navigate(SplashActivity.KEY_HOME)
                 } else {
                     view.navigate(SplashActivity.KEY_LOGIN)

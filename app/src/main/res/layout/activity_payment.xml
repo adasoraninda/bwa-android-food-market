@@ -4,6 +4,13 @@
 
     <data>
 
+        <variable
+            name="food"
+            type="com.codetron.foodmarketmvp.model.domain.food.FoodCheckout" />
+
+        <variable
+            name="user"
+            type="com.codetron.foodmarketmvp.model.domain.user.User" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,16 +39,33 @@
             android:layout_height="@dimen/space_toolbar_with_content"
             app:layout_constraintTop_toBottomOf="@id/apb_payment" />
 
-        <include
-            android:id="@+id/lyt_payment_body"
-            layout="@layout/layout_payment_body"
+        <ScrollView
+            android:id="@+id/scl_payment_body"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/spc_payment_top" />
+            android:layout_height="0dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:fillViewport="true"
+            android:paddingBottom="90dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:scrollbars="none"
+            app:layout_constraintTop_toBottomOf="@id/spc_payment_top">
+
+            <include
+                android:id="@+id/lyt_payment_body"
+                layout="@layout/layout_payment_body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:food="@{food}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/spc_payment_top"
+                app:user="@{user}" />
+
+        </ScrollView>
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_checkout_now"
             style="@style/ButtonPrimaryStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -52,6 +76,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/spc_payment_top"
             app:layout_constraintVertical_bias="1" />
+
+        <ProgressBar
+            android:id="@+id/pbr_payment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

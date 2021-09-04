@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.codetron.foodmarketmvp.R
 import com.codetron.foodmarketmvp.databinding.FragmentFoodCategoriesBinding
 import com.codetron.foodmarketmvp.model.domain.food.FoodItem
+import com.codetron.foodmarketmvp.ui.home.dashboard.DashboardFragmentDirections
 import com.codetron.foodmarketmvp.ui.home.dashboard.adapter.FoodListAdapter
 import com.codetron.foodmarketmvp.ui.home.dashboard.adapter.ListType
 import dagger.hilt.android.AndroidEntryPoint
@@ -76,9 +78,8 @@ class FoodCategoriesFragment : Fragment(), (Int?) -> Unit, FoodCategoriesContrac
 
     override fun invoke(id: Int?) {
         if (id != null) {
-            Toast.makeText(requireContext(), "$id", Toast.LENGTH_SHORT).show()
-//            val dashboardDirections = DashboardFragmentDirections.dashboardToDetailFood(id)
-//            findNavController().navigate(dashboardDirections)
+            val dashboardDirections = DashboardFragmentDirections.dashboardToDetailFood(id)
+            findNavController().navigate(dashboardDirections)
         }
     }
 

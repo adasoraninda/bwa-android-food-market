@@ -8,13 +8,29 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import com.codetron.foodmarketmvp.R
-import com.codetron.foodmarketmvp.model.view.profile.ProfileMenuResources
 import com.codetron.foodmarketmvp.databinding.FragmentProfileMenuBinding
+import com.codetron.foodmarketmvp.model.domain.view.profile.ProfileMenu
+import com.codetron.foodmarketmvp.ui.auth.AuthActivity
+import com.codetron.foodmarketmvp.ui.customview.CustomAlertDialog
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import javax.inject.Inject
 
-class ProfileMenuFragment : Fragment(), ProfileMenuClickListener {
+@ExperimentalCoroutinesApi
+@AndroidEntryPoint
+class ProfileMenuFragment : Fragment(), ProfileMenuClickListener, ProfileMenuContract.View {
 
     private var _binding: FragmentProfileMenuBinding? = null
     private val binding get() = _binding
+
+    @Inject
+    lateinit var presenterFactory: ProfileMenuPresenter.Factory
+
+    private val presenter by lazy {
+        presenterFactory.create(
+            arguments?.getSerializable(MENU_KEY) as ProfileMenuType
+        )
+    }
 
     private val profileMenuAdapter: ProfileMenuListAdapter by lazy {
         ProfileMenuListAdapter(this)
@@ -26,7 +42,18 @@ class ProfileMenuFragment : Fragment(), ProfileMenuClickListener {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentProfileMenuBinding.inflate(inflater, container, false)
+
+        if (savedInstanceState == null) {
+            presenter.subscribe()
+        }
+
         return binding?.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        presenter.unSubscribe()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,11 +63,43 @@ class ProfileMenuFragment : Fragment(), ProfileMenuClickListener {
 
     private fun initListMenu() {
         binding?.lstProfileMenu?.adapter = profileMenuAdapter
-        val listProfileMenu = when (arguments?.getSerializable(MENU_KEY) as ProfileMenuType) {
-            ProfileMenuType.ACCOUNT -> ProfileMenuResources.getAccountResources()
-            ProfileMenuType.FOOD_MARKET -> ProfileMenuResources.getFoodMarketResources()
-        }
-        profileMenuAdapter.setMenuItems(listProfileMenu)
+    }
+
+    override fun setOnClickListener(id: Long) {
+        presenter.onMenuClicked(id)
+    }
+
+    override fun navigate(id: Long) {
+        Toast.makeText(
+            requireContext(),
+            "$id",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    override fun onLogoutSuccess() {
+        AuthActivity.navigate(requireContext())
+        requireActivity().finishAffinity()
+    }
+
+    override fun onLogoutFailed(message: String) {
+        Toast.makeText(
+            requireContext(),
+            message,
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    override fun onGetMenuItemSuccess(menus: List<ProfileMenu>) {
+        profileMenuAdapter.setMenuItems(menus)
+    }
+
+    override fun onGetMenuItemFailed(message: String) {
+        Toast.makeText(
+            requireContext(),
+            message,
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     companion object {
@@ -54,27 +113,9 @@ class ProfileMenuFragment : Fragment(), ProfileMenuClickListener {
             }
         }
     }
-
-    override fun setOnClickListener(id: Long) {
-        val resources =
-            if ((arguments?.getSerializable(MENU_KEY) as ProfileMenuType) == ProfileMenuType.ACCOUNT) {
-                ProfileMenuResources.getAccountResources()
-            } else {
-                ProfileMenuResources.getFoodMarketResources()
-            }
-
-        val resTitle = resources
-            .filter { profileMenu -> profileMenu.id == id }
-            .map { profileMenu -> profileMenu.title }
-            .firstOrNull()
-
-        if (resTitle != null) {
-            Toast.makeText(requireContext(), getString(resTitle), Toast.LENGTH_SHORT).show()
-        }
-    }
-
 }
 
+@ExperimentalCoroutinesApi
 object ProfileSection {
     fun getFragments(): List<Fragment> {
         return ProfileMenuType.values().map {

@@ -1,6 +1,6 @@
 package com.codetron.foodmarketmvp.ui.home.dashboard
 
-import com.codetron.foodmarketmvp.model.datastore.UserDataStore
+import com.codetron.foodmarketmvp.model.domain.datastore.UserDataStore
 import com.codetron.foodmarketmvp.model.response.food.FoodResponse
 import com.codetron.foodmarketmvp.model.response.food.toItemDomain
 import com.codetron.foodmarketmvp.model.response.user.toDomain
@@ -81,7 +81,7 @@ class DashboardPresenter @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ token ->
-                if (token != null) {
+                if (!token.isNullOrEmpty()) {
                     getUser(token)
                 } else {
                     view.onGetDataFailed("Token is empty")

@@ -5,6 +5,10 @@
 
     <data>
 
+        <variable
+            name="user"
+            type="com.codetron.foodmarketmvp.model.domain.user.User" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -92,6 +96,7 @@
             android:ellipsize="end"
             android:gravity="end"
             android:maxLines="1"
+            android:text="@{user.name}"
             android:textColor="@color/black"
             app:layout_constraintBaseline_toBaselineOf="@id/txt_label_name"
             app:layout_constraintEnd_toEndOf="parent"
@@ -106,6 +111,7 @@
             android:ellipsize="end"
             android:gravity="end"
             android:maxLines="1"
+            android:text="@{user.phoneNumber}"
             android:textColor="@color/black"
             app:layout_constraintBaseline_toBaselineOf="@id/txt_label_phone_no"
             app:layout_constraintEnd_toEndOf="parent"
@@ -120,6 +126,7 @@
             android:ellipsize="end"
             android:gravity="end"
             android:maxLines="1"
+            android:text="@{user.address}"
             android:textColor="@color/black"
             app:layout_constraintBaseline_toBaselineOf="@id/txt_label_address"
             app:layout_constraintEnd_toEndOf="parent"
@@ -134,6 +141,7 @@
             android:ellipsize="end"
             android:gravity="end"
             android:maxLines="1"
+            android:text="@{user.houseNumber}"
             android:textColor="@color/black"
             app:layout_constraintBaseline_toBaselineOf="@id/txt_label_house_no"
             app:layout_constraintEnd_toEndOf="parent"
@@ -148,6 +156,7 @@
             android:ellipsize="end"
             android:gravity="end"
             android:maxLines="1"
+            android:text="@{user.city}"
             android:textColor="@color/black"
             app:layout_constraintBaseline_toBaselineOf="@id/txt_label_city"
             app:layout_constraintEnd_toEndOf="parent"

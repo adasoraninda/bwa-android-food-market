@@ -9,6 +9,8 @@ import com.codetron.foodmarketmvp.databinding.ActivityDetailFoodBinding
 import com.codetron.foodmarketmvp.databinding.LayoutBottomSheetDetailFoodBinding
 import com.codetron.foodmarketmvp.databinding.LayoutDetailTotalFoodBinding
 import com.codetron.foodmarketmvp.model.domain.food.Food
+import com.codetron.foodmarketmvp.model.domain.food.FoodCheckout
+import com.codetron.foodmarketmvp.ui.payment.PaymentActivity
 import com.codetron.foodmarketmvp.util.BindingAdapter.setTextPrice
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -43,6 +45,7 @@ class DetailFoodActivity : AppCompatActivity(), DetailFoodContract.View {
 
         lytTotalFood?.btnMin?.setOnClickListener { presenter.buttonMinTotalPressed() }
         lytTotalFood?.btnAdd?.setOnClickListener { presenter.buttonAddTotalPressed() }
+        lytBottomSheetDetail?.btnOrderNow?.setOnClickListener { presenter.onCheckOutClicked() }
         binding?.tlbDetailFood?.setNavigationOnClickListener { finish() }
     }
 
@@ -85,8 +88,8 @@ class DetailFoodActivity : AppCompatActivity(), DetailFoodContract.View {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun submitCheckout() {
-
+    override fun submitCheckout(food: FoodCheckout) {
+        PaymentActivity.navigate(this, food)
     }
 
     override fun updatePrice(price: Int) {

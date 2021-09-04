@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.codetron.foodmarketmvp.model.view.profile.ProfileMenu
+import com.codetron.foodmarketmvp.model.domain.view.profile.ProfileMenu
 import com.codetron.foodmarketmvp.databinding.ItemProfileMenuBinding
 
 class ProfileMenuListAdapter(private val clickListener: ProfileMenuClickListener) :

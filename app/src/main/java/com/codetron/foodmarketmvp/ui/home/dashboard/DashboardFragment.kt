@@ -6,9 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import com.codetron.foodmarketmvp.R
 import com.codetron.foodmarketmvp.databinding.FragmentDashboardBinding
 import com.codetron.foodmarketmvp.model.domain.food.FoodItem
 import com.codetron.foodmarketmvp.model.domain.user.User
@@ -104,16 +101,7 @@ class DashboardFragment : Fragment(), (Int?) -> Unit, DashboardContract.View {
 
     override fun onGetUserSuccess(user: User) {
         binding?.lytImagePhoto?.root?.visibility = View.GONE
-        binding?.imgProfileHome?.let {
-            Glide.with(this)
-                .applyDefaultRequestOptions(
-                    RequestOptions()
-                        .placeholder(R.color.yellow_light)
-                        .error(R.drawable.ic_error_image)
-                )
-                .load(user.profilePhotoUrl)
-                .into(it)
-        }
+        binding?.user = user
     }
 
     override fun onGetDataFailed(message: String) {

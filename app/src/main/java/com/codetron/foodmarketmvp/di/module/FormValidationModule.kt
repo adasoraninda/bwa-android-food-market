@@ -1,9 +1,9 @@
 package com.codetron.foodmarketmvp.di.module
 
 import com.codetron.foodmarketmvp.base.FormValidation
-import com.codetron.foodmarketmvp.model.validation.SignInFormValidation
-import com.codetron.foodmarketmvp.model.validation.SignUpAddressFormValidation
-import com.codetron.foodmarketmvp.model.validation.SignUpFormValidation
+import com.codetron.foodmarketmvp.model.domain.validation.SignInFormValidation
+import com.codetron.foodmarketmvp.model.domain.validation.SignUpAddressFormValidation
+import com.codetron.foodmarketmvp.model.domain.validation.SignUpFormValidation
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

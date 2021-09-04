@@ -56,9 +56,11 @@
     <string name="order_other_foods">Order Other Foods</string>
     <string name="view_my_order">View My Order</string>
     <string name="default_total">1</string>
+    <string name="default_price">0</string>
     <string name="action_ok">OK</string>
     <string name="alert_title_exit">Exit</string>
     <string name="alert_desc_exit">Are you sure you want to\nleave this page?</string>
+    <string name="alert_desc_logout">Are you sure you want to logout?</string>
     <string name="logout">Logout</string>
     <string name="item_ordered">Item Ordered</string>
     <string name="format_total_item">%d items</string>

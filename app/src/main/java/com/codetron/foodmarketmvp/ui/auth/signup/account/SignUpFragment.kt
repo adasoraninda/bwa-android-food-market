@@ -17,7 +17,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.codetron.foodmarketmvp.R
 import com.codetron.foodmarketmvp.databinding.FragmentSignUpBinding
 import com.codetron.foodmarketmvp.model.domain.user.UserRegister
-import com.codetron.foodmarketmvp.model.validation.SignUpFormValidation
+import com.codetron.foodmarketmvp.model.domain.validation.SignUpFormValidation
 import com.codetron.foodmarketmvp.ui.customview.LoadingDialog
 import com.github.dhaval2404.imagepicker.ImagePicker
 import dagger.hilt.android.AndroidEntryPoint
@@ -194,5 +194,10 @@ class SignUpFragment : Fragment(), SignUpContract.View {
             binding?.edtPassword?.requestFocus()
             return
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

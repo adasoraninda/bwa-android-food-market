@@ -12,7 +12,7 @@ import androidx.navigation.fragment.navArgs
 import com.codetron.foodmarketmvp.R
 import com.codetron.foodmarketmvp.databinding.FragmentSignUpAddressBinding
 import com.codetron.foodmarketmvp.model.domain.user.User
-import com.codetron.foodmarketmvp.model.validation.SignUpAddressFormValidation
+import com.codetron.foodmarketmvp.model.domain.validation.SignUpAddressFormValidation
 import com.codetron.foodmarketmvp.ui.customview.LoadingDialog
 import com.codetron.foodmarketmvp.ui.customview.SnackBarError
 import dagger.hilt.android.AndroidEntryPoint

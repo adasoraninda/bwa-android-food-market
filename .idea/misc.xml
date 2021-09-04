@@ -7,6 +7,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/drawable/bg_bottom_sheet.xml" value="0.2203125" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/drawable/bg_button_primary.xml" value="0.2203125" />
         <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/drawable/bg_outline_primary.xml" value="0.2203125" />
         <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/drawable/bg_outline_primary_error.xml" value="0.1527777777777778" />
         <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/drawable/bg_total_food.xml" value="0.2169230769230769" />
@@ -41,7 +42,7 @@
         <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/layout_detail_total_food.xml" value="0.20416666666666666" />
         <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/layout_image_photo.xml" value="0.20416666666666666" />
         <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/layout_item_ordered.xml" value="0.20416666666666666" />
-        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/layout_item_ordered_detail_transaction.xml" value="0.22" />
+        <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/layout_item_ordered_detail_transaction.xml" value="0.21" />
         <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/layout_item_ordered_transaction.xml" value="0.20416666666666666" />
         <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/layout_loading.xml" value="0.20102564102564102" />
         <entry key="..\:/DATA-DEDA/android/bwa/bwa-android-food-market/app/src/main/res/layout/layout_order_empty.xml" value="0.20416666666666666" />

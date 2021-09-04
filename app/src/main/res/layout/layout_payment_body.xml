@@ -4,45 +4,43 @@
 
     <data>
 
+        <variable
+            name="food"
+            type="com.codetron.foodmarketmvp.model.domain.food.FoodCheckout" />
+
+        <variable
+            name="user"
+            type="com.codetron.foodmarketmvp.model.domain.user.User" />
+
     </data>
 
-    <ScrollView
-        android:id="@+id/scl_payment_body"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:fillViewport="true"
-        android:paddingBottom="90dp"
-        android:scrollbars="none">
+        android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <include
+            android:id="@+id/lyt_item_ordered"
+            layout="@layout/layout_item_ordered"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:food="@{food}"
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <Space
+            android:id="@+id/spc_payment_mid"
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            app:layout_constraintBottom_toTopOf="@id/lyt_deliver_to"
+            app:layout_constraintTop_toBottomOf="@id/lyt_item_ordered" />
 
-            <include
-                android:id="@+id/lyt_item_ordered"
-                layout="@layout/layout_item_ordered"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent" />
+        <include
+            android:id="@+id/lyt_deliver_to"
+            layout="@layout/layout_deliver_to"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/spc_payment_mid"
+            app:user="@{user}" />
 
-            <Space
-                android:id="@+id/spc_payment_mid"
-                android:layout_width="match_parent"
-                android:layout_height="24dp"
-                app:layout_constraintBottom_toTopOf="@id/lyt_deliver_to"
-                app:layout_constraintTop_toBottomOf="@id/lyt_item_ordered" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <include
-                android:id="@+id/lyt_deliver_to"
-                layout="@layout/layout_deliver_to"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/spc_payment_mid" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </ScrollView>
 </layout>

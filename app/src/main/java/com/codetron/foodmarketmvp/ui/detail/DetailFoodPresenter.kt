@@ -1,6 +1,7 @@
 package com.codetron.foodmarketmvp.ui.detail
 
 import com.codetron.foodmarketmvp.model.domain.food.Food
+import com.codetron.foodmarketmvp.model.domain.food.FoodCheckout
 import com.codetron.foodmarketmvp.model.response.food.toDetailDomain
 import com.codetron.foodmarketmvp.network.FoodMarketApi
 import dagger.assisted.Assisted
@@ -73,4 +74,14 @@ class DetailFoodPresenter @AssistedInject constructor(
         food?.let { food -> view.updatePrice(totalItem * food.price) }
     }
 
+    override fun onCheckOutClicked() {
+        if (food == null) return
+
+        view.submitCheckout(
+            FoodCheckout(
+                food!!,
+                totalItem
+            )
+        )
+    }
 }

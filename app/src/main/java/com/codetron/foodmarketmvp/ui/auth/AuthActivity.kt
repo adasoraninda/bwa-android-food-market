@@ -9,7 +9,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.codetron.foodmarketmvp.R
 import com.codetron.foodmarketmvp.databinding.ActivityAuthBinding
-import com.codetron.foodmarketmvp.model.view.ToolbarData
+import com.codetron.foodmarketmvp.model.domain.view.ToolbarData
 import com.codetron.foodmarketmvp.ui.customview.CustomAlertDialog
 import dagger.hilt.android.AndroidEntryPoint
 

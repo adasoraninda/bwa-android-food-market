@@ -2,11 +2,11 @@ package com.codetron.foodmarketmvp.ui.auth.signup.address
 
 import com.codetron.foodmarketmvp.base.FormValidation
 import com.codetron.foodmarketmvp.di.module.SignUpAddressValidation
-import com.codetron.foodmarketmvp.model.datastore.UserDataStore
+import com.codetron.foodmarketmvp.model.domain.datastore.UserDataStore
 import com.codetron.foodmarketmvp.model.domain.user.UserRegister
 import com.codetron.foodmarketmvp.model.response.register.getToken
 import com.codetron.foodmarketmvp.model.response.user.toDomain
-import com.codetron.foodmarketmvp.model.validation.SignUpAddressFormValidation
+import com.codetron.foodmarketmvp.model.domain.validation.SignUpAddressFormValidation
 import com.codetron.foodmarketmvp.network.FoodMarketApi
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory

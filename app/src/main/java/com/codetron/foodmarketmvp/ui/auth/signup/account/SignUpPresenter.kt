@@ -4,7 +4,7 @@ import android.net.Uri
 import com.codetron.foodmarketmvp.base.FormValidation
 import com.codetron.foodmarketmvp.di.module.SignUpValidation
 import com.codetron.foodmarketmvp.model.domain.user.UserRegister
-import com.codetron.foodmarketmvp.model.validation.SignUpFormValidation
+import com.codetron.foodmarketmvp.model.domain.validation.SignUpFormValidation
 import javax.inject.Inject
 
 class SignUpPresenter @Inject constructor(

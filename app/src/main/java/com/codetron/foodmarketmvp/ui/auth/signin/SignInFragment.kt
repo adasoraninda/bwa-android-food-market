@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.codetron.foodmarketmvp.R
 import com.codetron.foodmarketmvp.databinding.FragmentSignInBinding
 import com.codetron.foodmarketmvp.model.domain.user.User
-import com.codetron.foodmarketmvp.model.validation.SignInFormValidation
+import com.codetron.foodmarketmvp.model.domain.validation.SignInFormValidation
 import com.codetron.foodmarketmvp.ui.customview.LoadingDialog
 import com.codetron.foodmarketmvp.ui.customview.SnackBarError
 import dagger.hilt.android.AndroidEntryPoint

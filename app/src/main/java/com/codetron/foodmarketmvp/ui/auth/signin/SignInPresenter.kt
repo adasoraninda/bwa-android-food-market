@@ -2,10 +2,10 @@ package com.codetron.foodmarketmvp.ui.auth.signin
 
 import com.codetron.foodmarketmvp.base.FormValidation
 import com.codetron.foodmarketmvp.di.module.SignInValidation
-import com.codetron.foodmarketmvp.model.datastore.UserDataStore
+import com.codetron.foodmarketmvp.model.domain.datastore.UserDataStore
+import com.codetron.foodmarketmvp.model.domain.validation.SignInFormValidation
 import com.codetron.foodmarketmvp.model.response.login.getToken
 import com.codetron.foodmarketmvp.model.response.user.toDomain
-import com.codetron.foodmarketmvp.model.validation.SignInFormValidation
 import com.codetron.foodmarketmvp.network.FoodMarketApi
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -47,6 +47,8 @@ class SignInPresenter @Inject constructor(
                 if (code == 200 && body?.user != null) {
                     compositeDisposable.add(
                         dataStore.saveToken(body.getToken())
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
                             .subscribe({ prefs ->
                                 if (!prefs[UserDataStore.PREFERENCES_TOKEN].isNullOrEmpty()) {
                                     view.onLoginSuccess(body.user.toDomain())
