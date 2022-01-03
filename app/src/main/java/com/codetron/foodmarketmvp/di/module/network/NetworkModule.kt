@@ -1,4 +1,4 @@
-package com.codetron.foodmarketmvp.di.module
+package com.codetron.foodmarketmvp.di.module.network
 
 import com.codetron.foodmarketmvp.BuildConfig
 import com.codetron.foodmarketmvp.network.FoodMarketApi
@@ -8,8 +8,6 @@ import com.google.gson.JsonPrimitive
 import com.google.gson.JsonSerializer
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -20,10 +18,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
 @Module
 @ExperimentalCoroutinesApi
-@InstallIn(SingletonComponent::class)
 class NetworkModule {
 
     private val apiEndPoint = "api/"
@@ -32,6 +30,7 @@ class NetworkModule {
     private val timeZoneId = "UTC"
 
     @Provides
+    @Singleton
     fun provideGson(): Gson {
         return Gson().newBuilder()
             .setLenient()
@@ -51,6 +50,7 @@ class NetworkModule {
     }
 
     @Provides
+    @Singleton
     fun provideClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .connectTimeout(2, TimeUnit.MINUTES)
@@ -67,6 +67,7 @@ class NetworkModule {
     }
 
     @Provides
+    @Singleton
     fun provideRetrofit(
         gson: Gson,
         client: OkHttpClient
@@ -80,6 +81,7 @@ class NetworkModule {
     }
 
     @Provides
+    @Singleton
     fun provideApi(retrofit: Retrofit): FoodMarketApi {
         return retrofit.create(FoodMarketApi::class.java)
     }

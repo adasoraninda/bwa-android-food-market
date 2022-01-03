@@ -1,4 +1,4 @@
-package com.codetron.foodmarketmvp.util.dummy
+package com.codetron.foodmarketmvp.util
 
 import com.codetron.foodmarketmvp.model.domain.food.FoodItem
 

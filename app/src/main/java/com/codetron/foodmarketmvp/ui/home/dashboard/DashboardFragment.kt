@@ -6,32 +6,28 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.codetron.foodmarketmvp.customview.SnackBarError
 import com.codetron.foodmarketmvp.databinding.FragmentDashboardBinding
 import com.codetron.foodmarketmvp.model.domain.food.FoodItem
 import com.codetron.foodmarketmvp.model.domain.user.User
-import com.codetron.foodmarketmvp.ui.customview.SnackBarError
 import com.codetron.foodmarketmvp.ui.home.adapter.SectionViewPager
 import com.codetron.foodmarketmvp.ui.home.dashboard.adapter.FoodListAdapter
 import com.codetron.foodmarketmvp.ui.home.dashboard.adapter.ListType
 import com.codetron.foodmarketmvp.ui.home.dashboard.categories.FoodCategory
 import com.codetron.foodmarketmvp.ui.home.dashboard.categories.FoodCategoryType
 import com.google.android.material.tabs.TabLayoutMediator
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
-@AndroidEntryPoint
 @ExperimentalCoroutinesApi
 class DashboardFragment : Fragment(), (Int?) -> Unit, DashboardContract.View {
 
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding
 
-    @Inject
     lateinit var presenter: DashboardContract.Presenter
 
     private val bindingHeader by lazy { binding?.lytContentDashboardHeader }
-    private val bindingBody by lazy { binding?.lytContentDashboardBody }
     private var snackBarError: SnackBarError? = null
 
     private val foodsAdapter: FoodListAdapter by lazy {
@@ -68,10 +64,10 @@ class DashboardFragment : Fragment(), (Int?) -> Unit, DashboardContract.View {
     }
 
     private fun initTabLayout() {
-        bindingBody?.vpgSection?.adapter = foodCategoriesViewPager
+        binding?.vpgSection?.adapter = foodCategoriesViewPager
 
-        val viewPager = bindingBody?.vpgSection
-        val tabLayout = bindingBody?.tblSection
+        val viewPager = binding?.vpgSection
+        val tabLayout = binding?.tblSection
 
         if (tabLayout != null && viewPager != null) {
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
@@ -101,7 +97,6 @@ class DashboardFragment : Fragment(), (Int?) -> Unit, DashboardContract.View {
 
     override fun onGetUserSuccess(user: User) {
         binding?.lytImagePhoto?.root?.visibility = View.GONE
-        binding?.user = user
     }
 
     override fun onGetDataFailed(message: String) {

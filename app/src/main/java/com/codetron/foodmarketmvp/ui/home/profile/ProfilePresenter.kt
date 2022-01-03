@@ -10,7 +10,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
-class ProfilePresenter @Inject constructor(
+class ProfilePresenter (
     private val view: ProfileContract.View,
     private val dataStore: UserDataStore,
     private val serviceApi: FoodMarketApi

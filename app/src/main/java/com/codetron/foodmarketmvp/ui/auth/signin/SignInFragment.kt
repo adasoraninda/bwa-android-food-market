@@ -12,22 +12,19 @@ import com.codetron.foodmarketmvp.R
 import com.codetron.foodmarketmvp.databinding.FragmentSignInBinding
 import com.codetron.foodmarketmvp.model.domain.user.User
 import com.codetron.foodmarketmvp.model.domain.validation.SignInFormValidation
-import com.codetron.foodmarketmvp.ui.customview.LoadingDialog
-import com.codetron.foodmarketmvp.ui.customview.SnackBarError
-import dagger.hilt.android.AndroidEntryPoint
+import com.codetron.foodmarketmvp.customview.LoadingDialog
+import com.codetron.foodmarketmvp.customview.SnackBarError
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
 private const val SIGN_IN_LOADING_TAG = "SIGN_IN_LOADING_TAG"
 
-@AndroidEntryPoint
 @ExperimentalCoroutinesApi
 class SignInFragment : Fragment(), SignInContract.View {
 
     private var _binding: FragmentSignInBinding? = null
     private val binding get() = _binding
 
-    @Inject
     lateinit var presenter: SignInContract.Presenter
 
     private val loadingDialog by lazy { LoadingDialog() }

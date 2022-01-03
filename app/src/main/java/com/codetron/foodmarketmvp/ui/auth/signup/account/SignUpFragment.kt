@@ -18,20 +18,17 @@ import com.codetron.foodmarketmvp.R
 import com.codetron.foodmarketmvp.databinding.FragmentSignUpBinding
 import com.codetron.foodmarketmvp.model.domain.user.UserRegister
 import com.codetron.foodmarketmvp.model.domain.validation.SignUpFormValidation
-import com.codetron.foodmarketmvp.ui.customview.LoadingDialog
+import com.codetron.foodmarketmvp.customview.LoadingDialog
 import com.github.dhaval2404.imagepicker.ImagePicker
-import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 private const val SIGN_UP_LOADING_TAG = "SIGN_UP_LOADING_TAG"
 
-@AndroidEntryPoint
 class SignUpFragment : Fragment(), SignUpContract.View {
 
     private var _binding: FragmentSignUpBinding? = null
     private val binding get() = _binding
 
-    @Inject
     lateinit var presenter: SignUpContract.Presenter
 
     private val loadingDialog by lazy { LoadingDialog() }

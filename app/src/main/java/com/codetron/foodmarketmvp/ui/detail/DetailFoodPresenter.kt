@@ -11,16 +11,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class DetailFoodPresenter @AssistedInject constructor(
+class DetailFoodPresenter (
     private val view: DetailFoodContract.View,
     private val serviceApi: FoodMarketApi,
-    @Assisted private val foodId: Int
+   private val foodId: Int
 ) : DetailFoodContract.Presenter {
-
-    @AssistedFactory
-    interface Factory {
-        fun create(foodId: Int): DetailFoodPresenter
-    }
 
     private val compositeDisposable by lazy { CompositeDisposable() }
     private var totalItem = 1

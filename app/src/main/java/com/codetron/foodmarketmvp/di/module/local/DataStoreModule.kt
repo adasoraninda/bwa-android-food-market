@@ -1,4 +1,4 @@
-package com.codetron.foodmarketmvp.di.module
+package com.codetron.foodmarketmvp.di.module.local
 
 import android.content.Context
 import androidx.datastore.preferences.core.Preferences
@@ -6,15 +6,12 @@ import androidx.datastore.preferences.rxjava2.RxPreferenceDataStoreBuilder
 import androidx.datastore.rxjava2.RxDataStore
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Named
+import javax.inject.Singleton
 
 @Module
 @ExperimentalCoroutinesApi
-@InstallIn(SingletonComponent::class)
 class DataStoreModule {
 
     @Provides
@@ -22,8 +19,9 @@ class DataStoreModule {
     fun providePrefFile() = "PREFERENCES_FILE"
 
     @Provides
+    @Singleton
     fun provideDataStore(
-        @ApplicationContext context: Context,
+        context: Context,
         @Named("DataStore") fileName: String
     ): RxDataStore<Preferences> {
         return RxPreferenceDataStoreBuilder(context, fileName).build()

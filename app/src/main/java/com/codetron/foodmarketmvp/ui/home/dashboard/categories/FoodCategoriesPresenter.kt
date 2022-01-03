@@ -10,22 +10,16 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class FoodCategoriesPresenter @AssistedInject constructor(
+class FoodCategoriesPresenter (
     private val view: FoodCategoriesContract.View,
     private val apiService: FoodMarketApi,
-    @Assisted private val foodTypes: String?
 ) : FoodCategoriesContract.Presenter {
-
-    @AssistedFactory
-    interface Factory {
-        fun create(foodTypes: String?): FoodCategoriesPresenter
-    }
 
     private val compositeDisposable by lazy { CompositeDisposable() }
 
     override fun subscribe() {
         view.showLoading()
-        val disposable = apiService.getAllFood(types = foodTypes)
+        val disposable = apiService.getAllFood(types = "")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->

@@ -13,15 +13,13 @@ import com.codetron.foodmarketmvp.R
 import com.codetron.foodmarketmvp.databinding.FragmentSignUpAddressBinding
 import com.codetron.foodmarketmvp.model.domain.user.User
 import com.codetron.foodmarketmvp.model.domain.validation.SignUpAddressFormValidation
-import com.codetron.foodmarketmvp.ui.customview.LoadingDialog
-import com.codetron.foodmarketmvp.ui.customview.SnackBarError
-import dagger.hilt.android.AndroidEntryPoint
+import com.codetron.foodmarketmvp.customview.LoadingDialog
+import com.codetron.foodmarketmvp.customview.SnackBarError
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
 private const val SIGN_UP_ADDRESS_LOADING_TAG = "SIGN_UP_ADDRESS_LOADING_TAG"
 
-@AndroidEntryPoint
 @ExperimentalCoroutinesApi
 class SignUpAddressFragment : Fragment(), SignUpAddressContract.View {
 
@@ -30,16 +28,9 @@ class SignUpAddressFragment : Fragment(), SignUpAddressContract.View {
 
     private val navArgs: SignUpAddressFragmentArgs by navArgs()
 
-    @Inject
-    lateinit var presenterFactory: SignUpAddressPresenter.Factory
-
     private var snackBarError: SnackBarError? = null
 
     private val loadingDialog by lazy { LoadingDialog() }
-
-    private val presenter by lazy {
-        navArgs.userRegister?.let { presenterFactory.create(it) }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,7 +45,6 @@ class SignUpAddressFragment : Fragment(), SignUpAddressContract.View {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-        presenter?.unSubscribe()
         snackBarError?.dismiss()
     }
 
@@ -110,8 +100,6 @@ class SignUpAddressFragment : Fragment(), SignUpAddressContract.View {
             val address = binding?.edtAddress?.text?.toString()?.trim()
             val houseNumber = binding?.edtHouse?.text?.toString()?.trim()
             val city = binding?.edtCity?.text?.toString()?.trim()
-
-            presenter?.submitRegister(phoneNumber, address, houseNumber, city)
         }
     }
 

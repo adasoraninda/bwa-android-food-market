@@ -3,7 +3,6 @@ package com.codetron.foodmarketmvp.ui.auth.signup
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.codetron.foodmarketmvp.databinding.ActivitySignUpSuccessBinding
-import com.codetron.foodmarketmvp.ui.home.HomeActivity
 
 class SignUpSuccessActivity : AppCompatActivity() {
 
@@ -16,7 +15,7 @@ class SignUpSuccessActivity : AppCompatActivity() {
         setContentView(binding?.root)
 
         binding?.btnFindFoods?.setOnClickListener {
-            HomeActivity.navigate(this)
+            // TODO(MOVE TO HOME)
             finishAffinity()
         }
 

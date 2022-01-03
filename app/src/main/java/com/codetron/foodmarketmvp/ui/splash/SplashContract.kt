@@ -5,7 +5,7 @@ import com.codetron.foodmarketmvp.base.BasePresenterContract
 interface SplashContract {
 
     interface View {
-        fun navigate(key: String)
+        fun navigate(isLoggedIn: Boolean)
     }
 
     interface Presenter : BasePresenterContract

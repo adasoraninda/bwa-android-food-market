@@ -1,35 +1,31 @@
 package com.codetron.foodmarketmvp.ui.splash
 
+import com.codetron.foodmarketmvp.di.module.ui.UiScope
 import com.codetron.foodmarketmvp.model.domain.datastore.UserDataStore
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import javax.inject.Inject
+
 
 @ExperimentalCoroutinesApi
-class SplashPresenter @Inject constructor(
+class SplashPresenter(
     private val view: SplashContract.View,
     private val dataStore: UserDataStore,
 ) : SplashContract.Presenter {
 
-    private val compositeDisposable by lazy { CompositeDisposable() }
+    private val compositeDisposable = CompositeDisposable()
 
     override fun subscribe() {
-        val disposable = dataStore.getToken()
+        dataStore.getToken()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ token ->
-                if (!token.isNullOrEmpty()) {
-                    view.navigate(SplashActivity.KEY_HOME)
-                } else {
-                    view.navigate(SplashActivity.KEY_LOGIN)
-                }
+                view.navigate(!token.isNullOrEmpty())
             }, {
-                view.navigate(SplashActivity.KEY_LOGIN)
-            })
-
-        compositeDisposable.add(disposable)
+                view.navigate(false)
+            }).addTo(compositeDisposable)
     }
 
     override fun unSubscribe() {

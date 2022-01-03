@@ -14,11 +14,10 @@ import com.codetron.foodmarketmvp.model.domain.food.FoodItem
 import com.codetron.foodmarketmvp.ui.home.dashboard.DashboardFragmentDirections
 import com.codetron.foodmarketmvp.ui.home.dashboard.adapter.FoodListAdapter
 import com.codetron.foodmarketmvp.ui.home.dashboard.adapter.ListType
-import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-@AndroidEntryPoint
-class FoodCategoriesFragment : Fragment(), (Int?) -> Unit, FoodCategoriesContract.View {
+class FoodCategoriesFragment : Fragment(), (Int?) -> Unit,
+    FoodCategoriesContract.View {
 
     private var _binding: FragmentFoodCategoriesBinding? = null
     private val binding get() = _binding
@@ -29,11 +28,6 @@ class FoodCategoriesFragment : Fragment(), (Int?) -> Unit, FoodCategoriesContrac
 
     private val args by lazy { arguments?.get(CATEGORY_KEY) as FoodCategoryType }
 
-    @Inject
-    lateinit var presenterFactory: FoodCategoriesPresenter.Factory
-
-    private val presenter by lazy { presenterFactory.create(args.params) }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,7 +36,7 @@ class FoodCategoriesFragment : Fragment(), (Int?) -> Unit, FoodCategoriesContrac
         _binding = FragmentFoodCategoriesBinding.inflate(inflater, container, false)
 
         if (savedInstanceState == null) {
-            presenter.subscribe()
+
         }
 
         return binding?.root
@@ -57,7 +51,6 @@ class FoodCategoriesFragment : Fragment(), (Int?) -> Unit, FoodCategoriesContrac
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-        presenter.unSubscribe()
     }
 
     private fun initListFoods() {

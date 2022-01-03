@@ -6,12 +6,12 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class UserRegister(
-    var fullName: String? = null,
-    var email: String? = null,
-    var password: String? = null,
-    var phoneNumber: String? = null,
-    var address: String? = null,
-    var houseNumber: String? = null,
-    var city: String? = null,
-    var imageUri: Uri? = null
+    val fullName: String? = null,
+    val email: String? = null,
+    val password: String? = null,
+    val phoneNumber: String? = null,
+    val address: String? = null,
+    val houseNumber: String? = null,
+    val city: String? = null,
+    val imageUri: Uri? = null
 ) : Parcelable

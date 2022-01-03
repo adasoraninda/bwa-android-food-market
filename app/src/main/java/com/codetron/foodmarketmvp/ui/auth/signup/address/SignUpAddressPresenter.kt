@@ -1,15 +1,13 @@
 package com.codetron.foodmarketmvp.ui.auth.signup.address
 
 import com.codetron.foodmarketmvp.base.FormValidation
-import com.codetron.foodmarketmvp.di.module.SignUpAddressValidation
+import com.codetron.foodmarketmvp.di.module.common.SignUpAddressValidation
 import com.codetron.foodmarketmvp.model.domain.datastore.UserDataStore
 import com.codetron.foodmarketmvp.model.domain.user.UserRegister
+import com.codetron.foodmarketmvp.model.domain.validation.SignUpAddressFormValidation
 import com.codetron.foodmarketmvp.model.response.register.getToken
 import com.codetron.foodmarketmvp.model.response.user.toDomain
-import com.codetron.foodmarketmvp.model.domain.validation.SignUpAddressFormValidation
 import com.codetron.foodmarketmvp.network.FoodMarketApi
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -21,18 +19,13 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
 @ExperimentalCoroutinesApi
-class SignUpAddressPresenter @AssistedInject constructor(
+class SignUpAddressPresenter (
     private val view: SignUpAddressContract.View,
     private val dataStore: UserDataStore,
     private val apiService: FoodMarketApi,
-    @SignUpAddressValidation private val formValidation: FormValidation,
-    @Assisted private val userRegister: UserRegister
+    private val formValidation: FormValidation,
+    private val userRegister: UserRegister
 ) : SignUpAddressContract.Presenter {
-
-    @AssistedFactory
-    interface Factory {
-        fun create(userRegister: UserRegister): SignUpAddressPresenter
-    }
 
     private val compositeDisposable by lazy { CompositeDisposable() }
 
@@ -57,26 +50,28 @@ class SignUpAddressPresenter @AssistedInject constructor(
             return
         }
 
-        userRegister.phoneNumber = phoneNumber
-        userRegister.address = address
-        userRegister.houseNumber = houseNumber
-        userRegister.city = city
+        val dataUser = userRegister.copy(
+            phoneNumber = phoneNumber,
+            address = address,
+            houseNumber = houseNumber,
+            city = city
+        )
 
         view.showLoading()
 
-        submitRegisterAccount()
+        submitRegisterAccount(dataUser)
     }
 
-    private fun submitRegisterAccount() {
+    private fun submitRegisterAccount(dataUser: UserRegister) {
         val disposable = apiService.userRegister(
-            userRegister.fullName.toString(),
-            userRegister.email.toString(),
-            userRegister.password.toString(),
-            userRegister.password.toString(),
-            userRegister.address.toString(),
-            userRegister.city.toString(),
-            userRegister.houseNumber.toString(),
-            userRegister.phoneNumber.toString()
+            dataUser.fullName.toString(),
+            dataUser.email.toString(),
+            dataUser.password.toString(),
+            dataUser.password.toString(),
+            dataUser.address.toString(),
+            dataUser.city.toString(),
+            dataUser.houseNumber.toString(),
+            dataUser.phoneNumber.toString()
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -127,7 +122,7 @@ class SignUpAddressPresenter @AssistedInject constructor(
         }
 
         val imageUri = userRegister.imageUri
-        val imagePath = File(imageUri?.path.toString())
+        val imagePath = File(imageUri.path.toString())
         val imageRequestBody = imagePath.asRequestBody("multipart/form-data".toMediaType())
         val imageField =
             MultipartBody.Part.createFormData("file", imagePath.name, imageRequestBody)

@@ -1,4 +1,4 @@
-package com.codetron.foodmarketmvp.di.module
+package com.codetron.foodmarketmvp.di.module.common
 
 import com.codetron.foodmarketmvp.base.FormValidation
 import com.codetron.foodmarketmvp.model.domain.validation.SignInFormValidation
@@ -6,12 +6,9 @@ import com.codetron.foodmarketmvp.model.domain.validation.SignUpAddressFormValid
 import com.codetron.foodmarketmvp.model.domain.validation.SignUpFormValidation
 import dagger.Binds
 import dagger.Module
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import javax.inject.Qualifier
 
 @Module
-@InstallIn(SingletonComponent::class)
 interface FormValidationModule {
 
     @Binds

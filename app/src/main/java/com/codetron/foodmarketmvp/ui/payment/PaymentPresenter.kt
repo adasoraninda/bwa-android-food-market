@@ -4,34 +4,23 @@ import com.codetron.foodmarketmvp.model.domain.datastore.UserDataStore
 import com.codetron.foodmarketmvp.model.domain.food.FoodCheckout
 import com.codetron.foodmarketmvp.model.response.user.toDomain
 import com.codetron.foodmarketmvp.network.FoodMarketApi
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import io.reactivex.subjects.BehaviorSubject
-import io.reactivex.subjects.PublishSubject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
-class PaymentPresenter @AssistedInject constructor(
+class PaymentPresenter (
     private val view: PaymentContract.View,
     private val dataStore: UserDataStore,
     private val serviceApi: FoodMarketApi,
-    @Assisted private val foodCheckout: FoodCheckout?,
 ) : PaymentContract.Presenter {
-
-    @AssistedFactory
-    interface Factory {
-        fun create(foodCheckout: FoodCheckout?): PaymentPresenter
-    }
 
     private val compositeDisposable by lazy { CompositeDisposable() }
 
     override fun subscribe() {
         view.initState()
-        getFoodData()
         getToken()
     }
 
@@ -43,7 +32,7 @@ class PaymentPresenter @AssistedInject constructor(
 
     }
 
-    private fun getFoodData() {
+    private fun getFoodData(foodCheckout: FoodCheckout?) {
         if (foodCheckout == null) {
             view.onGetFoodDataFailed("Food data is empty")
             return

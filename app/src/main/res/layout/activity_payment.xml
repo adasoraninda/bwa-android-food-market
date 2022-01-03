@@ -1,90 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <data>
-
-        <variable
-            name="food"
-            type="com.codetron.foodmarketmvp.model.domain.food.FoodCheckout" />
-
-        <variable
-            name="user"
-            type="com.codetron.foodmarketmvp.model.domain.user.User" />
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/apb_payment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/apb_payment"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tlb_payment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent">
+            app:navigationIcon="@drawable/ic_arrow_back_black"
+            app:subtitle="@string/payment_subtitle"
+            app:title="@string/payment_title" />
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/tlb_payment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:navigationIcon="@drawable/ic_arrow_back_black"
-                app:subtitle="@string/payment_subtitle"
-                app:title="@string/payment_title" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-        </com.google.android.material.appbar.AppBarLayout>
+    <Space
+        android:id="@+id/spc_payment_top"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_toolbar_with_content"
+        app:layout_constraintTop_toBottomOf="@id/apb_payment" />
 
-        <Space
-            android:id="@+id/spc_payment_top"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/space_toolbar_with_content"
-            app:layout_constraintTop_toBottomOf="@id/apb_payment" />
+    <ScrollView
+        android:id="@+id/scl_payment_body"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:paddingBottom="90dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spc_payment_top">
 
-        <ScrollView
-            android:id="@+id/scl_payment_body"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            android:fillViewport="true"
-            android:paddingBottom="90dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:scrollbars="none"
-            app:layout_constraintTop_toBottomOf="@id/spc_payment_top">
-
-            <include
-                android:id="@+id/lyt_payment_body"
-                layout="@layout/layout_payment_body"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:food="@{food}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/spc_payment_top"
-                app:user="@{user}" />
-
-        </ScrollView>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_checkout_now"
-            style="@style/ButtonPrimaryStyle"
+        <include
+            android:id="@+id/lyt_payment_body"
+            layout="@layout/layout_payment_body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="@string/checkout_now"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/spc_payment_top"
-            app:layout_constraintVertical_bias="1" />
+            app:layout_constraintTop_toBottomOf="@id/spc_payment_top" />
 
-        <ProgressBar
-            android:id="@+id/pbr_payment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    </ScrollView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_checkout_now"
+        style="@style/ButtonPrimaryStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/checkout_now"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spc_payment_top"
+        app:layout_constraintVertical_bias="1" />
+
+    <ProgressBar
+        android:id="@+id/pbr_payment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

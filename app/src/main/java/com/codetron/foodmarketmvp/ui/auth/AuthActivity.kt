@@ -1,21 +1,17 @@
 package com.codetron.foodmarketmvp.ui.auth
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.codetron.foodmarketmvp.R
+import com.codetron.foodmarketmvp.customview.CustomAlertDialog
 import com.codetron.foodmarketmvp.databinding.ActivityAuthBinding
-import com.codetron.foodmarketmvp.model.domain.view.ToolbarData
-import com.codetron.foodmarketmvp.ui.customview.CustomAlertDialog
-import dagger.hilt.android.AndroidEntryPoint
+import com.codetron.foodmarketmvp.util.showBackButton
 
 private const val ALERT_AUTH_TAG = "ALERT_AUTH_TAG"
 
-@AndroidEntryPoint
 class AuthActivity : AppCompatActivity() {
 
     private var _binding: ActivityAuthBinding? = null
@@ -43,36 +39,24 @@ class AuthActivity : AppCompatActivity() {
         }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            binding?.toolbarData = when (destination.id) {
+            when (destination.id) {
                 R.id.sign_in_fragment -> {
-                    ToolbarData(
-                        title = getString(R.string.sign_in),
-                        subtitle = getString(R.string.sign_in_subtitle),
-                        showBackButton = false
-                    )
+                    binding?.tlbAuth?.title = getString(R.string.sign_in)
+                    binding?.tlbAuth?.subtitle = getString(R.string.sign_in_subtitle)
+                    binding?.tlbAuth?.showBackButton(false)
                 }
                 R.id.sign_up_fragment -> {
-                    ToolbarData(
-                        title = getString(R.string.sign_up),
-                        subtitle = getString(R.string.sign_up_subtitle),
-                        showBackButton = true
-                    )
+                    binding?.tlbAuth?.title = getString(R.string.sign_up)
+                    binding?.tlbAuth?.subtitle = getString(R.string.sign_up_subtitle)
+                    binding?.tlbAuth?.showBackButton(true)
                 }
                 R.id.sign_up_address_fragment -> {
-                    ToolbarData(
-                        title = getString(R.string.address),
-                        subtitle = getString(R.string.sign_up_address_subtitle),
-                        showBackButton = true
-                    )
+                    binding?.tlbAuth?.title = getString(R.string.address)
+                    binding?.tlbAuth?.subtitle = getString(R.string.sign_up_address_subtitle)
+                    binding?.tlbAuth?.showBackButton(true)
                 }
                 else -> throw IllegalArgumentException("No destination")
             }
-        }
-    }
-
-    companion object {
-        fun navigate(context: Context) {
-            context.startActivity(Intent(context, AuthActivity::class.java))
         }
     }
 

@@ -1,7 +1,5 @@
 package com.codetron.foodmarketmvp.ui.home
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
@@ -9,9 +7,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.codetron.foodmarketmvp.R
 import com.codetron.foodmarketmvp.databinding.ActivityHomeBinding
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
 
     private var _binding: ActivityHomeBinding? = null
@@ -30,11 +26,9 @@ class HomeActivity : AppCompatActivity() {
         binding?.bnvHome?.setupWithNavController(navController)
     }
 
-    companion object {
-        fun navigate(context: Context) {
-            val intent = Intent(context, HomeActivity::class.java)
-            context.startActivity(intent)
-        }
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 }

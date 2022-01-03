@@ -12,7 +12,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
-class DashboardPresenter @Inject constructor(
+class DashboardPresenter (
     private val view: DashboardContract.View,
     private val apiService: FoodMarketApi,
     private val dataStore: UserDataStore

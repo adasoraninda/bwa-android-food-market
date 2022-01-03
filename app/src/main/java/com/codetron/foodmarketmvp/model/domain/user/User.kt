@@ -1,13 +1,13 @@
 package com.codetron.foodmarketmvp.model.domain.user
 
 data class User(
-    var address: String,
-    var city: String,
-    var email: String,
-    var houseNumber: String,
-    var id: Int,
-    var name: String,
-    var phoneNumber: String,
-    var profilePhotoPath: String,
-    var profilePhotoUrl: String,
+    val address: String,
+    val city: String,
+    val email: String,
+    val houseNumber: String,
+    val id: Int,
+    val name: String,
+    val phoneNumber: String,
+    val profilePhotoPath: String,
+    val profilePhotoUrl: String,
 )

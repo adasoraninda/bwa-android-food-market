@@ -24,14 +24,11 @@ class ProfileMenuListAdapter(private val clickListener: ProfileMenuClickListener
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
         fun bind(data: ProfileMenu) {
-            binding.menu = data
             binding.root.setOnClickListener(this)
-            binding.executePendingBindings()
         }
 
         override fun onClick(v: View?) {
-            val menu = binding.menu
-            menu?.id?.let(clickListener::setOnClickListener)
+
         }
     }
 

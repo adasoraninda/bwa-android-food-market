@@ -1,4 +1,4 @@
-package com.codetron.foodmarketmvp.ui.customview
+package com.codetron.foodmarketmvp.customview
 
 import android.app.Dialog
 import android.graphics.Color

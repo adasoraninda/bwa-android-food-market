@@ -1,5 +1,6 @@
 package com.codetron.foodmarketmvp.ui.detail
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -11,11 +12,11 @@ import com.codetron.foodmarketmvp.databinding.LayoutDetailTotalFoodBinding
 import com.codetron.foodmarketmvp.model.domain.food.Food
 import com.codetron.foodmarketmvp.model.domain.food.FoodCheckout
 import com.codetron.foodmarketmvp.ui.payment.PaymentActivity
-import com.codetron.foodmarketmvp.util.BindingAdapter.setTextPrice
-import dagger.hilt.android.AndroidEntryPoint
+import com.codetron.foodmarketmvp.util.setTextPrice
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
-@AndroidEntryPoint
+@ExperimentalCoroutinesApi
 class DetailFoodActivity : AppCompatActivity(), DetailFoodContract.View {
 
     private var _binding: ActivityDetailFoodBinding? = null
@@ -29,24 +30,16 @@ class DetailFoodActivity : AppCompatActivity(), DetailFoodContract.View {
 
     private val detailFoodArgs: DetailFoodActivityArgs by navArgs()
 
-    @Inject
-    lateinit var presenterFactory: DetailFoodPresenter.Factory
-
-    private val presenter by lazy { presenterFactory.create(detailFoodArgs.foodId) }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityDetailFoodBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
         if (savedInstanceState == null) {
-            presenter.subscribe()
+
         }
 
-        lytTotalFood?.btnMin?.setOnClickListener { presenter.buttonMinTotalPressed() }
-        lytTotalFood?.btnAdd?.setOnClickListener { presenter.buttonAddTotalPressed() }
-        lytBottomSheetDetail?.btnOrderNow?.setOnClickListener { presenter.onCheckOutClicked() }
-        binding?.tlbDetailFood?.setNavigationOnClickListener { finish() }
+       binding?.tlbDetailFood?.setNavigationOnClickListener { finish() }
     }
 
     override fun initState() {
@@ -58,7 +51,6 @@ class DetailFoodActivity : AppCompatActivity(), DetailFoodContract.View {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-        presenter.unSubscribe()
     }
 
     override fun setTotalProduct(total: Int) {
@@ -74,8 +66,6 @@ class DetailFoodActivity : AppCompatActivity(), DetailFoodContract.View {
     }
 
     override fun onGetDataSuccess(food: Food) {
-        binding?.food = food
-        binding?.executePendingBindings()
         lytBottomSheetDetail?.btnOrderNow?.isEnabled = true
         lytTotalFood?.btnAdd?.isEnabled = true
     }
@@ -88,8 +78,11 @@ class DetailFoodActivity : AppCompatActivity(), DetailFoodContract.View {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
+
     override fun submitCheckout(food: FoodCheckout) {
-        PaymentActivity.navigate(this, food)
+        val intent = Intent(this, PaymentActivity::class.java)
+        intent.putExtra(PaymentActivity.KEY_FOOD_CHECKOUT, food)
+        startActivity(intent)
     }
 
     override fun updatePrice(price: Int) {

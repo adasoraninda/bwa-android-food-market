@@ -1,4 +1,4 @@
-package com.codetron.foodmarketmvp.ui.customview
+package com.codetron.foodmarketmvp.customview
 
 import android.graphics.Color
 import android.view.Gravity
@@ -7,8 +7,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
 import com.codetron.foodmarketmvp.R
-import com.codetron.foodmarketmvp.util.dpToPixels
-import com.codetron.foodmarketmvp.util.pixelsToDpInt
+import com.codetron.foodmarketmvp.util.px
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.SnackbarLayout
@@ -25,7 +24,7 @@ class SnackBarError(val viewGroup: ViewGroup) {
             setPadding(0, 0, 0, 0)
             layoutParams = (this.layoutParams as FrameLayout.LayoutParams).apply {
                 gravity = Gravity.TOP
-                setMargins(0, 48.dpToPixels(context), 0, 0)
+                setMargins(0, 48.px, 0, 0)
             }
         }
 

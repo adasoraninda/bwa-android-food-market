@@ -13,28 +13,28 @@ import javax.inject.Singleton
 @ExperimentalCoroutinesApi
 class UserDataStore @Inject constructor(private val dataStore: RxDataStore<Preferences>) {
 
-    companion object {
-        val PREFERENCES_TOKEN = stringPreferencesKey("PREFERENCES_TOKEN")
-    }
-
     fun saveToken(token: String): Single<Preferences> {
-        return dataStore.updateDataAsync { prefsIn ->
-            val mutablePreferences = prefsIn.toMutablePreferences()
+        return dataStore.updateDataAsync { pref ->
+            val mutablePreferences = pref.toMutablePreferences()
             mutablePreferences[PREFERENCES_TOKEN] = token
             Single.just(mutablePreferences)
         }
     }
 
     fun getToken(): Flowable<String?> {
-        return dataStore.data().map { prefs -> prefs[PREFERENCES_TOKEN] }
+        return dataStore.data().map { pref -> pref[PREFERENCES_TOKEN] }
     }
 
     fun removeToken(): Single<Preferences> {
-        return dataStore.updateDataAsync { prefsIn ->
-            val mutablePreferences = prefsIn.toMutablePreferences()
+        return dataStore.updateDataAsync { pref ->
+            val mutablePreferences = pref.toMutablePreferences()
             mutablePreferences[PREFERENCES_TOKEN] = ""
             Single.just(mutablePreferences)
         }
+    }
+
+    companion object {
+        val PREFERENCES_TOKEN = stringPreferencesKey("PREFERENCES_TOKEN")
     }
 
 }

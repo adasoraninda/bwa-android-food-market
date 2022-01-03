@@ -1,7 +1,14 @@
 package com.codetron.foodmarketmvp
 
 import android.app.Application
-import dagger.hilt.android.HiltAndroidApp
+import com.codetron.foodmarketmvp.di.component.DaggerAppComponent
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-@HiltAndroidApp
-class FoodMarketApplication : Application()
+class FoodMarketApplication : Application() {
+
+    @ExperimentalCoroutinesApi
+    val appComponent by lazy {
+        DaggerAppComponent.factory().create(this)
+    }
+
+}

@@ -5,8 +5,6 @@ import com.codetron.foodmarketmvp.model.domain.datastore.UserDataStore
 import com.codetron.foodmarketmvp.model.domain.view.profile.ProfileMenu
 import com.codetron.foodmarketmvp.model.domain.view.profile.ProfileMenuResources
 import com.codetron.foodmarketmvp.network.FoodMarketApi
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -14,17 +12,11 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
-class ProfileMenuPresenter @AssistedInject constructor(
+class ProfileMenuPresenter (
     private val view: ProfileMenuContract.View,
     private val serviceApi: FoodMarketApi,
     private val dataStore: UserDataStore,
-    @Assisted private val type: ProfileMenuType
 ) : ProfileMenuContract.Presenter {
-
-    @AssistedFactory
-    interface Factory {
-        fun create(type: ProfileMenuType): ProfileMenuPresenter
-    }
 
     private val compositeDisposable by lazy { CompositeDisposable() }
 
@@ -37,28 +29,28 @@ class ProfileMenuPresenter @AssistedInject constructor(
     }
 
     override fun onMenuClicked(id: Long) {
-        getListMenuResources()
-            .find { menu -> menu.id == id }
-            ?.let { menu ->
-                if (menu.title == R.string.logout) {
-                    getToken()
-                } else {
-                    view.navigate(id)
-                }
-            }
+//        getListMenuResources()
+//            .find { menu -> menu.id == id }
+//            ?.let { menu ->
+//                if (menu.title == R.string.logout) {
+//                    getToken()
+//                } else {
+//                    view.navigate(id)
+//                }
+//            }
     }
 
     private fun initListMenu() {
-        val menus = getListMenuResources()
-
-        if (menus.isEmpty()) {
-            view.onGetMenuItemFailed("List menu is empty")
-        } else {
-            view.onGetMenuItemSuccess(menus)
-        }
+//        val menus = getListMenuResources()
+//
+//        if (menus.isEmpty()) {
+//            view.onGetMenuItemFailed("List menu is empty")
+//        } else {
+//            view.onGetMenuItemSuccess(menus)
+//        }
     }
 
-    private fun getListMenuResources(): List<ProfileMenu> {
+    private fun getListMenuResources(type: ProfileMenuType): List<ProfileMenu> {
         return when (type) {
             ProfileMenuType.ACCOUNT -> ProfileMenuResources.getAccountResources()
             ProfileMenuType.FOOD_MARKET -> ProfileMenuResources.getFoodMarketResources()

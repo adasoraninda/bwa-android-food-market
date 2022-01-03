@@ -18,13 +18,10 @@ class FoodVerticalViewHolder(
 ) :
     FoodViewHolder(binding) {
     override fun bind(data: FoodItem) {
-        binding.food = data
-        binding.executePendingBindings()
         binding.root.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
-        binding.food?.id?.let(onItemClick::invoke)
     }
 }
 
@@ -34,12 +31,11 @@ class FoodHorizontalViewHolder(
 ) :
     FoodViewHolder(binding) {
     override fun bind(data: FoodItem) {
-        binding.food = data
-        binding.executePendingBindings()
+
         binding.root.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
-        binding.food?.id?.let(onItemClick::invoke)
+
     }
 }

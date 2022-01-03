@@ -1,7 +1,7 @@
 package com.codetron.foodmarketmvp.ui.auth.signin
 
 import com.codetron.foodmarketmvp.base.FormValidation
-import com.codetron.foodmarketmvp.di.module.SignInValidation
+import com.codetron.foodmarketmvp.di.module.common.SignInValidation
 import com.codetron.foodmarketmvp.model.domain.datastore.UserDataStore
 import com.codetron.foodmarketmvp.model.domain.validation.SignInFormValidation
 import com.codetron.foodmarketmvp.model.response.login.getToken
@@ -14,11 +14,11 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
-class SignInPresenter @Inject constructor(
+class SignInPresenter (
     private val view: SignInContract.View,
     private val dataStore: UserDataStore,
     private val serviceApi: FoodMarketApi,
-    @SignInValidation private val formValidation: FormValidation
+    private val formValidation: FormValidation
 ) : SignInContract.Presenter {
 
     private val compositeDisposable by lazy { CompositeDisposable() }

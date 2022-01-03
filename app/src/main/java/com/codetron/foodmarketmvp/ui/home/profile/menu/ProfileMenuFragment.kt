@@ -11,26 +11,16 @@ import com.codetron.foodmarketmvp.R
 import com.codetron.foodmarketmvp.databinding.FragmentProfileMenuBinding
 import com.codetron.foodmarketmvp.model.domain.view.profile.ProfileMenu
 import com.codetron.foodmarketmvp.ui.auth.AuthActivity
-import com.codetron.foodmarketmvp.ui.customview.CustomAlertDialog
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
-@AndroidEntryPoint
-class ProfileMenuFragment : Fragment(), ProfileMenuClickListener, ProfileMenuContract.View {
+class ProfileMenuFragment : Fragment(), ProfileMenuClickListener,
+    ProfileMenuContract.View {
 
     private var _binding: FragmentProfileMenuBinding? = null
     private val binding get() = _binding
 
-    @Inject
-    lateinit var presenterFactory: ProfileMenuPresenter.Factory
-
-    private val presenter by lazy {
-        presenterFactory.create(
-            arguments?.getSerializable(MENU_KEY) as ProfileMenuType
-        )
-    }
 
     private val profileMenuAdapter: ProfileMenuListAdapter by lazy {
         ProfileMenuListAdapter(this)
@@ -44,7 +34,7 @@ class ProfileMenuFragment : Fragment(), ProfileMenuClickListener, ProfileMenuCon
         _binding = FragmentProfileMenuBinding.inflate(inflater, container, false)
 
         if (savedInstanceState == null) {
-            presenter.subscribe()
+
         }
 
         return binding?.root
@@ -53,7 +43,7 @@ class ProfileMenuFragment : Fragment(), ProfileMenuClickListener, ProfileMenuCon
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        presenter.unSubscribe()
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -66,7 +56,7 @@ class ProfileMenuFragment : Fragment(), ProfileMenuClickListener, ProfileMenuCon
     }
 
     override fun setOnClickListener(id: Long) {
-        presenter.onMenuClicked(id)
+
     }
 
     override fun navigate(id: Long) {
@@ -78,7 +68,7 @@ class ProfileMenuFragment : Fragment(), ProfileMenuClickListener, ProfileMenuCon
     }
 
     override fun onLogoutSuccess() {
-        AuthActivity.navigate(requireContext())
+        // TODO(NAVIGATE TO AUTH ACT)
         requireActivity().finishAffinity()
     }
 

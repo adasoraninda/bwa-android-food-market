@@ -12,18 +12,16 @@ import com.codetron.foodmarketmvp.ui.home.adapter.SectionViewPager
 import com.codetron.foodmarketmvp.ui.home.profile.menu.ProfileMenuType
 import com.codetron.foodmarketmvp.ui.home.profile.menu.ProfileSection
 import com.google.android.material.tabs.TabLayoutMediator
-import dagger.hilt.android.AndroidEntryPoint
+
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
-@AndroidEntryPoint
 @ExperimentalCoroutinesApi
 class ProfileFragment : Fragment(), ProfileContract.View {
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding
 
-    @Inject
     lateinit var presenter: ProfileContract.Presenter
 
     private val sectionViewpagerAdapter: SectionViewPager by lazy {
@@ -51,12 +49,12 @@ class ProfileFragment : Fragment(), ProfileContract.View {
     }
 
     private fun initViewPager() {
-        binding?.lytContentProfileMenu?.vpgSection?.adapter = sectionViewpagerAdapter
+        binding?.vpgSection?.adapter = sectionViewpagerAdapter
     }
 
     private fun initTabLayout() {
-        val viewPager = binding?.lytContentProfileMenu?.vpgSection
-        val tabLayout = binding?.lytContentProfileMenu?.tblSection
+        val viewPager = binding?.vpgSection
+        val tabLayout = binding?.tblSection
 
         if (viewPager != null && tabLayout != null) {
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
@@ -80,7 +78,6 @@ class ProfileFragment : Fragment(), ProfileContract.View {
     override fun onGetUserDataSuccess(user: User) {
         binding?.lytProfileHeader?.imgPhotoProfile?.visibility = View.VISIBLE
         binding?.lytProfileHeader?.lytImagePhoto?.root?.visibility = View.GONE
-        binding?.user = user
     }
 
     override fun onGetUserDataFailed(message: String) {
