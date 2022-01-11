@@ -7,7 +7,6 @@ import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-
 @Module
 @ExperimentalCoroutinesApi
 class SplashModule(

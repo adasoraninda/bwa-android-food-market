@@ -1,5 +1,6 @@
 package com.codetron.foodmarketmvp.ui.auth.signup.address
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,12 +10,14 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.codetron.foodmarketmvp.FoodMarketApplication
 import com.codetron.foodmarketmvp.R
-import com.codetron.foodmarketmvp.databinding.FragmentSignUpAddressBinding
-import com.codetron.foodmarketmvp.model.domain.user.User
-import com.codetron.foodmarketmvp.model.domain.validation.SignUpAddressFormValidation
 import com.codetron.foodmarketmvp.customview.LoadingDialog
 import com.codetron.foodmarketmvp.customview.SnackBarError
+import com.codetron.foodmarketmvp.databinding.FragmentSignUpAddressBinding
+import com.codetron.foodmarketmvp.di.module.ui.SignUpAddressModule
+import com.codetron.foodmarketmvp.model.domain.user.User
+import com.codetron.foodmarketmvp.model.domain.validation.SignUpAddressFormValidation
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
@@ -31,6 +34,18 @@ class SignUpAddressFragment : Fragment(), SignUpAddressContract.View {
     private var snackBarError: SnackBarError? = null
 
     private val loadingDialog by lazy { LoadingDialog() }
+
+    @Inject
+    lateinit var presenter: SignUpAddressContract.Presenter
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as FoodMarketApplication)
+            .appComponent
+            .newUiComponentBuilder()
+            .signUpAddressModule(SignUpAddressModule(this, navArgs.userRegister))
+            .build()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -100,6 +115,13 @@ class SignUpAddressFragment : Fragment(), SignUpAddressContract.View {
             val address = binding?.edtAddress?.text?.toString()?.trim()
             val houseNumber = binding?.edtHouse?.text?.toString()?.trim()
             val city = binding?.edtCity?.text?.toString()?.trim()
+
+            presenter.submitRegister(
+                phoneNumber,
+                address,
+                houseNumber,
+                city
+            )
         }
     }
 

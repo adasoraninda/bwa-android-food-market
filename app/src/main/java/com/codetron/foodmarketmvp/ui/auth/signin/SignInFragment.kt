@@ -1,5 +1,6 @@
 package com.codetron.foodmarketmvp.ui.auth.signin
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,12 +9,14 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.codetron.foodmarketmvp.FoodMarketApplication
 import com.codetron.foodmarketmvp.R
-import com.codetron.foodmarketmvp.databinding.FragmentSignInBinding
-import com.codetron.foodmarketmvp.model.domain.user.User
-import com.codetron.foodmarketmvp.model.domain.validation.SignInFormValidation
 import com.codetron.foodmarketmvp.customview.LoadingDialog
 import com.codetron.foodmarketmvp.customview.SnackBarError
+import com.codetron.foodmarketmvp.databinding.FragmentSignInBinding
+import com.codetron.foodmarketmvp.di.module.ui.SignInModule
+import com.codetron.foodmarketmvp.model.domain.user.User
+import com.codetron.foodmarketmvp.model.domain.validation.SignInFormValidation
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
@@ -25,11 +28,21 @@ class SignInFragment : Fragment(), SignInContract.View {
     private var _binding: FragmentSignInBinding? = null
     private val binding get() = _binding
 
-    lateinit var presenter: SignInContract.Presenter
-
     private val loadingDialog by lazy { LoadingDialog() }
 
     private var snackBarError: SnackBarError? = null
+
+    @Inject
+    lateinit var presenter: SignInContract.Presenter
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as FoodMarketApplication)
+            .appComponent
+            .newUiComponentBuilder()
+            .signInModule(SignInModule(this))
+            .build()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

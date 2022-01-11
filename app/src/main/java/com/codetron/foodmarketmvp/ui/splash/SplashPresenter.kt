@@ -1,6 +1,5 @@
 package com.codetron.foodmarketmvp.ui.splash
 
-import com.codetron.foodmarketmvp.di.module.ui.UiScope
 import com.codetron.foodmarketmvp.model.domain.datastore.UserDataStore
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

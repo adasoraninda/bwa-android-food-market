@@ -1,14 +1,12 @@
 package com.codetron.foodmarketmvp.ui.auth.signup.address
 
 import com.codetron.foodmarketmvp.base.FormValidation
-import com.codetron.foodmarketmvp.di.module.common.SignUpAddressValidation
 import com.codetron.foodmarketmvp.model.domain.datastore.UserDataStore
 import com.codetron.foodmarketmvp.model.domain.user.UserRegister
 import com.codetron.foodmarketmvp.model.domain.validation.SignUpAddressFormValidation
 import com.codetron.foodmarketmvp.model.response.register.getToken
 import com.codetron.foodmarketmvp.model.response.user.toDomain
 import com.codetron.foodmarketmvp.network.FoodMarketApi
-import dagger.assisted.AssistedInject
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -19,12 +17,12 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
 @ExperimentalCoroutinesApi
-class SignUpAddressPresenter (
+class SignUpAddressPresenter(
     private val view: SignUpAddressContract.View,
     private val dataStore: UserDataStore,
     private val apiService: FoodMarketApi,
     private val formValidation: FormValidation,
-    private val userRegister: UserRegister
+    private val userRegister: UserRegister?
 ) : SignUpAddressContract.Presenter {
 
     private val compositeDisposable by lazy { CompositeDisposable() }
@@ -50,7 +48,7 @@ class SignUpAddressPresenter (
             return
         }
 
-        val dataUser = userRegister.copy(
+        val dataUser = userRegister?.copy(
             phoneNumber = phoneNumber,
             address = address,
             houseNumber = houseNumber,
@@ -59,7 +57,7 @@ class SignUpAddressPresenter (
 
         view.showLoading()
 
-        submitRegisterAccount(dataUser)
+        dataUser?.let { submitRegisterAccount(it) }
     }
 
     private fun submitRegisterAccount(dataUser: UserRegister) {
@@ -111,7 +109,7 @@ class SignUpAddressPresenter (
         token: String?,
         callback: (imagePath: String?, errorMessage: String?) -> Unit
     ) {
-        if (userRegister.imageUri == null) {
+        if (userRegister?.imageUri == null) {
             callback.invoke(null, "Image is empty")
             return
         }

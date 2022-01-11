@@ -22,6 +22,8 @@ class ProfileFragment : Fragment(), ProfileContract.View {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding
 
+    // TODO PROFILE inject
+    @Inject
     lateinit var presenter: ProfileContract.Presenter
 
     private val sectionViewpagerAdapter: SectionViewPager by lazy {

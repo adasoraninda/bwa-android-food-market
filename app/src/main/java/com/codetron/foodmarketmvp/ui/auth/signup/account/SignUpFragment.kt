@@ -1,6 +1,7 @@
 package com.codetron.foodmarketmvp.ui.auth.signup.account
 
 import android.app.Activity
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,26 +15,41 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.codetron.foodmarketmvp.FoodMarketApplication
 import com.codetron.foodmarketmvp.R
+import com.codetron.foodmarketmvp.customview.LoadingDialog
 import com.codetron.foodmarketmvp.databinding.FragmentSignUpBinding
+import com.codetron.foodmarketmvp.di.module.ui.SignUpModule
 import com.codetron.foodmarketmvp.model.domain.user.UserRegister
 import com.codetron.foodmarketmvp.model.domain.validation.SignUpFormValidation
-import com.codetron.foodmarketmvp.customview.LoadingDialog
 import com.github.dhaval2404.imagepicker.ImagePicker
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
 private const val SIGN_UP_LOADING_TAG = "SIGN_UP_LOADING_TAG"
 
+@ExperimentalCoroutinesApi
 class SignUpFragment : Fragment(), SignUpContract.View {
 
     private var _binding: FragmentSignUpBinding? = null
     private val binding get() = _binding
 
+    @Inject
     lateinit var presenter: SignUpContract.Presenter
 
     private val loadingDialog by lazy { LoadingDialog() }
 
     private var imageUri: Uri? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as FoodMarketApplication)
+            .appComponent
+            .newUiComponentBuilder()
+            .signUpModule(SignUpModule(this))
+            .build()
+            .inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
