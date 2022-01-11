@@ -42,6 +42,7 @@ class SignInFragment : Fragment(), SignInContract.View {
             .newUiComponentBuilder()
             .signInModule(SignInModule(this))
             .build()
+            .inject(this)
     }
 
     override fun onCreateView(

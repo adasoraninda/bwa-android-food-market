@@ -2,8 +2,13 @@ package com.codetron.foodmarketmvp.di.component
 
 import com.codetron.foodmarketmvp.di.module.common.FormValidationModule
 import com.codetron.foodmarketmvp.di.module.ui.*
+import com.codetron.foodmarketmvp.ui.auth.signin.SignInFragment
 import com.codetron.foodmarketmvp.ui.auth.signup.account.SignUpFragment
+import com.codetron.foodmarketmvp.ui.auth.signup.address.SignUpAddressFragment
+import com.codetron.foodmarketmvp.ui.home.dashboard.DashboardFragment
+import com.codetron.foodmarketmvp.ui.home.dashboard.categories.FoodCategoriesFragment
 import com.codetron.foodmarketmvp.ui.splash.SplashActivity
+import dagger.BindsInstance
 import dagger.Subcomponent
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -37,6 +42,10 @@ interface UiComponent {
         fun build(): UiComponent
     }
 
+    fun inject(fragment: SignInFragment)
     fun inject(fragment: SignUpFragment)
+    fun inject(fragment: SignUpAddressFragment)
+    fun inject(fragment: DashboardFragment)
+    fun inject(fragment: FoodCategoriesFragment)
     fun inject(activity: SplashActivity)
 }
