@@ -1,6 +1,7 @@
 package com.codetron.foodmarketmvp.di.component
 
 import android.content.Context
+import com.codetron.foodmarketmvp.di.module.common.FormValidationModule
 import com.codetron.foodmarketmvp.di.module.local.DataStoreModule
 import com.codetron.foodmarketmvp.di.module.network.NetworkModule
 import dagger.BindsInstance
@@ -10,10 +11,12 @@ import javax.inject.Singleton
 
 @Singleton
 @ExperimentalCoroutinesApi
-@Component(modules = [NetworkModule::class, DataStoreModule::class])
+@Component(modules = [NetworkModule::class, DataStoreModule::class, FormValidationModule::class])
 interface AppComponent {
 
-    fun newUiComponentBuilder(): UiComponent.Builder
+    fun newActivityComponentBuilder(): ActivityComponent.Builder
+
+    fun newFragmentComponentBuilder(): FragmentComponent.Builder
 
     @Component.Factory
     interface Factory {

@@ -1,12 +1,15 @@
 package com.codetron.foodmarketmvp.ui.home.profile
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.codetron.foodmarketmvp.FoodMarketApplication
 import com.codetron.foodmarketmvp.databinding.FragmentProfileBinding
+import com.codetron.foodmarketmvp.di.module.ui.fragment.FragmentModule
 import com.codetron.foodmarketmvp.model.domain.user.User
 import com.codetron.foodmarketmvp.ui.home.adapter.SectionViewPager
 import com.codetron.foodmarketmvp.ui.home.profile.menu.ProfileMenuType
@@ -22,12 +25,21 @@ class ProfileFragment : Fragment(), ProfileContract.View {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding
 
-    // TODO PROFILE inject
     @Inject
     lateinit var presenter: ProfileContract.Presenter
 
     private val sectionViewpagerAdapter: SectionViewPager by lazy {
         SectionViewPager(this, ProfileSection.getFragments())
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as FoodMarketApplication)
+            .appComponent
+            .newFragmentComponentBuilder()
+            .fragmentModule(FragmentModule(this))
+            .build()
+            .inject(this)
     }
 
     override fun onCreateView(

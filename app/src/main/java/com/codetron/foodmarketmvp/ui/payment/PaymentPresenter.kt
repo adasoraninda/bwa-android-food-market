@@ -1,10 +1,9 @@
 package com.codetron.foodmarketmvp.ui.payment
 
-import com.codetron.foodmarketmvp.model.domain.datastore.UserDataStore
+import com.codetron.foodmarketmvp.model.datastore.UserDataStore
 import com.codetron.foodmarketmvp.model.domain.food.FoodCheckout
 import com.codetron.foodmarketmvp.model.response.user.toDomain
 import com.codetron.foodmarketmvp.network.FoodMarketApi
-import dagger.assisted.AssistedInject
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

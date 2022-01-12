@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.codetron.foodmarketmvp.FoodMarketApplication
 import com.codetron.foodmarketmvp.R
 import com.codetron.foodmarketmvp.databinding.FragmentFoodCategoriesBinding
-import com.codetron.foodmarketmvp.di.module.ui.FoodCategoriesModule
+import com.codetron.foodmarketmvp.di.module.ui.fragment.FragmentModule
 import com.codetron.foodmarketmvp.model.domain.food.FoodItem
 import com.codetron.foodmarketmvp.ui.home.dashboard.DashboardFragmentDirections
 import com.codetron.foodmarketmvp.ui.home.dashboard.adapter.FoodListAdapter
@@ -34,15 +34,20 @@ class FoodCategoriesFragment : Fragment(), (Int?) -> Unit,
     private val args by lazy { arguments?.get(CATEGORY_KEY) as FoodCategoryType }
 
     @Inject
-    lateinit var presenter: FoodCategoriesContract.Presenter
+    lateinit var factory: FoodCategoriesPresenter.Factory
+
+    private val presenter: FoodCategoriesContract.Presenter by lazy {
+        factory.create(args.params)
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (requireActivity().application as FoodMarketApplication)
             .appComponent
-            .newUiComponentBuilder()
-            .foodCategoriesModule(FoodCategoriesModule(this, args.params))
+            .newFragmentComponentBuilder()
+            .fragmentModule(FragmentModule(this))
             .build()
+            .inject(this)
     }
 
     override fun onCreateView(

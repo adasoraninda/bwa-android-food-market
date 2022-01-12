@@ -80,6 +80,8 @@ dependencies {
 
     implementation "com.github.dhaval2404:imagepicker:$image_version"
 
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leak_canary_version"
+
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$test_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"

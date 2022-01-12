@@ -1,4 +1,4 @@
-package com.codetron.foodmarketmvp.model.domain.datastore
+package com.codetron.foodmarketmvp.model.datastore
 
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.stringPreferencesKey

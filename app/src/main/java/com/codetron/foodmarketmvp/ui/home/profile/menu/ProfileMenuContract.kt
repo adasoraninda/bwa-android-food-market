@@ -1,7 +1,7 @@
 package com.codetron.foodmarketmvp.ui.home.profile.menu
 
 import com.codetron.foodmarketmvp.base.BasePresenterContract
-import com.codetron.foodmarketmvp.model.domain.view.profile.ProfileMenu
+import com.codetron.foodmarketmvp.model.view.profile.ProfileMenu
 
 interface ProfileMenuContract {
 

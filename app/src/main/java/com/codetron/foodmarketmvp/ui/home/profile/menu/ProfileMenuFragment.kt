@@ -1,5 +1,7 @@
 package com.codetron.foodmarketmvp.ui.home.profile.menu
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,9 +9,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import com.codetron.foodmarketmvp.FoodMarketApplication
 import com.codetron.foodmarketmvp.R
 import com.codetron.foodmarketmvp.databinding.FragmentProfileMenuBinding
-import com.codetron.foodmarketmvp.model.domain.view.profile.ProfileMenu
+import com.codetron.foodmarketmvp.di.module.ui.fragment.FragmentModule
+import com.codetron.foodmarketmvp.model.view.profile.ProfileMenu
 import com.codetron.foodmarketmvp.ui.auth.AuthActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
@@ -21,9 +25,27 @@ class ProfileMenuFragment : Fragment(), ProfileMenuClickListener,
     private var _binding: FragmentProfileMenuBinding? = null
     private val binding get() = _binding
 
+    @Inject
+    lateinit var factory: ProfileMenuPresenter.Factory
+
+    private val presenter: ProfileMenuContract.Presenter by lazy {
+        factory.create(
+            arguments?.getSerializable(MENU_KEY) as ProfileMenuType
+        )
+    }
 
     private val profileMenuAdapter: ProfileMenuListAdapter by lazy {
         ProfileMenuListAdapter(this)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as FoodMarketApplication)
+            .appComponent
+            .newFragmentComponentBuilder()
+            .fragmentModule(FragmentModule(this))
+            .build()
+            .inject(this)
     }
 
     override fun onCreateView(
@@ -34,7 +56,7 @@ class ProfileMenuFragment : Fragment(), ProfileMenuClickListener,
         _binding = FragmentProfileMenuBinding.inflate(inflater, container, false)
 
         if (savedInstanceState == null) {
-
+            presenter.subscribe()
         }
 
         return binding?.root
@@ -43,7 +65,7 @@ class ProfileMenuFragment : Fragment(), ProfileMenuClickListener,
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-
+        presenter.unSubscribe()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,7 +78,7 @@ class ProfileMenuFragment : Fragment(), ProfileMenuClickListener,
     }
 
     override fun setOnClickListener(id: Long) {
-
+        presenter.onMenuClicked(id)
     }
 
     override fun navigate(id: Long) {
@@ -68,7 +90,7 @@ class ProfileMenuFragment : Fragment(), ProfileMenuClickListener,
     }
 
     override fun onLogoutSuccess() {
-        // TODO(NAVIGATE TO AUTH ACT)
+        requireContext().startActivity(Intent(requireContext(), AuthActivity::class.java))
         requireActivity().finishAffinity()
     }
 

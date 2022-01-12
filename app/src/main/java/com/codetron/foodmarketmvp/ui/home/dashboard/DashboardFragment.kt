@@ -8,9 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.codetron.foodmarketmvp.FoodMarketApplication
-import com.codetron.foodmarketmvp.customview.SnackBarError
 import com.codetron.foodmarketmvp.databinding.FragmentDashboardBinding
-import com.codetron.foodmarketmvp.di.module.ui.DashboardModule
+import com.codetron.foodmarketmvp.di.module.ui.fragment.FragmentModule
 import com.codetron.foodmarketmvp.model.domain.food.FoodItem
 import com.codetron.foodmarketmvp.model.domain.user.User
 import com.codetron.foodmarketmvp.ui.home.adapter.SectionViewPager
@@ -29,7 +28,7 @@ class DashboardFragment : Fragment(), (Int?) -> Unit, DashboardContract.View {
     private val binding get() = _binding
 
     private val bindingHeader by lazy { binding?.lytContentDashboardHeader }
-    private var snackBarError: SnackBarError? = null
+    //private var snackBarError: SnackBarError? = null
 
     private val foodsAdapter: FoodListAdapter by lazy {
         FoodListAdapter(ListType.HORIZONTAL, this)
@@ -46,9 +45,10 @@ class DashboardFragment : Fragment(), (Int?) -> Unit, DashboardContract.View {
         super.onAttach(context)
         (requireActivity().application as FoodMarketApplication)
             .appComponent
-            .newUiComponentBuilder()
-            .dashboardModule(DashboardModule(this))
+            .newFragmentComponentBuilder()
+            .fragmentModule(FragmentModule(this))
             .build()
+            .inject(this)
     }
 
     override fun onCreateView(
@@ -56,7 +56,6 @@ class DashboardFragment : Fragment(), (Int?) -> Unit, DashboardContract.View {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        snackBarError = container?.let { SnackBarError(it) }
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
 
         if (savedInstanceState == null) {
@@ -68,6 +67,7 @@ class DashboardFragment : Fragment(), (Int?) -> Unit, DashboardContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+//        snackBarError = SnackBarError(view, layoutInflater)
         initListFoods()
         initTabLayout()
     }
@@ -113,14 +113,14 @@ class DashboardFragment : Fragment(), (Int?) -> Unit, DashboardContract.View {
     }
 
     override fun onGetDataFailed(message: String) {
-        snackBarError?.setMessage(message)
-        snackBarError?.show()
+        //snackBarError?.setMessage(message)
+        //snackBarError?.show()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
         presenter.unSubscribe()
-        snackBarError?.dismiss()
+        //snackBarError?.dismiss()
     }
 }

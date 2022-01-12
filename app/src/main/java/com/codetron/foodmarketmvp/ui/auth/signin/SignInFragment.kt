@@ -12,11 +12,10 @@ import androidx.navigation.fragment.findNavController
 import com.codetron.foodmarketmvp.FoodMarketApplication
 import com.codetron.foodmarketmvp.R
 import com.codetron.foodmarketmvp.customview.LoadingDialog
-import com.codetron.foodmarketmvp.customview.SnackBarError
 import com.codetron.foodmarketmvp.databinding.FragmentSignInBinding
-import com.codetron.foodmarketmvp.di.module.ui.SignInModule
+import com.codetron.foodmarketmvp.di.module.ui.fragment.FragmentModule
 import com.codetron.foodmarketmvp.model.domain.user.User
-import com.codetron.foodmarketmvp.model.domain.validation.SignInFormValidation
+import com.codetron.foodmarketmvp.model.validation.SignInFormValidation
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
@@ -30,7 +29,7 @@ class SignInFragment : Fragment(), SignInContract.View {
 
     private val loadingDialog by lazy { LoadingDialog() }
 
-    private var snackBarError: SnackBarError? = null
+   // private var snackBarError: SnackBarError? = null
 
     @Inject
     lateinit var presenter: SignInContract.Presenter
@@ -39,8 +38,8 @@ class SignInFragment : Fragment(), SignInContract.View {
         super.onAttach(context)
         (requireActivity().application as FoodMarketApplication)
             .appComponent
-            .newUiComponentBuilder()
-            .signInModule(SignInModule(this))
+            .newFragmentComponentBuilder()
+            .fragmentModule(FragmentModule(this))
             .build()
             .inject(this)
     }
@@ -50,7 +49,6 @@ class SignInFragment : Fragment(), SignInContract.View {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        snackBarError = container?.let { SnackBarError(it) }
         _binding = FragmentSignInBinding.inflate(inflater, container, false)
         return binding?.root
     }
@@ -141,14 +139,14 @@ class SignInFragment : Fragment(), SignInContract.View {
     }
 
     override fun onLoginFailed(message: String) {
-        snackBarError?.setMessage(message)
-        snackBarError?.show()
+//        snackBarError?.setMessage(message)
+//        snackBarError?.show()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
         presenter.unSubscribe()
-        snackBarError?.dismiss()
+//        snackBarError?.dismiss()
     }
 }

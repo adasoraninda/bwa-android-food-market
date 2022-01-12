@@ -60,6 +60,11 @@ class AuthActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
     override fun onBackPressed() {
         val id = navController.currentDestination?.id
         if (id == R.id.sign_in_fragment || id == R.id.sign_up_success_activity) {

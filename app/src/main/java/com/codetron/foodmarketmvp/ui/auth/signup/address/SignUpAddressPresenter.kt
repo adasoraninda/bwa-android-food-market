@@ -1,12 +1,16 @@
 package com.codetron.foodmarketmvp.ui.auth.signup.address
 
 import com.codetron.foodmarketmvp.base.FormValidation
-import com.codetron.foodmarketmvp.model.domain.datastore.UserDataStore
+import com.codetron.foodmarketmvp.di.module.common.SignUpAddressValidation
+import com.codetron.foodmarketmvp.model.datastore.UserDataStore
 import com.codetron.foodmarketmvp.model.domain.user.UserRegister
-import com.codetron.foodmarketmvp.model.domain.validation.SignUpAddressFormValidation
+import com.codetron.foodmarketmvp.model.validation.SignUpAddressFormValidation
 import com.codetron.foodmarketmvp.model.response.register.getToken
 import com.codetron.foodmarketmvp.model.response.user.toDomain
 import com.codetron.foodmarketmvp.network.FoodMarketApi
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -17,13 +21,18 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
 @ExperimentalCoroutinesApi
-class SignUpAddressPresenter(
+class SignUpAddressPresenter @AssistedInject constructor(
     private val view: SignUpAddressContract.View,
     private val dataStore: UserDataStore,
     private val apiService: FoodMarketApi,
-    private val formValidation: FormValidation,
-    private val userRegister: UserRegister?
+    @SignUpAddressValidation private val formValidation: FormValidation,
+    @Assisted private val userRegister: UserRegister?
 ) : SignUpAddressContract.Presenter {
+
+    @AssistedFactory
+    interface Factory {
+        fun create(userRegister: UserRegister?): SignUpAddressPresenter
+    }
 
     private val compositeDisposable by lazy { CompositeDisposable() }
 
@@ -85,6 +94,7 @@ class SignUpAddressPresenter(
                                     view.onRegisterFailed(error.toString())
                                 }
                             }
+
                             view.onRegisterSuccess(body.user.toDomain())
                         } else {
                             view.onRegisterFailed("Fail saving token")

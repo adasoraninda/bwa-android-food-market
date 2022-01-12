@@ -1,4 +1,4 @@
-package com.codetron.foodmarketmvp.model.domain.validation
+package com.codetron.foodmarketmvp.model.validation
 
 import com.codetron.foodmarketmvp.base.FormValidation
 import javax.inject.Inject

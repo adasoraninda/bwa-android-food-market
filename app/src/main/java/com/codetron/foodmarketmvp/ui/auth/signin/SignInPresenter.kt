@@ -1,9 +1,8 @@
 package com.codetron.foodmarketmvp.ui.auth.signin
 
 import com.codetron.foodmarketmvp.base.FormValidation
-import com.codetron.foodmarketmvp.di.module.common.SignInValidation
-import com.codetron.foodmarketmvp.model.domain.datastore.UserDataStore
-import com.codetron.foodmarketmvp.model.domain.validation.SignInFormValidation
+import com.codetron.foodmarketmvp.model.datastore.UserDataStore
+import com.codetron.foodmarketmvp.model.validation.SignInFormValidation
 import com.codetron.foodmarketmvp.model.response.login.getToken
 import com.codetron.foodmarketmvp.model.response.user.toDomain
 import com.codetron.foodmarketmvp.network.FoodMarketApi
@@ -11,10 +10,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
-class SignInPresenter (
+class SignInPresenter(
     private val view: SignInContract.View,
     private val dataStore: UserDataStore,
     private val serviceApi: FoodMarketApi,

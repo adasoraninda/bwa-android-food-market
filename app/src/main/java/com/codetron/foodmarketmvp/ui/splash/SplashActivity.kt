@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.codetron.foodmarketmvp.FoodMarketApplication
 import com.codetron.foodmarketmvp.R
-import com.codetron.foodmarketmvp.di.module.ui.SplashModule
+import com.codetron.foodmarketmvp.di.module.ui.activity.ActivityModule
 import com.codetron.foodmarketmvp.ui.auth.AuthActivity
 import com.codetron.foodmarketmvp.ui.home.HomeActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -22,8 +22,8 @@ class SplashActivity : AppCompatActivity(), SplashContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         (application as FoodMarketApplication)
             .appComponent
-            .newUiComponentBuilder()
-            .splashModule(SplashModule(this))
+            .newActivityComponentBuilder()
+            .activityModule(ActivityModule(this))
             .build()
             .inject(this)
 

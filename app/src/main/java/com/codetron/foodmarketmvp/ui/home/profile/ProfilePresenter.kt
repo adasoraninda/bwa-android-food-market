@@ -1,16 +1,15 @@
 package com.codetron.foodmarketmvp.ui.home.profile
 
-import com.codetron.foodmarketmvp.model.domain.datastore.UserDataStore
+import com.codetron.foodmarketmvp.model.datastore.UserDataStore
 import com.codetron.foodmarketmvp.model.response.user.toDomain
 import com.codetron.foodmarketmvp.network.FoodMarketApi
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
-class ProfilePresenter (
+class ProfilePresenter(
     private val view: ProfileContract.View,
     private val dataStore: UserDataStore,
     private val serviceApi: FoodMarketApi

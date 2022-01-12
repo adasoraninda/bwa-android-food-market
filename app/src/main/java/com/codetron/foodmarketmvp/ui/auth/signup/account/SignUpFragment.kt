@@ -19,9 +19,9 @@ import com.codetron.foodmarketmvp.FoodMarketApplication
 import com.codetron.foodmarketmvp.R
 import com.codetron.foodmarketmvp.customview.LoadingDialog
 import com.codetron.foodmarketmvp.databinding.FragmentSignUpBinding
-import com.codetron.foodmarketmvp.di.module.ui.SignUpModule
+import com.codetron.foodmarketmvp.di.module.ui.fragment.FragmentModule
 import com.codetron.foodmarketmvp.model.domain.user.UserRegister
-import com.codetron.foodmarketmvp.model.domain.validation.SignUpFormValidation
+import com.codetron.foodmarketmvp.model.validation.SignUpFormValidation
 import com.github.dhaval2404.imagepicker.ImagePicker
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
@@ -45,8 +45,8 @@ class SignUpFragment : Fragment(), SignUpContract.View {
         super.onAttach(context)
         (requireActivity().application as FoodMarketApplication)
             .appComponent
-            .newUiComponentBuilder()
-            .signUpModule(SignUpModule(this))
+            .newFragmentComponentBuilder()
+            .fragmentModule(FragmentModule(this))
             .build()
             .inject(this)
     }

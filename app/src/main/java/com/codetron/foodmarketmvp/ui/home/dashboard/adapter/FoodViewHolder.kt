@@ -21,7 +21,7 @@ class FoodVerticalViewHolder(
     override fun bind(data: FoodItem) {
         binding.txtFoodName.text = data.name
         binding.txtRating.text = data.rate.toString()
-        binding.rtbFood.numStars = data.rate
+        binding.rtbFood.rating = data.rate.toFloat()
         binding.txtFoodPrice.setTextPrice(data.price)
         binding.imgFood.setImageResource(data.picturePath)
 
@@ -38,7 +38,7 @@ class FoodHorizontalViewHolder(
     override fun bind(data: FoodItem) {
         binding.txtFoodName.text = data.name
         binding.txtRating.text = data.rate.toString()
-        binding.rtbFood.numStars = data.rate
+        binding.rtbFood.rating = data.rate.toFloat()
         binding.imgFood.setImageResource(data.picturePath)
 
         binding.root.setOnClickListener {

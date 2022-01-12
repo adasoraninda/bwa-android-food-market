@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -13,11 +14,10 @@ import androidx.navigation.fragment.navArgs
 import com.codetron.foodmarketmvp.FoodMarketApplication
 import com.codetron.foodmarketmvp.R
 import com.codetron.foodmarketmvp.customview.LoadingDialog
-import com.codetron.foodmarketmvp.customview.SnackBarError
 import com.codetron.foodmarketmvp.databinding.FragmentSignUpAddressBinding
-import com.codetron.foodmarketmvp.di.module.ui.SignUpAddressModule
+import com.codetron.foodmarketmvp.di.module.ui.fragment.FragmentModule
 import com.codetron.foodmarketmvp.model.domain.user.User
-import com.codetron.foodmarketmvp.model.domain.validation.SignUpAddressFormValidation
+import com.codetron.foodmarketmvp.model.validation.SignUpAddressFormValidation
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
@@ -31,20 +31,25 @@ class SignUpAddressFragment : Fragment(), SignUpAddressContract.View {
 
     private val navArgs: SignUpAddressFragmentArgs by navArgs()
 
-    private var snackBarError: SnackBarError? = null
+//    private var snackBarError: SnackBarError? = null
 
     private val loadingDialog by lazy { LoadingDialog() }
 
     @Inject
-    lateinit var presenter: SignUpAddressContract.Presenter
+    lateinit var factory: SignUpAddressPresenter.Factory
+
+    private val presenter: SignUpAddressContract.Presenter by lazy {
+        factory.create(navArgs.userRegister)
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (requireActivity().application as FoodMarketApplication)
             .appComponent
-            .newUiComponentBuilder()
-            .signUpAddressModule(SignUpAddressModule(this, navArgs.userRegister))
+            .newFragmentComponentBuilder()
+            .fragmentModule(FragmentModule(this))
             .build()
+            .inject(this)
     }
 
     override fun onCreateView(
@@ -52,7 +57,6 @@ class SignUpAddressFragment : Fragment(), SignUpAddressContract.View {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        snackBarError = container?.let { SnackBarError(it) }
         _binding = FragmentSignUpAddressBinding.inflate(inflater, container, false)
         return binding?.root
     }
@@ -60,7 +64,8 @@ class SignUpAddressFragment : Fragment(), SignUpAddressContract.View {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-        snackBarError?.dismiss()
+        //snackBarError?.dismiss()
+        presenter.unSubscribe()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -141,8 +146,9 @@ class SignUpAddressFragment : Fragment(), SignUpAddressContract.View {
     }
 
     override fun onRegisterFailed(message: String) {
-        snackBarError?.setMessage(message)
-        snackBarError?.show()
+        Toast.makeText(requireContext(), "gagal", Toast.LENGTH_SHORT).show()
+//        snackBarError?.setMessage(message)
+//        snackBarError?.show()
     }
 
     override fun inputFormMessage(messageMap: Map<String, String?>) {

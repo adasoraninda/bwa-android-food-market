@@ -2,11 +2,11 @@ package com.codetron.foodmarketmvp.ui.home.profile.menu
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.codetron.foodmarketmvp.model.domain.view.profile.ProfileMenu
 import com.codetron.foodmarketmvp.databinding.ItemProfileMenuBinding
+import com.codetron.foodmarketmvp.model.view.profile.ProfileMenu
+import com.codetron.foodmarketmvp.util.setTextResources
 
 class ProfileMenuListAdapter(private val clickListener: ProfileMenuClickListener) :
     RecyclerView.Adapter<ProfileMenuListAdapter.ProfileMenuViewHolder>() {
@@ -21,15 +21,16 @@ class ProfileMenuListAdapter(private val clickListener: ProfileMenuClickListener
     }
 
     inner class ProfileMenuViewHolder(private val binding: ItemProfileMenuBinding) :
-        RecyclerView.ViewHolder(binding.root), View.OnClickListener {
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(data: ProfileMenu) {
-            binding.root.setOnClickListener(this)
+
+            binding.txtProfileMenu.setTextResources(data.title)
+            binding.root.setOnClickListener {
+                clickListener.setOnClickListener(data.id)
+            }
         }
 
-        override fun onClick(v: View?) {
-
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileMenuViewHolder {

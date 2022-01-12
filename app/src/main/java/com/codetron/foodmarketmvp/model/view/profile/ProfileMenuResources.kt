@@ -1,4 +1,4 @@
-package com.codetron.foodmarketmvp.model.domain.view.profile
+package com.codetron.foodmarketmvp.model.view.profile
 
 import com.codetron.foodmarketmvp.R
 
