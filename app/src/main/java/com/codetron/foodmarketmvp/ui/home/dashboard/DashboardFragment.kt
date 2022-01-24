@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.codetron.foodmarketmvp.FoodMarketApplication
 import com.codetron.foodmarketmvp.databinding.FragmentDashboardBinding
 import com.codetron.foodmarketmvp.di.module.ui.fragment.FragmentModule
@@ -28,7 +30,6 @@ class DashboardFragment : Fragment(), (Int?) -> Unit, DashboardContract.View {
     private val binding get() = _binding
 
     private val bindingHeader by lazy { binding?.lytContentDashboardHeader }
-    //private var snackBarError: SnackBarError? = null
 
     private val foodsAdapter: FoodListAdapter by lazy {
         FoodListAdapter(ListType.HORIZONTAL, this)
@@ -67,26 +68,25 @@ class DashboardFragment : Fragment(), (Int?) -> Unit, DashboardContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        snackBarError = SnackBarError(view, layoutInflater)
         initListFoods()
         initTabLayout()
     }
 
-    private fun initListFoods() {
-        bindingHeader?.lytContentListFoods?.lstFoods?.adapter = foodsAdapter
+    override fun onDestroy() {
+        super.onDestroy()
+        bindingHeader?.lytContentListFoods?.lstFoods?.adapter = null
+        _binding = null
+        presenter.unSubscribe()
     }
 
-    private fun initTabLayout() {
-        binding?.vpgSection?.adapter = foodCategoriesViewPager
-
-        val viewPager = binding?.vpgSection
-        val tabLayout = binding?.tblSection
-
-        if (tabLayout != null && viewPager != null) {
-            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-                tab.text = getString(FoodCategoryType.values()[position].title)
-            }.attach()
-        }
+    private fun initListFoods() {
+        val list = bindingHeader?.lytContentListFoods?.lstFoods
+        list?.adapter = foodsAdapter
+        list?.layoutManager = LinearLayoutManager(
+            requireContext(),
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
     }
 
     override fun invoke(id: Int?) {
@@ -113,14 +113,25 @@ class DashboardFragment : Fragment(), (Int?) -> Unit, DashboardContract.View {
     }
 
     override fun onGetDataFailed(message: String) {
-        //snackBarError?.setMessage(message)
-        //snackBarError?.show()
+        Toast.makeText(
+            requireContext(),
+            message,
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-        presenter.unSubscribe()
-        //snackBarError?.dismiss()
+    private fun initTabLayout() {
+        binding?.vpgSection?.adapter = foodCategoriesViewPager
+
+        val viewPager = binding?.vpgSection
+        val tabLayout = binding?.tblSection
+
+        if (tabLayout != null && viewPager != null) {
+            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+                tab.text = getString(FoodCategoryType.values()[position].title)
+            }.attach()
+        }
     }
+
+
 }

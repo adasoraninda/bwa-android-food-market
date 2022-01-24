@@ -1,7 +1,9 @@
 package com.codetron.foodmarketmvp.ui.home.profile.menu
 
+import androidx.datastore.preferences.core.Preferences
 import com.codetron.foodmarketmvp.base.BasePresenterContract
 import com.codetron.foodmarketmvp.model.view.profile.ProfileMenu
+import io.reactivex.Single
 
 interface ProfileMenuContract {
 
@@ -15,7 +17,6 @@ interface ProfileMenuContract {
 
     interface Presenter : BasePresenterContract {
         fun onMenuClicked(id: Long)
-        fun removeToken()
     }
 
 }

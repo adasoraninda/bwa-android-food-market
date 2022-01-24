@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.codetron.foodmarketmvp.FoodMarketApplication
 import com.codetron.foodmarketmvp.R
 import com.codetron.foodmarketmvp.databinding.FragmentProfileMenuBinding
@@ -62,19 +63,16 @@ class ProfileMenuFragment : Fragment(), ProfileMenuClickListener,
         return binding?.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-        presenter.unSubscribe()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initListMenu()
     }
 
-    private fun initListMenu() {
-        binding?.lstProfileMenu?.adapter = profileMenuAdapter
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding?.lstProfileMenu?.adapter = null
+        _binding = null
+        presenter.unSubscribe()
     }
 
     override fun setOnClickListener(id: Long) {
@@ -112,6 +110,12 @@ class ProfileMenuFragment : Fragment(), ProfileMenuClickListener,
             message,
             Toast.LENGTH_SHORT
         ).show()
+    }
+
+    private fun initListMenu() {
+        val list = binding?.lstProfileMenu
+        list?.adapter = profileMenuAdapter
+        list?.layoutManager = LinearLayoutManager(requireContext())
     }
 
     companion object {

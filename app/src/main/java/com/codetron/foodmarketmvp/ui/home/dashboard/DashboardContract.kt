@@ -15,7 +15,6 @@ interface DashboardContract {
 
     interface Presenter : BasePresenterContract {
         fun getAllFood()
-        fun getUser(token:String)
     }
 
 }

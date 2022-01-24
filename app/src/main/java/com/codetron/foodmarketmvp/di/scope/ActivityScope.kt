@@ -1,4 +1,4 @@
-package com.codetron.foodmarketmvp.di.module.ui.activity
+package com.codetron.foodmarketmvp.di.scope
 
 import javax.inject.Scope
 

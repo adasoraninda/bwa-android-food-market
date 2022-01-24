@@ -2,12 +2,13 @@ package com.codetron.foodmarketmvp.ui.auth.signin
 
 import com.codetron.foodmarketmvp.base.FormValidation
 import com.codetron.foodmarketmvp.model.datastore.UserDataStore
-import com.codetron.foodmarketmvp.model.validation.SignInFormValidation
 import com.codetron.foodmarketmvp.model.response.login.getToken
 import com.codetron.foodmarketmvp.model.response.user.toDomain
+import com.codetron.foodmarketmvp.model.validation.SignInFormValidation
 import com.codetron.foodmarketmvp.network.FoodMarketApi
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -33,30 +34,27 @@ class SignInPresenter(
             return
         }
 
-        view.showLoading()
-
-        val disposable = serviceApi.userLogin(email!!, password!!)
+        serviceApi.userLogin(email!!, password!!)
+            .doOnSubscribe { view.showLoading() }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->
                 val code = response.meta?.code
                 val body = response.data
 
-                if (code == 200 && body?.user != null) {
-                    compositeDisposable.add(
-                        dataStore.saveToken(body.getToken())
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe({ prefs ->
-                                if (!prefs[UserDataStore.PREFERENCES_TOKEN].isNullOrEmpty()) {
-                                    view.onLoginSuccess(body.user.toDomain())
-                                }
-                            }, { error ->
-                                view.onLoginFailed(error.message.toString())
-                            })
-                    )
-                } else {
+                if (code != 200 && body?.user == null) {
                     view.onLoginFailed(response.meta?.message.toString())
+                } else {
+                    dataStore.saveToken(body!!.getToken())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({ prefs ->
+                            if (!prefs[UserDataStore.PREFERENCES_TOKEN].isNullOrEmpty()) {
+                                view.onLoginSuccess(body.user!!.toDomain())
+                            }
+                        }, { error ->
+                            view.onLoginFailed(error.message.toString())
+                        }).addTo(compositeDisposable)
                 }
 
                 view.dismissLoading()
@@ -65,9 +63,7 @@ class SignInPresenter(
 
                 view.onLoginFailed(message)
                 view.dismissLoading()
-            })
-
-        compositeDisposable.add(disposable)
+            }).addTo(compositeDisposable)
     }
 
     private fun checkInput(

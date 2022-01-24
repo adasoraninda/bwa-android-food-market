@@ -1,7 +1,7 @@
 package com.codetron.foodmarketmvp.di.module.ui.fragment
 
 import androidx.fragment.app.Fragment
-import com.codetron.foodmarketmvp.di.module.ui.activity.ActivityScope
+import com.codetron.foodmarketmvp.di.scope.FragmentScope
 import dagger.Module
 import dagger.Provides
 

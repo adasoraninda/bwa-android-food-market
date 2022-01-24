@@ -14,6 +14,7 @@ import com.codetron.foodmarketmvp.model.domain.user.User
 import com.codetron.foodmarketmvp.ui.home.adapter.SectionViewPager
 import com.codetron.foodmarketmvp.ui.home.profile.menu.ProfileMenuType
 import com.codetron.foodmarketmvp.ui.home.profile.menu.ProfileSection
+import com.codetron.foodmarketmvp.util.setImageResource
 import com.google.android.material.tabs.TabLayoutMediator
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -62,19 +63,10 @@ class ProfileFragment : Fragment(), ProfileContract.View {
         initTabLayout()
     }
 
-    private fun initViewPager() {
-        binding?.vpgSection?.adapter = sectionViewpagerAdapter
-    }
-
-    private fun initTabLayout() {
-        val viewPager = binding?.vpgSection
-        val tabLayout = binding?.tblSection
-
-        if (viewPager != null && tabLayout != null) {
-            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-                tab.text = getString(ProfileMenuType.values()[position].title)
-            }.attach()
-        }
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+        presenter.unSubscribe()
     }
 
     override fun initState() {
@@ -90,8 +82,14 @@ class ProfileFragment : Fragment(), ProfileContract.View {
     }
 
     override fun onGetUserDataSuccess(user: User) {
-        binding?.lytProfileHeader?.imgPhotoProfile?.visibility = View.VISIBLE
-        binding?.lytProfileHeader?.lytImagePhoto?.root?.visibility = View.GONE
+        val layout = binding?.lytProfileHeader
+
+        layout?.imgPhotoProfile?.visibility = View.VISIBLE
+        layout?.lytImagePhoto?.root?.visibility = View.GONE
+
+        layout?.txtName?.text = user.name
+        layout?.txtEmail?.text = user.email
+        layout?.imgPhotoProfile?.setImageResource(user.profilePhotoUrl)
     }
 
     override fun onGetUserDataFailed(message: String) {
@@ -102,9 +100,18 @@ class ProfileFragment : Fragment(), ProfileContract.View {
         ).show()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-        presenter.unSubscribe()
+    private fun initViewPager() {
+        binding?.vpgSection?.adapter = sectionViewpagerAdapter
+    }
+
+    private fun initTabLayout() {
+        val viewPager = binding?.vpgSection
+        val tabLayout = binding?.tblSection
+
+        if (viewPager != null && tabLayout != null) {
+            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+                tab.text = getString(ProfileMenuType.values()[position].title)
+            }.attach()
+        }
     }
 }

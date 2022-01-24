@@ -8,6 +8,7 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 
 class FoodCategoriesPresenter @AssistedInject constructor(
@@ -25,7 +26,7 @@ class FoodCategoriesPresenter @AssistedInject constructor(
 
     override fun subscribe() {
         view.showLoading()
-        val disposable = apiService.getAllFood(types = foodTypes)
+        apiService.getAllFood(types = foodTypes)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->
@@ -44,9 +45,7 @@ class FoodCategoriesPresenter @AssistedInject constructor(
 
                 view.onGetFoodCategoriesFailed(message)
                 view.dismissLoading()
-            })
-
-        compositeDisposable.add(disposable)
+            }).addTo(compositeDisposable)
     }
 
     override fun unSubscribe() {

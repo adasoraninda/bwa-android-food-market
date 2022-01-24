@@ -8,8 +8,10 @@ import com.codetron.foodmarketmvp.network.FoodMarketApi
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import io.reactivex.BackpressureStrategy
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -20,11 +22,6 @@ class ProfileMenuPresenter @AssistedInject constructor(
     private val dataStore: UserDataStore,
     @Assisted private val type: ProfileMenuType
 ) : ProfileMenuContract.Presenter {
-
-    @AssistedFactory
-    interface Factory {
-        fun create(type: ProfileMenuType): ProfileMenuPresenter
-    }
 
     private val compositeDisposable by lazy { CompositeDisposable() }
 
@@ -41,7 +38,7 @@ class ProfileMenuPresenter @AssistedInject constructor(
             .find { menu -> menu.id == id }
             ?.let { menu ->
                 if (menu.title == R.string.logout) {
-                    getToken()
+                    logout()
                 } else {
                     view.navigate(id)
                 }
@@ -65,55 +62,40 @@ class ProfileMenuPresenter @AssistedInject constructor(
         }
     }
 
-    private fun getToken() {
-        val disposable = dataStore.getToken()
+    private fun logout() {
+        dataStore.getToken()
             .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { token ->
-                logout(token)
-            }
-
-        compositeDisposable.add(disposable)
-    }
-
-    private fun logout(token: String?) {
-        if (token.isNullOrEmpty()) {
-            view.onLogoutFailed("Token is empty")
-            return
-        }
-
-        val disposable = serviceApi.userLogout(token)
-            .subscribeOn(Schedulers.io())
+            .takeUntil { token -> token.isNotEmpty() }
+            .switchMap { serviceApi.userLogout(it).toFlowable(BackpressureStrategy.BUFFER) }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->
                 val code = response.meta?.code
                 val body = response.data
 
-                if (code == 200 && body != null && body == true) {
-                    view.onLogoutSuccess()
-                    removeToken()
-                } else {
+                if (code != 200) {
                     view.onLogoutFailed("Logout failed")
+                }
+
+                if (body != null && body == true) {
+                    dataStore.removeToken()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe { prefs ->
+                            if (!prefs[UserDataStore.PREFERENCES_TOKEN].isNullOrEmpty()) {
+                                view.onLogoutFailed("Token fail to removed")
+                            } else {
+                                view.onLogoutSuccess()
+                            }
+                        }.addTo(compositeDisposable)
                 }
             }, { error ->
                 val message = handleException(error)
-
                 view.onLogoutFailed(message)
-            })
-
-        compositeDisposable.add(disposable)
+            }).addTo(compositeDisposable)
     }
 
-    override fun removeToken() {
-        val disposable = dataStore.removeToken()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { prefs ->
-                if (!prefs[UserDataStore.PREFERENCES_TOKEN].isNullOrEmpty()) {
-                    view.onLogoutFailed("Token fail to removed")
-                }
-            }
-
-        compositeDisposable.add(disposable)
+    @AssistedFactory
+    interface Factory {
+        fun create(type: ProfileMenuType): ProfileMenuPresenter
     }
 }

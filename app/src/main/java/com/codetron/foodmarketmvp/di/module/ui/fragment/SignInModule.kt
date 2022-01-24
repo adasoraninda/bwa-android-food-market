@@ -3,6 +3,7 @@ package com.codetron.foodmarketmvp.di.module.ui.fragment
 import androidx.fragment.app.Fragment
 import com.codetron.foodmarketmvp.base.FormValidation
 import com.codetron.foodmarketmvp.di.module.common.SignInValidation
+import com.codetron.foodmarketmvp.di.scope.FragmentScope
 import com.codetron.foodmarketmvp.model.datastore.UserDataStore
 import com.codetron.foodmarketmvp.network.FoodMarketApi
 import com.codetron.foodmarketmvp.ui.auth.signin.SignInContract

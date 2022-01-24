@@ -1,8 +1,10 @@
 package com.codetron.foodmarketmvp.ui.auth.signup
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.codetron.foodmarketmvp.databinding.ActivitySignUpSuccessBinding
+import com.codetron.foodmarketmvp.ui.home.HomeActivity
 
 class SignUpSuccessActivity : AppCompatActivity() {
 
@@ -15,10 +17,16 @@ class SignUpSuccessActivity : AppCompatActivity() {
         setContentView(binding?.root)
 
         binding?.btnFindFoods?.setOnClickListener {
-            // TODO(MOVE TO HOME)
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
             finishAffinity()
         }
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 }

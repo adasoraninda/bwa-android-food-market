@@ -31,8 +31,6 @@ class SignUpAddressFragment : Fragment(), SignUpAddressContract.View {
 
     private val navArgs: SignUpAddressFragmentArgs by navArgs()
 
-//    private var snackBarError: SnackBarError? = null
-
     private val loadingDialog by lazy { LoadingDialog() }
 
     @Inject
@@ -64,7 +62,6 @@ class SignUpAddressFragment : Fragment(), SignUpAddressContract.View {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-        //snackBarError?.dismiss()
         presenter.unSubscribe()
     }
 
@@ -146,9 +143,7 @@ class SignUpAddressFragment : Fragment(), SignUpAddressContract.View {
     }
 
     override fun onRegisterFailed(message: String) {
-        Toast.makeText(requireContext(), "gagal", Toast.LENGTH_SHORT).show()
-//        snackBarError?.setMessage(message)
-//        snackBarError?.show()
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
     override fun inputFormMessage(messageMap: Map<String, String?>) {

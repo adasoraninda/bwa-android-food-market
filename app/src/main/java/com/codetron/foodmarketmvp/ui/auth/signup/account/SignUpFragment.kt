@@ -41,6 +41,33 @@ class SignUpFragment : Fragment(), SignUpContract.View {
 
     private var imageUri: Uri? = null
 
+    private val startForProfileImageResult = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        val resultCode = result.resultCode
+        val data = result.data
+
+        dismissLoading()
+
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            val fileUri = data.data
+
+            imageUri = fileUri
+            setImagePhoto(fileUri)
+
+            return@registerForActivityResult
+        }
+
+        if (resultCode == ImagePicker.RESULT_ERROR) {
+            Toast.makeText(
+                requireContext(),
+                ImagePicker.getError(data),
+                Toast.LENGTH_SHORT
+            ).show()
+            return@registerForActivityResult
+        }
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (requireActivity().application as FoodMarketApplication)
@@ -110,28 +137,11 @@ class SignUpFragment : Fragment(), SignUpContract.View {
 
     }
 
-    private val startForProfileImageResult =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            val resultCode = result.resultCode
-            val data = result.data
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 
-            dismissLoading()
-
-            if (resultCode == Activity.RESULT_OK && data != null) {
-                val fileUri = data.data
-
-                imageUri = fileUri
-                setImagePhoto(fileUri)
-
-                return@registerForActivityResult
-            }
-
-            if (resultCode == ImagePicker.RESULT_ERROR) {
-                Toast.makeText(requireContext(), ImagePicker.getError(data), Toast.LENGTH_SHORT)
-                    .show()
-                return@registerForActivityResult
-            }
-        }
 
     private fun setImagePhoto(imageUri: Uri?) {
         binding?.lytImagePhoto?.imagePhoto?.let {
@@ -209,8 +219,4 @@ class SignUpFragment : Fragment(), SignUpContract.View {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
 }

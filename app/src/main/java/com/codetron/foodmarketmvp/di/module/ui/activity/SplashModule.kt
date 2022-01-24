@@ -1,6 +1,7 @@
 package com.codetron.foodmarketmvp.di.module.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
+import com.codetron.foodmarketmvp.di.scope.ActivityScope
 import com.codetron.foodmarketmvp.model.datastore.UserDataStore
 import com.codetron.foodmarketmvp.ui.splash.SplashActivity
 import com.codetron.foodmarketmvp.ui.splash.SplashContract

@@ -1,6 +1,7 @@
 package com.codetron.foodmarketmvp.di.component
 
 import com.codetron.foodmarketmvp.di.module.ui.fragment.*
+import com.codetron.foodmarketmvp.di.scope.FragmentScope
 import com.codetron.foodmarketmvp.ui.auth.signin.SignInFragment
 import com.codetron.foodmarketmvp.ui.auth.signup.account.SignUpFragment
 import com.codetron.foodmarketmvp.ui.auth.signup.address.SignUpAddressFragment

@@ -68,18 +68,15 @@ class FoodCategoriesFragment : Fragment(), (Int?) -> Unit,
         super.onViewCreated(view, savedInstanceState)
 
         initListFoods()
+
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        binding?.lstFoodsCategories?.adapter = null
         _binding = null
         presenter.unSubscribe()
     }
-
-    private fun initListFoods() {
-        binding?.lstFoodsCategories?.adapter = foodsAdapter
-    }
-
 
     override fun invoke(id: Int?) {
         if (id != null) {
@@ -104,6 +101,11 @@ class FoodCategoriesFragment : Fragment(), (Int?) -> Unit,
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
+    private fun initListFoods() {
+        binding?.lstFoodsCategories?.adapter = foodsAdapter
+    }
+
+
     companion object {
         private const val CATEGORY_KEY = "CATEGORY_KEY"
 
@@ -115,6 +117,7 @@ class FoodCategoriesFragment : Fragment(), (Int?) -> Unit,
             }
         }
     }
+
 }
 
 @ExperimentalCoroutinesApi

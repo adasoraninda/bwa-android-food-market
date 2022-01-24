@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -28,8 +29,6 @@ class SignInFragment : Fragment(), SignInContract.View {
     private val binding get() = _binding
 
     private val loadingDialog by lazy { LoadingDialog() }
-
-   // private var snackBarError: SnackBarError? = null
 
     @Inject
     lateinit var presenter: SignInContract.Presenter
@@ -92,6 +91,12 @@ class SignInFragment : Fragment(), SignInContract.View {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        presenter.unSubscribe()
+    }
+
     override fun inputFormMessage(messageMap: Map<String, String?>) {
         if (messageMap[SignInFormValidation.KEY_EMAIL] != null) {
             binding?.edtEmail?.error = messageMap[SignInFormValidation.KEY_EMAIL]
@@ -139,14 +144,6 @@ class SignInFragment : Fragment(), SignInContract.View {
     }
 
     override fun onLoginFailed(message: String) {
-//        snackBarError?.setMessage(message)
-//        snackBarError?.show()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-        presenter.unSubscribe()
-//        snackBarError?.dismiss()
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 }

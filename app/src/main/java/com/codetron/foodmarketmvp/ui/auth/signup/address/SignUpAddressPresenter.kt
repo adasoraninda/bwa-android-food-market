@@ -4,15 +4,16 @@ import com.codetron.foodmarketmvp.base.FormValidation
 import com.codetron.foodmarketmvp.di.module.common.SignUpAddressValidation
 import com.codetron.foodmarketmvp.model.datastore.UserDataStore
 import com.codetron.foodmarketmvp.model.domain.user.UserRegister
-import com.codetron.foodmarketmvp.model.validation.SignUpAddressFormValidation
 import com.codetron.foodmarketmvp.model.response.register.getToken
 import com.codetron.foodmarketmvp.model.response.user.toDomain
+import com.codetron.foodmarketmvp.model.validation.SignUpAddressFormValidation
 import com.codetron.foodmarketmvp.network.FoodMarketApi
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import okhttp3.MediaType.Companion.toMediaType
@@ -70,7 +71,7 @@ class SignUpAddressPresenter @AssistedInject constructor(
     }
 
     private fun submitRegisterAccount(dataUser: UserRegister) {
-        val disposable = apiService.userRegister(
+        apiService.userRegister(
             dataUser.fullName.toString(),
             dataUser.email.toString(),
             dataUser.password.toString(),
@@ -90,7 +91,7 @@ class SignUpAddressPresenter @AssistedInject constructor(
                     submitToken(body.getToken()) { isSuccess ->
                         if (isSuccess) {
                             submitRegisterPhoto(body.getToken()) { path, error ->
-                                if (path == null) {
+                                if (path == null && error != null) {
                                     view.onRegisterFailed(error.toString())
                                 }
                             }
@@ -110,9 +111,7 @@ class SignUpAddressPresenter @AssistedInject constructor(
 
                 view.onRegisterFailed(message)
                 view.dismissLoading()
-            })
-
-        compositeDisposable.add(disposable)
+            }).addTo(compositeDisposable)
     }
 
     private fun submitRegisterPhoto(
@@ -120,7 +119,7 @@ class SignUpAddressPresenter @AssistedInject constructor(
         callback: (imagePath: String?, errorMessage: String?) -> Unit
     ) {
         if (userRegister?.imageUri == null) {
-            callback.invoke(null, "Image is empty")
+            callback.invoke(null, null)
             return
         }
 
@@ -135,7 +134,7 @@ class SignUpAddressPresenter @AssistedInject constructor(
         val imageField =
             MultipartBody.Part.createFormData("file", imagePath.name, imageRequestBody)
 
-        val disposable = apiService
+        apiService
             .photoRegister(token, imageField)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -157,13 +156,11 @@ class SignUpAddressPresenter @AssistedInject constructor(
 
                 view.onRegisterFailed(message)
                 view.dismissLoading()
-            })
-
-        compositeDisposable.add(disposable)
+            }).addTo(compositeDisposable)
     }
 
     private fun submitToken(token: String, callback: (isSuccess: Boolean) -> Unit) {
-        val disposable = dataStore.saveToken(token)
+        dataStore.saveToken(token)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ prefs ->
@@ -175,9 +172,7 @@ class SignUpAddressPresenter @AssistedInject constructor(
 
                 view.onRegisterFailed(message)
                 view.dismissLoading()
-            })
-
-        compositeDisposable.add(disposable)
+            }).addTo(compositeDisposable)
     }
 
     private fun checkInput(
