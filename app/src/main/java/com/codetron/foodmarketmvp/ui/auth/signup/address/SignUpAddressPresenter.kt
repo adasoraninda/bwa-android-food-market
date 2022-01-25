@@ -1,9 +1,12 @@
 package com.codetron.foodmarketmvp.ui.auth.signup.address
 
+import android.net.Uri
 import com.codetron.foodmarketmvp.base.FormValidation
 import com.codetron.foodmarketmvp.di.module.common.SignUpAddressValidation
 import com.codetron.foodmarketmvp.model.datastore.UserDataStore
 import com.codetron.foodmarketmvp.model.domain.user.UserRegister
+import com.codetron.foodmarketmvp.model.response.base.Wrapper
+import com.codetron.foodmarketmvp.model.response.register.RegisterResponse
 import com.codetron.foodmarketmvp.model.response.register.getToken
 import com.codetron.foodmarketmvp.model.response.user.toDomain
 import com.codetron.foodmarketmvp.model.validation.SignUpAddressFormValidation
@@ -11,6 +14,7 @@ import com.codetron.foodmarketmvp.network.FoodMarketApi
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -29,11 +33,6 @@ class SignUpAddressPresenter @AssistedInject constructor(
     @SignUpAddressValidation private val formValidation: FormValidation,
     @Assisted private val userRegister: UserRegister?
 ) : SignUpAddressContract.Presenter {
-
-    @AssistedFactory
-    interface Factory {
-        fun create(userRegister: UserRegister?): SignUpAddressPresenter
-    }
 
     private val compositeDisposable by lazy { CompositeDisposable() }
 
@@ -65,13 +64,42 @@ class SignUpAddressPresenter @AssistedInject constructor(
             city = city
         )
 
-        view.showLoading()
+        if (dataUser != null) {
+            submitRegisterAccount(dataUser)
+                .doOnSubscribe { view.showLoading() }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ response ->
+                    val code = response.meta?.code
+                    val body = response.data ?: throw IllegalStateException()
+                    val user = body.user ?: throw  IllegalStateException()
 
-        dataUser?.let { submitRegisterAccount(it) }
+                    if (code == 200) {
+                        Observable.combineLatest(
+                            saveToken(body.getToken()),
+                            submitRegisterPhoto(body.getToken(), dataUser.imageUri)
+                        ) { isTokenExist, listPathImage ->
+                            isTokenExist || listPathImage.isNotEmpty()
+                        }.subscribe { registered ->
+                            if (registered) {
+                                view.onRegisterSuccess(user.toDomain())
+                            } else {
+                                view.onRegisterFailed("Failed save token")
+                            }
+                        }.addTo(compositeDisposable)
+                    }
+
+                    view.dismissLoading()
+                }, { error ->
+                    val message = handleException(error)
+
+                    view.onRegisterFailed(message)
+                    view.dismissLoading()
+                }).addTo(compositeDisposable)
+        }
     }
 
-    private fun submitRegisterAccount(dataUser: UserRegister) {
-        apiService.userRegister(
+    private fun submitRegisterAccount(dataUser: UserRegister): Observable<Wrapper<RegisterResponse>> {
+        return apiService.userRegister(
             dataUser.fullName.toString(),
             dataUser.email.toString(),
             dataUser.password.toString(),
@@ -80,99 +108,33 @@ class SignUpAddressPresenter @AssistedInject constructor(
             dataUser.city.toString(),
             dataUser.houseNumber.toString(),
             dataUser.phoneNumber.toString()
-        )
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ response ->
-                val code = response.meta?.code
-                val body = response.data
-
-                if (code == 200 && body?.user != null) {
-                    submitToken(body.getToken()) { isSuccess ->
-                        if (isSuccess) {
-                            submitRegisterPhoto(body.getToken()) { path, error ->
-                                if (path == null && error != null) {
-                                    view.onRegisterFailed(error.toString())
-                                }
-                            }
-
-                            view.onRegisterSuccess(body.user.toDomain())
-                        } else {
-                            view.onRegisterFailed("Fail saving token")
-                        }
-                    }
-                } else {
-                    view.onRegisterFailed(response.meta?.message.toString())
-                }
-
-                view.dismissLoading()
-            }, { error ->
-                val message = handleException(error)
-
-                view.onRegisterFailed(message)
-                view.dismissLoading()
-            }).addTo(compositeDisposable)
+        ).subscribeOn(Schedulers.io())
     }
 
     private fun submitRegisterPhoto(
-        token: String?,
-        callback: (imagePath: String?, errorMessage: String?) -> Unit
-    ) {
-        if (userRegister?.imageUri == null) {
-            callback.invoke(null, null)
-            return
+        token: String,
+        imageUri: Uri?,
+    ): Observable<List<String>> {
+
+        if (imageUri == null) {
+            return Observable.just(emptyList())
         }
 
-        if (token == null) {
-            callback.invoke(null, "Token is empty")
-            return
-        }
-
-        val imageUri = userRegister.imageUri
         val imagePath = File(imageUri.path.toString())
         val imageRequestBody = imagePath.asRequestBody("multipart/form-data".toMediaType())
         val imageField =
             MultipartBody.Part.createFormData("file", imagePath.name, imageRequestBody)
 
-        apiService
-            .photoRegister(token, imageField)
+        return apiService.photoRegister(token, imageField)
             .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ response ->
-                val code = response.meta?.code
-                val body = response.data
-
-                if (code == 200 && body?.isNullOrEmpty()?.not() as Boolean) {
-                    callback.invoke(body[0], null)
-                } else {
-                    view.onRegisterFailed(response.meta?.message.toString())
-                }
-
-                view.dismissLoading()
-            }, { error ->
-                callback.invoke(null, error.message.toString())
-
-                val message = handleException(error)
-
-                view.onRegisterFailed(message)
-                view.dismissLoading()
-            }).addTo(compositeDisposable)
+            .map { response -> response.data ?: emptyList() }
     }
 
-    private fun submitToken(token: String, callback: (isSuccess: Boolean) -> Unit) {
-        dataStore.saveToken(token)
+    private fun saveToken(token: String): Observable<Boolean> {
+        return dataStore.saveToken(token)
             .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ prefs ->
-                callback.invoke(!prefs[UserDataStore.PREFERENCES_TOKEN].isNullOrEmpty())
-            }, { error ->
-                callback.invoke(false)
-
-                val message = handleException(error)
-
-                view.onRegisterFailed(message)
-                view.dismissLoading()
-            }).addTo(compositeDisposable)
+            .map { prefs -> !prefs[UserDataStore.PREFERENCES_TOKEN].isNullOrEmpty() }
+            .toObservable()
     }
 
     private fun checkInput(
@@ -190,4 +152,10 @@ class SignUpAddressPresenter @AssistedInject constructor(
             )
         )
     }
+
+    @AssistedFactory
+    interface Factory {
+        fun create(userRegister: UserRegister?): SignUpAddressPresenter
+    }
+
 }

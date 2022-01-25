@@ -4,11 +4,11 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.codetron.foodmarketmvp.FoodMarketApplication
 import com.codetron.foodmarketmvp.R
-import com.codetron.foodmarketmvp.di.module.ui.activity.ActivityModule
 import com.codetron.foodmarketmvp.ui.auth.AuthActivity
 import com.codetron.foodmarketmvp.ui.home.HomeActivity
+import com.codetron.foodmarketmvp.util.activityComponent
+import com.codetron.foodmarketmvp.util.appComponent
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
@@ -20,13 +20,7 @@ class SplashActivity : AppCompatActivity(), SplashContract.View {
     lateinit var presenter: SplashContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (application as FoodMarketApplication)
-            .appComponent
-            .newActivityComponentBuilder()
-            .activityModule(ActivityModule(this))
-            .build()
-            .inject(this)
-
+        injectDagger()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
@@ -52,5 +46,10 @@ class SplashActivity : AppCompatActivity(), SplashContract.View {
         finishAffinity()
     }
 
+    private fun injectDagger() {
+        application.appComponent()
+            .activityComponent(this)
+            .inject(this)
+    }
 
 }

@@ -15,13 +15,13 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.codetron.foodmarketmvp.FoodMarketApplication
 import com.codetron.foodmarketmvp.R
 import com.codetron.foodmarketmvp.customview.LoadingDialog
 import com.codetron.foodmarketmvp.databinding.FragmentSignUpBinding
-import com.codetron.foodmarketmvp.di.module.ui.fragment.FragmentModule
 import com.codetron.foodmarketmvp.model.domain.user.UserRegister
 import com.codetron.foodmarketmvp.model.validation.SignUpFormValidation
+import com.codetron.foodmarketmvp.ui.auth.AuthActivity
+import com.codetron.foodmarketmvp.util.fragmentComponent
 import com.github.dhaval2404.imagepicker.ImagePicker
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
@@ -70,11 +70,8 @@ class SignUpFragment : Fragment(), SignUpContract.View {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (requireActivity().application as FoodMarketApplication)
-            .appComponent
-            .newFragmentComponentBuilder()
-            .fragmentModule(FragmentModule(this))
-            .build()
+        (requireActivity() as AuthActivity).activityComponent
+            .fragmentComponent(this)
             .inject(this)
     }
 

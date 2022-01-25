@@ -9,16 +9,17 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.codetron.foodmarketmvp.FoodMarketApplication
 import com.codetron.foodmarketmvp.databinding.FragmentDashboardBinding
-import com.codetron.foodmarketmvp.di.module.ui.fragment.FragmentModule
 import com.codetron.foodmarketmvp.model.domain.food.FoodItem
 import com.codetron.foodmarketmvp.model.domain.user.User
+import com.codetron.foodmarketmvp.ui.home.HomeActivity
 import com.codetron.foodmarketmvp.ui.home.adapter.SectionViewPager
 import com.codetron.foodmarketmvp.ui.home.dashboard.adapter.FoodListAdapter
 import com.codetron.foodmarketmvp.ui.home.dashboard.adapter.ListType
 import com.codetron.foodmarketmvp.ui.home.dashboard.categories.FoodCategory
 import com.codetron.foodmarketmvp.ui.home.dashboard.categories.FoodCategoryType
+import com.codetron.foodmarketmvp.util.fragmentComponent
+import com.codetron.foodmarketmvp.util.setImageResource
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
@@ -44,11 +45,8 @@ class DashboardFragment : Fragment(), (Int?) -> Unit, DashboardContract.View {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (requireActivity().application as FoodMarketApplication)
-            .appComponent
-            .newFragmentComponentBuilder()
-            .fragmentModule(FragmentModule(this))
-            .build()
+        (requireActivity() as HomeActivity).activityComponent
+            .fragmentComponent(this)
             .inject(this)
     }
 
@@ -110,6 +108,7 @@ class DashboardFragment : Fragment(), (Int?) -> Unit, DashboardContract.View {
 
     override fun onGetUserSuccess(user: User) {
         binding?.lytImagePhoto?.root?.visibility = View.GONE
+        binding?.imgProfileHome?.setImageResource(user.profilePhotoUrl)
     }
 
     override fun onGetDataFailed(message: String) {

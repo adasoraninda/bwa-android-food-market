@@ -18,6 +18,8 @@ import com.codetron.foodmarketmvp.databinding.FragmentSignUpAddressBinding
 import com.codetron.foodmarketmvp.di.module.ui.fragment.FragmentModule
 import com.codetron.foodmarketmvp.model.domain.user.User
 import com.codetron.foodmarketmvp.model.validation.SignUpAddressFormValidation
+import com.codetron.foodmarketmvp.ui.auth.AuthActivity
+import com.codetron.foodmarketmvp.util.fragmentComponent
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
@@ -42,11 +44,8 @@ class SignUpAddressFragment : Fragment(), SignUpAddressContract.View {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (requireActivity().application as FoodMarketApplication)
-            .appComponent
-            .newFragmentComponentBuilder()
-            .fragmentModule(FragmentModule(this))
-            .build()
+        (requireActivity() as AuthActivity).activityComponent
+            .fragmentComponent(this)
             .inject(this)
     }
 

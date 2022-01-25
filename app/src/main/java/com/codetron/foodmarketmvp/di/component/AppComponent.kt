@@ -11,12 +11,10 @@ import javax.inject.Singleton
 
 @Singleton
 @ExperimentalCoroutinesApi
-@Component(modules = [NetworkModule::class, DataStoreModule::class, FormValidationModule::class])
+@Component(modules = [NetworkModule::class, DataStoreModule::class])
 interface AppComponent {
 
     fun newActivityComponentBuilder(): ActivityComponent.Builder
-
-    fun newFragmentComponentBuilder(): FragmentComponent.Builder
 
     @Component.Factory
     interface Factory {

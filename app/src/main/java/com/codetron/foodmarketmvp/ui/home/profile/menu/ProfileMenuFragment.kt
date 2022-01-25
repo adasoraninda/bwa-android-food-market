@@ -16,6 +16,8 @@ import com.codetron.foodmarketmvp.databinding.FragmentProfileMenuBinding
 import com.codetron.foodmarketmvp.di.module.ui.fragment.FragmentModule
 import com.codetron.foodmarketmvp.model.view.profile.ProfileMenu
 import com.codetron.foodmarketmvp.ui.auth.AuthActivity
+import com.codetron.foodmarketmvp.ui.home.HomeActivity
+import com.codetron.foodmarketmvp.util.fragmentComponent
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
@@ -41,11 +43,8 @@ class ProfileMenuFragment : Fragment(), ProfileMenuClickListener,
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (requireActivity().application as FoodMarketApplication)
-            .appComponent
-            .newFragmentComponentBuilder()
-            .fragmentModule(FragmentModule(this))
-            .build()
+        (requireActivity() as HomeActivity).activityComponent
+            .fragmentComponent(this)
             .inject(this)
     }
 

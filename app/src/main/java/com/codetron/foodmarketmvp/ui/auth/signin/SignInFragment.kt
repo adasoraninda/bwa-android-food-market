@@ -10,13 +10,13 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.codetron.foodmarketmvp.FoodMarketApplication
 import com.codetron.foodmarketmvp.R
 import com.codetron.foodmarketmvp.customview.LoadingDialog
 import com.codetron.foodmarketmvp.databinding.FragmentSignInBinding
-import com.codetron.foodmarketmvp.di.module.ui.fragment.FragmentModule
 import com.codetron.foodmarketmvp.model.domain.user.User
 import com.codetron.foodmarketmvp.model.validation.SignInFormValidation
+import com.codetron.foodmarketmvp.ui.auth.AuthActivity
+import com.codetron.foodmarketmvp.util.fragmentComponent
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
@@ -35,11 +35,8 @@ class SignInFragment : Fragment(), SignInContract.View {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (requireActivity().application as FoodMarketApplication)
-            .appComponent
-            .newFragmentComponentBuilder()
-            .fragmentModule(FragmentModule(this))
-            .build()
+        (requireActivity() as AuthActivity).activityComponent
+            .fragmentComponent(this)
             .inject(this)
     }
 

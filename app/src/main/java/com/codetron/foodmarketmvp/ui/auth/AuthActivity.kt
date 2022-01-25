@@ -8,10 +8,15 @@ import androidx.navigation.fragment.findNavController
 import com.codetron.foodmarketmvp.R
 import com.codetron.foodmarketmvp.customview.CustomAlertDialog
 import com.codetron.foodmarketmvp.databinding.ActivityAuthBinding
+import com.codetron.foodmarketmvp.di.component.ActivityComponent
+import com.codetron.foodmarketmvp.util.activityComponent
+import com.codetron.foodmarketmvp.util.appComponent
 import com.codetron.foodmarketmvp.util.showBackButton
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 private const val ALERT_AUTH_TAG = "ALERT_AUTH_TAG"
 
+@ExperimentalCoroutinesApi
 class AuthActivity : AppCompatActivity() {
 
     private var _binding: ActivityAuthBinding? = null
@@ -20,7 +25,10 @@ class AuthActivity : AppCompatActivity() {
     private lateinit var customAlertDialog: CustomAlertDialog
     private lateinit var navController: NavController
 
+    lateinit var activityComponent: ActivityComponent
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        activityComponent = application.appComponent().activityComponent(this)
         super.onCreate(savedInstanceState)
         _binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(binding?.root)

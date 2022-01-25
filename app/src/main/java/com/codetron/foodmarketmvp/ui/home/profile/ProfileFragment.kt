@@ -11,9 +11,11 @@ import com.codetron.foodmarketmvp.FoodMarketApplication
 import com.codetron.foodmarketmvp.databinding.FragmentProfileBinding
 import com.codetron.foodmarketmvp.di.module.ui.fragment.FragmentModule
 import com.codetron.foodmarketmvp.model.domain.user.User
+import com.codetron.foodmarketmvp.ui.home.HomeActivity
 import com.codetron.foodmarketmvp.ui.home.adapter.SectionViewPager
 import com.codetron.foodmarketmvp.ui.home.profile.menu.ProfileMenuType
 import com.codetron.foodmarketmvp.ui.home.profile.menu.ProfileSection
+import com.codetron.foodmarketmvp.util.fragmentComponent
 import com.codetron.foodmarketmvp.util.setImageResource
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -35,11 +37,8 @@ class ProfileFragment : Fragment(), ProfileContract.View {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (requireActivity().application as FoodMarketApplication)
-            .appComponent
-            .newFragmentComponentBuilder()
-            .fragmentModule(FragmentModule(this))
-            .build()
+        (requireActivity() as HomeActivity).activityComponent
+            .fragmentComponent(this)
             .inject(this)
     }
 
